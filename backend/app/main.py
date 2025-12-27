@@ -1,5 +1,5 @@
 # main.py
-from fastapi import FastAPI, Depends, HTTPException, status, Form, UploadFile, File, Header
+from fastapi import FastAPI, Depends, HTTPException, status, Form, UploadFile, File, Header, WebSocket, WebSocketDisconnect, Query
 from fastapi.responses import FileResponse
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,10 +10,13 @@ from .database import get_db, create_tables, User, TechnicianProfile
 from .models import (
     UserCreate, UserResponse, Token, LoginRequest,
     TechnicianProfileCreate, TechnicianProfileResponse,
-    DocumentResponse, TechnicianVerificationRequest
+    DocumentResponse, TechnicianVerificationRequest,
+    JobCreate, JobResponse
 )
-from .services.auth import AuthService, get_current_user, get_current_admin_user
+from .services.auth import AuthService, get_current_user, get_current_admin_user, get_user_from_token_ws
 from .services.document_upload import DocumentService
+from .services.notifications import notification_manager
+from .services.job_service import JobService
 
 # Create tables
 create_tables()
@@ -55,9 +58,9 @@ async def send_otp(
     phone: str,
     db: Session = Depends(get_db)
 ):
-    """Send OTP to phone"""
-    otp = AuthService.generate_otp(phone)
-    return {"message": "OTP sent successfully", "phone": phone}
+    """Send OTP to phone (Persistent)"""
+    otp = AuthService.generate_otp(db, phone)
+    return {"message": "OTP sent successfully"}
 
 @app.post("/auth/otp/verify")
 async def verify_otp(
@@ -65,15 +68,14 @@ async def verify_otp(
     otp: str,
     db: Session = Depends(get_db)
 ):
-    """Verify OTP"""
-    is_valid = AuthService.verify_otp(phone, otp)
+    """Verify OTP (Persistent)"""
+    is_valid = AuthService.verify_otp(db, phone, otp)
     if not is_valid:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid or expired OTP"
         )
     
-    # In production: Log user in or complete registration
     return {"message": "OTP verified successfully"}
 
 # User Endpoints
@@ -288,10 +290,84 @@ async def get_technician_documents_admin(
     documents = DocumentService.get_technician_documents(db, technician_id)
     return documents
 
+# Job Endpoints
+@app.post("/jobs", response_model=JobResponse, status_code=status.HTTP_201_CREATED)
+async def request_repair(
+    job_data: JobCreate,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """User requests a repair"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    user = get_current_user(token, db)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    return await JobService.create_job(db, job_data, user.id)
+
+@app.post("/jobs/{job_id}/accept", response_model=JobResponse)
+async def accept_repair_job(
+    job_id: int,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Technician accepts a repair"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    user = get_current_user(token, db)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    return await JobService.accept_job(db, job_id, user.id)
+
 # Health Check
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "service": "rev-backend"}
+
+# WebSocket Endpoint for Notifications
+@app.websocket("/ws")
+async def websocket_endpoint(
+    websocket: WebSocket,
+    token: str = Query(...),
+    db: Session = Depends(get_db)
+):
+    """Real-time connection for Users and Technicians"""
+    user = get_user_from_token_ws(token, db)
+    if not user:
+        await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+        return
+
+    await notification_manager.connect(websocket, user.id)
+    try:
+        while True:
+            data = await websocket.receive_text()
+    except WebSocketDisconnect:
+        notification_manager.disconnect(user.id)
+
+@app.post("/internal/notify/{user_id}")
+async def send_notification(
+    user_id: int, 
+    message: dict,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Send notification to specific user (Admin only)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    admin = get_current_admin_user(token, db)
+    if not admin:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
+         
+    await notification_manager.send_personal_message(message, user_id)
+    return {"status": "sent"}
 
 # Serve uploaded files
 @app.get("/uploads/{filename}")

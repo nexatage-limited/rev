@@ -33,6 +33,14 @@ class DocumentType(str, enum.Enum):
     PORTFOLIO = "portfolio"
     OTHER = "other"
 
+class JobStatus(str, enum.Enum):
+    PENDING = "pending"
+    ACCEPTED = "accepted"
+    IN_PROGRESS = "in_progress"
+    COMPLETED = "completed"
+    CANCELLED = "cancelled"
+    DISPUTED = "disputed"
+
 # Models (copy from your existing file)
 class User(Base):
     __tablename__ = "users"
@@ -79,6 +87,38 @@ class TechnicianDocument(Base):
     uploaded_at = Column(DateTime(timezone=True), server_default=func.now())
     
     technician = relationship("TechnicianProfile")
+
+class OTP(Base):
+    __tablename__ = "otps"
+
+    id = Column(Integer, primary_key=True, index=True)
+    phone = Column(String, index=True, nullable=False)
+    code = Column(String, nullable=False)
+    expires_at = Column(DateTime(timezone=True), nullable=False)
+    is_used = Column(Boolean, default=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+class RepairJob(Base):
+    __tablename__ = "repair_jobs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    customer_id = Column(Integer, ForeignKey("users.id"))
+    technician_id = Column(Integer, ForeignKey("technician_profiles.id"), nullable=True)
+    
+    device_name = Column(String, nullable=False)
+    issue_description = Column(Text, nullable=False)
+    
+    status = Column(Enum(JobStatus), default=JobStatus.PENDING)
+    
+    location_lat = Column(Float, nullable=True)
+    location_long = Column(Float, nullable=True)
+    address = Column(String, nullable=True)
+    
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+    customer = relationship("User", foreign_keys=[customer_id])
+    technician = relationship("TechnicianProfile", foreign_keys=[technician_id])
 
 # Create tables
 def create_tables():

@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from typing import Optional, Dict
+from typing import Optional
 import jwt
 from passlib.context import CryptContext
 from fastapi import HTTPException, status
@@ -7,14 +7,11 @@ from sqlalchemy.orm import Session
 import random
 import string
 
-from ..database import User, TechnicianProfile
+from ..database import User, TechnicianProfile, OTP
 from ..models import UserCreate, LoginRequest, Token
 from ..settings import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# In-memory OTP store (use Redis in production)
-otp_store: Dict[str, dict] = {}
 
 class AuthService:
     
@@ -105,31 +102,45 @@ class AuthService:
         return Token(access_token=access_token, role=user.role)
     
     @staticmethod
-    def generate_otp(phone: str) -> str:
-        otp = ''.join(random.choices(string.digits, k=6))
-        otp_store[phone] = {
-            "otp": otp,
-            "expires_at": datetime.utcnow() + timedelta(minutes=settings.OTP_EXPIRE_MINUTES)
-        }
-        # In production: Send OTP via SMS service
-        print(f"OTP for {phone}: {otp}")  # Remove in production
-        return otp
+    def generate_otp(db: Session, phone: str) -> str:
+        # Invalidate previous OTPs
+        db.query(OTP).filter(OTP.phone == phone, OTP.is_used == False).update({"is_used": True})
+        
+        otp_code = ''.join(random.choices(string.digits, k=6))
+        expires_at = datetime.utcnow() + timedelta(minutes=settings.OTP_EXPIRE_MINUTES)
+        
+        otp_entry = OTP(phone=phone, code=otp_code, expires_at=expires_at)
+        db.add(otp_entry)
+        db.commit()
+        
+        print(f"[SMS GATEWAY] OTP for {phone}: {otp_code}")
+        return otp_code
     
     @staticmethod
-    def verify_otp(phone: str, otp: str) -> bool:
-        if phone not in otp_store:
-            return False
+    def verify_otp(db: Session, phone: str, otp: str) -> bool:
+        otp_record = db.query(OTP).filter(
+            OTP.phone == phone,
+            OTP.code == otp,
+            OTP.is_used == False,
+            OTP.expires_at > datetime.utcnow()
+        ).first()
         
-        otp_data = otp_store[phone]
-        if datetime.utcnow() > otp_data["expires_at"]:
-            del otp_store[phone]
+        if not otp_record:
             return False
-        
-        if otp_data["otp"] != otp:
-            return False
-        
-        del otp_store[phone]
+            
+        otp_record.is_used = True
+        db.commit()
         return True
+
+def get_user_from_token_ws(token: str, db: Session):
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        user_id: str = payload.get("sub")
+        if user_id is None:
+            return None
+    except jwt.PyJWTError:
+        return None
+    return db.query(User).filter(User.id == int(user_id)).first()
 
 def get_current_user(token: str, db: Session):
     try:

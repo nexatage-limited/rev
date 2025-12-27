@@ -73,3 +73,23 @@ class DocumentResponse(BaseModel):
 class TechnicianVerificationRequest(BaseModel):
     action: str  # "approve" or "reject"
     notes: Optional[str] = None
+
+# Job Models
+class JobCreate(BaseModel):
+    device_name: str
+    issue_description: str
+    location_lat: float
+    location_long: float
+    address: str
+
+class JobResponse(BaseModel):
+    id: int
+    customer_id: int
+    technician_id: Optional[int]
+    device_name: str
+    issue_description: str
+    status: str
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
