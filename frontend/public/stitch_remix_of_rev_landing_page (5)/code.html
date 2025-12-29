@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rev Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d7ff2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display overflow-x-hidden">
+<div class="flex h-screen w-full flex-row overflow-hidden">
+<!-- Side Navigation -->
+<aside class="flex h-full w-72 flex-col justify-between border-r border-[#dbe0e6] dark:border-gray-800 bg-white dark:bg-[#101922] p-4 flex-shrink-0">
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 px-2 py-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Rev platform logo showing abstract shield or repair symbol" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD13O04LdpJeXTXSKZd84LP2n_cLV7Y4oI_hY0Dr-Gi262Rbg4-m6HYoxaysoX-hdwGgwhqdYd8EPibGPpAseMhaqTbj8ZkkaMAkAzVrJEsiCB30RJOkNNbYxQz2tdVBbWRQOJR2kQIjF91l7LnKSYASQhrH8AyzTpGycCAaHLOyFACY-qvgNluPFJbS_DvkhbsJOx_M7gBWGudOyF656gs8xNWDRfbH5RrQiiEF5swdk9cOSiav5qsVFCH2uJWG8pnLLupLeODtnSi");'></div>
+<div class="flex flex-col justify-center">
+<h1 class="text-[#111418] dark:text-white text-base font-bold leading-normal">Rev Admin</h1>
+<p class="text-[#60758a] dark:text-gray-400 text-sm font-normal leading-normal">Trust-first Platform</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">dashboard</span>
+<p class="text-sm font-semibold leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-[#60758a] dark:text-gray-400 hover:bg-[#f0f2f5] dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">build</span>
+<p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">Repairs</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-[#60758a] dark:text-gray-400 hover:bg-[#f0f2f5] dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">engineering</span>
+<p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">Technicians</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-[#60758a] dark:text-gray-400 hover:bg-[#f0f2f5] dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">group</span>
+<p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">Users</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-[#60758a] dark:text-gray-400 hover:bg-[#f0f2f5] dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">local_shipping</span>
+<p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">Logistics</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-[#60758a] dark:text-gray-400 hover:bg-[#f0f2f5] dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">settings</span>
+<p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">Settings</p>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl text-[#60758a] dark:text-gray-400 hover:bg-[#f0f2f5] dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">logout</span>
+<p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">Log Out</p>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-y-auto bg-background-light dark:bg-background-dark relative">
+<!-- Header Section -->
+<header class="sticky top-0 z-20 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm px-6 py-4 flex flex-col gap-4 border-b border-transparent dark:border-gray-800">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h1 class="text-2xl font-bold text-[#111418] dark:text-white">Welcome back, Admin</h1>
+<p class="text-sm text-[#60758a] dark:text-gray-400 mt-1">Here's what's happening on the platform today.</p>
+</div>
+<!-- Search Bar -->
+<div class="w-full md:w-96">
+<label class="flex flex-col h-10 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm">
+<div class="text-[#60758a] flex border-none bg-white dark:bg-[#1f2937] items-center justify-center pl-4 rounded-l-xl border-r-0">
+<span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#111418] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 border-none bg-white dark:bg-[#1f2937] h-full placeholder:text-[#60758a] px-4 rounded-l-none pl-2 text-sm font-normal leading-normal" placeholder="Search users, repairs, or technicians..."/>
+</div>
+</label>
+</div>
+</div>
+</header>
+<div class="px-6 py-4 flex flex-col gap-6 max-w-[1400px] mx-auto w-full pb-10">
+<!-- KPI Stats Row -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Active Repairs -->
+<div class="bg-white dark:bg-[#1e293b] rounded-xl p-5 border border-[#dbe0e6] dark:border-gray-700 shadow-sm flex flex-col justify-between min-h-[140px]">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-[#60758a] dark:text-gray-400 text-sm font-medium">Active Repairs</p>
+<p class="text-[#111418] dark:text-white text-3xl font-bold tracking-tight">1,240</p>
+</div>
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-primary">
+<span class="material-symbols-outlined">build_circle</span>
+</div>
+</div>
+<div class="flex items-center gap-1 mt-2">
+<span class="text-[#078838] dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-1.5 py-0.5 rounded text-xs font-semibold flex items-center">
+<span class="material-symbols-outlined" style="font-size: 12px;">trending_up</span> 12%
+                            </span>
+<span class="text-[#60758a] dark:text-gray-500 text-xs">vs last month</span>
+</div>
+</div>
+<!-- Technicians Online -->
+<div class="bg-white dark:bg-[#1e293b] rounded-xl p-5 border border-[#dbe0e6] dark:border-gray-700 shadow-sm flex flex-col justify-between min-h-[140px]">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-[#60758a] dark:text-gray-400 text-sm font-medium">Technicians Online</p>
+<p class="text-[#111418] dark:text-white text-3xl font-bold tracking-tight">45</p>
+</div>
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-primary">
+<span class="material-symbols-outlined">person_check</span>
+</div>
+</div>
+<div class="flex items-center gap-1 mt-2">
+<span class="text-[#078838] dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-1.5 py-0.5 rounded text-xs font-semibold flex items-center">
+<span class="material-symbols-outlined" style="font-size: 12px;">trending_up</span> 2%
+                            </span>
+<span class="text-[#60758a] dark:text-gray-500 text-xs">vs last week</span>
+</div>
+</div>
+<!-- Avg Repair Time -->
+<div class="bg-white dark:bg-[#1e293b] rounded-xl p-5 border border-[#dbe0e6] dark:border-gray-700 shadow-sm flex flex-col justify-between min-h-[140px]">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-[#60758a] dark:text-gray-400 text-sm font-medium">Avg. Repair Time</p>
+<p class="text-[#111418] dark:text-white text-3xl font-bold tracking-tight">45m</p>
+</div>
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-primary">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+</div>
+<div class="flex items-center gap-1 mt-2">
+<span class="text-[#60758a] dark:text-gray-500 bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs font-semibold">0%</span>
+<span class="text-[#60758a] dark:text-gray-500 text-xs">Stable</span>
+</div>
+</div>
+<!-- Deliveries in Transit -->
+<div class="bg-white dark:bg-[#1e293b] rounded-xl p-5 border border-[#dbe0e6] dark:border-gray-700 shadow-sm flex flex-col justify-between min-h-[140px]">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-[#60758a] dark:text-gray-400 text-sm font-medium">Deliveries in Transit</p>
+<p class="text-[#111418] dark:text-white text-3xl font-bold tracking-tight">89</p>
+</div>
+<div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-primary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+</div>
+<div class="flex items-center gap-1 mt-2">
+<span class="text-[#e73908] dark:text-red-400 bg-red-50 dark:bg-red-900/20 px-1.5 py-0.5 rounded text-xs font-semibold flex items-center">
+<span class="material-symbols-outlined" style="font-size: 12px;">trending_down</span> 5%
+                            </span>
+<span class="text-[#60758a] dark:text-gray-500 text-xs">High volume alert</span>
+</div>
+</div>
+</div>
+<!-- Main Chart & Recent Activity Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Chart Column -->
+<div class="lg:col-span-2 flex flex-col gap-4">
+<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-[#dbe0e6] dark:border-gray-700 shadow-sm p-6">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="text-[#111418] dark:text-white text-lg font-bold">Platform Activity</h3>
+<p class="text-[#60758a] dark:text-gray-400 text-sm">Requests vs Completed Repairs</p>
+</div>
+<div class="flex gap-2">
+<select class="bg-[#f0f2f5] dark:bg-gray-800 border-none text-[#111418] dark:text-white text-sm rounded-lg px-3 py-2 focus:ring-0 cursor-pointer">
+<option>Last 30 Days</option>
+<option>Last 7 Days</option>
+<option>This Year</option>
+</select>
+</div>
+</div>
+<div class="h-64 w-full relative">
+<!-- Simulated Chart with SVG -->
+<svg class="w-full h-full" fill="none" preserveaspectratio="none" viewbox="0 0 800 200">
+<!-- Grid lines -->
+<line class="dark:stroke-gray-700" stroke="#e5e7eb" stroke-dasharray="4 4" x1="0" x2="800" y1="199" y2="199"></line>
+<line class="dark:stroke-gray-700" stroke="#e5e7eb" stroke-dasharray="4 4" x1="0" x2="800" y1="150" y2="150"></line>
+<line class="dark:stroke-gray-700" stroke="#e5e7eb" stroke-dasharray="4 4" x1="0" x2="800" y1="100" y2="100"></line>
+<line class="dark:stroke-gray-700" stroke="#e5e7eb" stroke-dasharray="4 4" x1="0" x2="800" y1="50" y2="50"></line>
+<!-- Area Fill (Gradient) -->
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0d7ff2" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#0d7ff2" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Data Line 1: Requests -->
+<path d="M0 150 C100 140, 200 160, 300 100 C400 40, 500 80, 600 60 C700 40, 800 20, 800 20 L 800 200 L 0 200 Z" fill="url(#chartGradient)"></path>
+<path d="M0 150 C100 140, 200 160, 300 100 C400 40, 500 80, 600 60 C700 40, 800 20, 800 20" fill="none" stroke="#0d7ff2" stroke-linecap="round" stroke-width="3"></path>
+<!-- Data Line 2: Completed (Faint) -->
+<path d="M0 180 C100 170, 200 180, 300 130 C400 80, 500 110, 600 90 C700 70, 800 50, 800 50" fill="none" stroke="#94a3b8" stroke-dasharray="5 5" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex justify-between mt-4 text-xs text-[#60758a] dark:text-gray-400 font-medium">
+<span>Week 1</span>
+<span>Week 2</span>
+<span>Week 3</span>
+<span>Week 4</span>
+</div>
+</div>
+<!-- Recent Applicants Table -->
+<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-[#dbe0e6] dark:border-gray-700 shadow-sm overflow-hidden flex flex-col flex-1">
+<div class="px-6 py-4 border-b border-[#dbe0e6] dark:border-gray-700 flex justify-between items-center">
+<h3 class="text-[#111418] dark:text-white text-lg font-bold">Technician Applications</h3>
+<button class="text-primary text-sm font-semibold hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm text-[#60758a] dark:text-gray-400">
+<thead class="bg-[#f8fafc] dark:bg-gray-800/50 text-xs uppercase font-semibold text-[#60758a] dark:text-gray-400">
+<tr>
+<th class="px-6 py-3">Applicant</th>
+<th class="px-6 py-3">Specialty</th>
+<th class="px-6 py-3">Status</th>
+<th class="px-6 py-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#dbe0e6] dark:divide-gray-700">
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<td class="px-6 py-4 font-medium text-[#111418] dark:text-white flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Portrait of Sarah Jenkins" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCgVmpk0TMwWjSJtuKkx3jnSWyNMhLmaEPQhvzyOWarXL5ldS-tsYwCyCVCdFOjxQmdA0YlWdDq-a7iRB3beA4Ryyk6A-Uc8jkedXxNHgv7_gK6blB3gcyDP8QgHxYN5LY4t6ZIqZOfg7xwoHxy7gOIAlJGLPnrWSkf4s2TbTzH50sv6wYyzUPcB2WizVY-tH4ExryQTNfGgumMjt5kbD_0AxkMxJoxQsiFc4BazNtJBpobBi_WH5Hn_Y_4DeedT4dnD98ciHtG7DyP");'></div>
+                                                Sarah Jenkins
+                                            </td>
+<td class="px-6 py-4">Screen Repair</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-semibold">Pending</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-blue-700 font-medium text-sm">Review</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<td class="px-6 py-4 font-medium text-[#111418] dark:text-white flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Portrait of Mike Ross" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA29aLrULaLAM7qoed9FYrjDbfVjvp9GaVfC6Az6IeCsy8iykBJX7i90LAIrEgib-xFtqzF6daDWiROxhCzeY8wxz_aTEOYquoXBygSi-E_LuQVi1DRtesS0hW9KZB8NxMsOK3YhQq0SDNz1M83rxeVaUcnYXQWAZ6Ao3OGJjz49u4XJmYrLGBopRFv1Nzf9gAJ_acyFaPDsG-tr-6PMQ3v67tzzWpJEtRXvZT0SDk_xxjUmGZZzZbXmiQ0N58us-LKDR9IKOehA0HA");'></div>
+                                                Mike Ross
+                                            </td>
+<td class="px-6 py-4">Battery Replacement</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-full text-xs font-semibold">Verified</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#60758a] hover:text-[#111418] font-medium text-sm">Details</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<td class="px-6 py-4 font-medium text-[#111418] dark:text-white flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-gray-200 bg-cover bg-center" data-alt="Portrait of David Chen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD8_-KalCCg-K6j5KO97XtyP_iMx0Gyy37wuj0lDGuOIhSac2vIQ4uZcRTcZIWDh00lRZtNwkTVm5mwf3o3ipodf1X8LKhglgy_jy6Dxq4ziu-1dW7Fty_EXh5fSHjMt94eRJesW7PWOovHUdpF9xFHw3wpIXEO5SAkRZTGoY3-Hx_BWngFanQZQOekBup3kFh-DoGG4EMXDrMErDUaY0KH92SqSEczcvRWFwCdqne8W6DF1_P5YHBdESm_AJbCn3qSSxmC85-w5rhM");'></div>
+                                                David Chen
+                                            </td>
+<td class="px-6 py-4">Microsoldering</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-full text-xs font-semibold">Rejected</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#60758a] hover:text-[#111418] font-medium text-sm">Archived</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Live Feed & Alerts -->
+<div class="flex flex-col gap-6">
+<!-- Quick Actions -->
+<div class="bg-primary rounded-xl p-6 text-white shadow-lg relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="text-lg font-bold mb-4">Quick Actions</h3>
+<div class="flex flex-col gap-3">
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 text-white rounded-lg px-4 py-3 text-sm font-semibold flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined">person_add</span>
+                                        Invite Technician
+                                    </button>
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 text-white rounded-lg px-4 py-3 text-sm font-semibold flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined">campaign</span>
+                                        Broadcast Alert
+                                    </button>
+</div>
+</div>
+<!-- Decorational background circle -->
+<div class="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all duration-500"></div>
+</div>
+<!-- System Alerts -->
+<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-[#dbe0e6] dark:border-gray-700 shadow-sm p-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-orange-500">warning</span>
+<h3 class="text-[#111418] dark:text-white text-lg font-bold">System Alerts</h3>
+</div>
+<div class="flex flex-col gap-4">
+<div class="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-100 dark:border-orange-800/30">
+<p class="text-xs font-bold text-orange-800 dark:text-orange-300 uppercase mb-1">Logistics Delay</p>
+<p class="text-sm text-[#111418] dark:text-gray-200">Shipment batch #4092 delayed due to weather in East Coast hub.</p>
+</div>
+<div class="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-100 dark:border-red-800/30">
+<p class="text-xs font-bold text-red-800 dark:text-red-300 uppercase mb-1">AI Anomaly</p>
+<p class="text-sm text-[#111418] dark:text-gray-200">Unusual login pattern detected for Admin User #04.</p>
+</div>
+</div>
+</div>
+<!-- Live Feed -->
+<div class="bg-white dark:bg-[#1e293b] rounded-xl border border-[#dbe0e6] dark:border-gray-700 shadow-sm flex-1 flex flex-col">
+<div class="p-6 border-b border-[#dbe0e6] dark:border-gray-700">
+<h3 class="text-[#111418] dark:text-white text-lg font-bold">Live Feed</h3>
+</div>
+<div class="p-4 flex flex-col gap-4 max-h-[300px] overflow-y-auto">
+<div class="flex gap-3 items-start">
+<div class="mt-1 min-w-[32px] h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-sm">build</span>
+</div>
+<div>
+<p class="text-sm text-[#111418] dark:text-gray-200"><span class="font-semibold">John D.</span> started repair <span class="text-primary font-medium">#402</span></p>
+<p class="text-xs text-[#60758a] dark:text-gray-500">2 mins ago</p>
+</div>
+</div>
+<div class="flex gap-3 items-start">
+<div class="mt-1 min-w-[32px] h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+</div>
+<div>
+<p class="text-sm text-[#111418] dark:text-gray-200">Repair <span class="text-primary font-medium">#399</span> completed successfully.</p>
+<p class="text-xs text-[#60758a] dark:text-gray-500">15 mins ago</p>
+</div>
+</div>
+<div class="flex gap-3 items-start">
+<div class="mt-1 min-w-[32px] h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+<div>
+<p class="text-sm text-[#111418] dark:text-gray-200">New user registration: <span class="font-semibold">alice@example.com</span></p>
+<p class="text-xs text-[#60758a] dark:text-gray-500">23 mins ago</p>
+</div>
+</div>
+<div class="flex gap-3 items-start">
+<div class="mt-1 min-w-[32px] h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined text-sm">gavel</span>
+</div>
+<div>
+<p class="text-sm text-[#111418] dark:text-gray-200">Dispute raised on Order <span class="text-primary font-medium">#991</span></p>
+<p class="text-xs text-[#60758a] dark:text-gray-500">45 mins ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

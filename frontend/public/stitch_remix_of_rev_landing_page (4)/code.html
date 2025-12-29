@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rev Admin - Disputes &amp; Support</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d7ff2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display overflow-hidden h-screen flex">
+<!-- Sidebar -->
+<aside class="w-64 bg-white dark:bg-[#1A2633] border-r border-[#dbe0e6] dark:border-gray-700 flex flex-col h-full flex-shrink-0 z-20">
+<div class="p-5 border-b border-[#dbe0e6] dark:border-gray-700">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shadow-sm" data-alt="Rev Admin Logo abstract geometric shape" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLvDqVCGKgEeas3x6wO7JJQ8s4vtQYxHqcxaYfZ3adv34KDloec8nyCHMctYwPVT1PCfPiV9jghq5iHcCdrKlrM9K00ZBtaBxkK1ael4iHeWjgw_1zolYZb3DjFezca5tNxilCguSOl-yG-_stUTMlhRQCW67v8bovjg6Nil_jP3iVK0bnU-lc6dMOGrpbDrI5tGy82crVSCDWKy5BkKPoK-U4FUlOqz1n4RtSzSqasXv3SlI_RTHkesd3djgiB_g8vQ-GZtHS51bn");'></div>
+<div class="flex flex-col">
+<h1 class="text-base font-bold leading-normal dark:text-white">Rev Admin</h1>
+<p class="text-[#60758a] dark:text-gray-400 text-xs font-normal">Platform Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#60758a] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#60758a] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">group</span>
+<span class="text-sm font-medium">Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#60758a] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">build</span>
+<span class="text-sm font-medium">Repairs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary dark:bg-primary/20" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px; font-variation-settings: 'FILL' 1;">warning</span>
+<span class="text-sm font-medium">Disputes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#60758a] dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 24px;">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-[#dbe0e6] dark:border-gray-700">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+<img alt="Admin User Avatar" class="w-full h-full object-cover" data-alt="Portrait of admin user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpqnn6r6Lfk0bvCjTiaBPpsqOnasAMAHqfRbbLBvLyHD_gp_JxJPxdVLc0ZYVYWprzs-Pz7VhbwKO9WEWfYmmQ67e8gaBMStLNqyGlo3DQuuioB_3eIwhWVlntr-XCU8XRh70IkOq3nN3Pz_WRpnmhNfWb-YPtWwfJO9mzu2xI-Go4rC7Agd0bxYIB-QWzLDbYGX0USEM4fY7ttsmVEW0kfz266sVU_AohiuK15Ou56ii8l2di1B-5kUSumaxbrfw_UxsjTBqhtNjO"/>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-medium dark:text-white">Alex Morgan</p>
+<p class="text-xs text-[#60758a] dark:text-gray-400">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full overflow-hidden">
+<!-- Top Header Area -->
+<header class="bg-white dark:bg-[#1A2633] border-b border-[#dbe0e6] dark:border-gray-700 p-6 pb-4 shrink-0">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h1 class="text-2xl font-black leading-tight tracking-tight mb-1 dark:text-white">Disputes &amp; Support Center</h1>
+<p class="text-[#60758a] dark:text-gray-400 text-sm">Manage resolutions, track tickets, and assign support agents.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-[#dbe0e6] dark:border-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">file_download</span>
+                        Export Report
+                   </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+                        New Ticket
+                   </button>
+</div>
+</div>
+<!-- KPI Stats -->
+<div class="grid grid-cols-4 gap-4 mb-2">
+<div class="p-4 rounded-xl border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1A2633] shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#60758a] dark:text-gray-400 text-sm font-medium">Open Disputes</p>
+<span class="material-symbols-outlined text-primary" style="font-size: 20px;">folder_open</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold dark:text-white">24</p>
+<p class="text-[#078838] text-xs font-medium mb-1 flex items-center"><span class="material-symbols-outlined" style="font-size: 14px;">arrow_upward</span> 2%</p>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1A2633] shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#60758a] dark:text-gray-400 text-sm font-medium">Avg. Resolution</p>
+<span class="material-symbols-outlined text-purple-500" style="font-size: 20px;">timer</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold dark:text-white">4h 12m</p>
+<p class="text-[#60758a] dark:text-gray-500 text-xs font-medium mb-1">Target: 4h</p>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1A2633] shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#60758a] dark:text-gray-400 text-sm font-medium">Urgent Tickets</p>
+<span class="material-symbols-outlined text-[#e73908]" style="font-size: 20px;">priority_high</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold dark:text-white">5</p>
+<p class="text-[#e73908] text-xs font-medium mb-1 flex items-center"><span class="material-symbols-outlined" style="font-size: 14px;">arrow_upward</span> 1</p>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1A2633] shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<p class="text-[#60758a] dark:text-gray-400 text-sm font-medium">Active Agents</p>
+<span class="material-symbols-outlined text-green-500" style="font-size: 20px;">support_agent</span>
+</div>
+<div class="flex items-end gap-2">
+<p class="text-2xl font-bold dark:text-white">8</p>
+<p class="text-[#60758a] dark:text-gray-500 text-xs font-medium mb-1">/ 12 Total</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Master-Detail Layout -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left: Master List -->
+<div class="w-[400px] bg-white dark:bg-[#1A2633] border-r border-[#dbe0e6] dark:border-gray-700 flex flex-col flex-shrink-0">
+<!-- Search & Filters -->
+<div class="p-4 border-b border-[#dbe0e6] dark:border-gray-700 flex flex-col gap-3">
+<div class="relative w-full">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#60758a] material-symbols-outlined" style="font-size: 20px;">search</span>
+<input class="w-full bg-[#f0f2f5] dark:bg-gray-800 border-none rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/50 dark:text-white placeholder:text-[#60758a]" placeholder="Search ID, User, or Tech..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+<button class="shrink-0 px-3 py-1.5 bg-[#f0f2f5] dark:bg-gray-800 rounded-full text-xs font-medium dark:text-gray-300 flex items-center gap-1">
+                            Status: All <span class="material-symbols-outlined" style="font-size: 14px;">expand_more</span>
+</button>
+<button class="shrink-0 px-3 py-1.5 bg-[#f0f2f5] dark:bg-gray-800 rounded-full text-xs font-medium dark:text-gray-300 flex items-center gap-1">
+                            Priority <span class="material-symbols-outlined" style="font-size: 14px;">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Ticket List -->
+<div class="flex-1 overflow-y-auto">
+<!-- Item 1 (Active) -->
+<div class="p-4 border-b border-[#dbe0e6] dark:border-gray-700 bg-primary/5 dark:bg-primary/10 border-l-4 border-l-primary cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-primary">#8492</span>
+<span class="text-xs font-medium text-[#e73908] bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded-full">High Priority</span>
+</div>
+<h3 class="text-sm font-semibold mb-1 dark:text-white line-clamp-1">Screen Repair - Audio Failure Dispute</h3>
+<p class="text-xs text-[#60758a] dark:text-gray-400 mb-3 line-clamp-2">User claims speaker stopped working after technician replaced the screen. Tech denies liability.</p>
+<div class="flex justify-between items-center">
+<div class="flex -space-x-2">
+<img alt="User Avatar" class="size-6 rounded-full border-2 border-white dark:border-[#1A2633]" data-alt="Portrait of John Doe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbNrCPKExGknDZtiDHgKBqNtA4Be8qpsp-UPAhxgYl3yZQ22MKrK623ncLEQG07HAqvyfODu2_slBp8bVdIYhPoBgN3mUyrBjo5DrlMy2hUDckkB_bE2zKg-1i_hINRzkCxHCaBJu3aojMVd6aubHIW8SL_E9_ZiaQY3QBlfZR9KD62OeQ8HeDr0wJdzmd6mea37pCbero7WON5Wot-aSI703Fosn004AcqeISjv5E9W7itQd0KEAudMWRxmcgZv8NDGgtKiYljNW2"/>
+<div class="size-6 rounded-full border-2 border-white dark:border-[#1A2633] bg-gray-100 flex items-center justify-center text-[10px] font-bold">IF</div>
+</div>
+<span class="text-[10px] text-[#60758a] dark:text-gray-500">2m ago</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-4 border-b border-[#dbe0e6] dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-[#60758a] dark:text-gray-400">#8491</span>
+<span class="text-xs font-medium text-orange-600 bg-orange-50 dark:bg-orange-900/20 px-2 py-0.5 rounded-full">Medium</span>
+</div>
+<h3 class="text-sm font-semibold mb-1 dark:text-white line-clamp-1">Technician No-Show Report</h3>
+<p class="text-xs text-[#60758a] dark:text-gray-400 mb-3 line-clamp-2">Technician did not arrive at the scheduled time. User requests rescheduling.</p>
+<div class="flex justify-between items-center">
+<div class="flex -space-x-2">
+<img alt="User Avatar" class="size-6 rounded-full border-2 border-white dark:border-[#1A2633]" data-alt="Portrait of Jane Smith" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt9E3NQHlYaVzUf2kDc2UCteVqy8NATcGuoE5GB4aXFzNS90kvziQq6tsjfBYKIgW1A57HkzcCmOjwoyAW8kUZ0NR0RC2EMAZ0dCiZnkf3jrZwxHo461ait07OLCOMLG7uNiXXXAEVH2jxj_3Geeml9hXfo1IOsiOOJVHmcGBwJZtlwmAZd4h-MzWtxGZLBB6dEI_NDZmIsZN-NG4BKPn99q69ixUMrfvShmrtyAu8lXQpoSN-8vjgdzK-vZx8u4GEDGFX9lfTSmOv"/>
+<div class="size-6 rounded-full border-2 border-white dark:border-[#1A2633] bg-gray-100 flex items-center justify-center text-[10px] font-bold">TM</div>
+</div>
+<span class="text-[10px] text-[#60758a] dark:text-gray-500">1h ago</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-4 border-b border-[#dbe0e6] dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-[#60758a] dark:text-gray-400">#8488</span>
+<span class="text-xs font-medium text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full">Resolved</span>
+</div>
+<h3 class="text-sm font-semibold mb-1 dark:text-white line-clamp-1">Refund Request - Battery Issue</h3>
+<p class="text-xs text-[#60758a] dark:text-gray-400 mb-3 line-clamp-2">Battery health not improved after replacement. Refund processed automatically.</p>
+<div class="flex justify-between items-center">
+<div class="flex -space-x-2">
+<img alt="User Avatar" class="size-6 rounded-full border-2 border-white dark:border-[#1A2633]" data-alt="Portrait of Michael Brown" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKgeil0bfayLtu8u36x45G8Wrn5BfM0x6GOomB34mOl0vf7GujsZM_NTdOwUUlTA20lkXDMexb4tpnmYkeOfvuubzDlI5Vcnmj9yCGHmPmEJ9aqCT0f-GDwzWL5orsCL8GaSbax8rJn7V2kHHW0yAG0Ix4ZxyIyNY0ydDWzkmTNhBBuOvdBPGcSCKwSm_31wHepunj6mW1M7khHdw8v1YzN-2HfTQrSozYU6H1wH_2esQTHqTLSqv9ceAClQ8ypuwbpuWH-RgixFYj"/>
+<div class="size-6 rounded-full border-2 border-white dark:border-[#1A2633] bg-gray-100 flex items-center justify-center text-[10px] font-bold">Fix</div>
+</div>
+<span class="text-[10px] text-[#60758a] dark:text-gray-500">4h ago</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="p-4 border-b border-[#dbe0e6] dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-[#60758a] dark:text-gray-400">#8485</span>
+<span class="text-xs font-medium text-blue-600 bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 rounded-full">Pending Info</span>
+</div>
+<h3 class="text-sm font-semibold mb-1 dark:text-white line-clamp-1">Incorrect Quote Dispute</h3>
+<p class="text-xs text-[#60758a] dark:text-gray-400 mb-3 line-clamp-2">Final charge was 20% higher than quote. Waiting for tech invoice upload.</p>
+<div class="flex justify-between items-center">
+<div class="flex -space-x-2">
+<img alt="User Avatar" class="size-6 rounded-full border-2 border-white dark:border-[#1A2633]" data-alt="Portrait of David Wilson" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoNz5Fth0vxSO5FvXOfbnktTCMJJo5o4cborkKSA4wiEPq_Aq-FDOhkQ-JYIx3Ol7tLq8AejYiobOI22q0-T0WRqLHnBedtSGwukblLFCdNQsjAfTV-r-h-WN1Ib0ycH0nl-tEaMdRRG2FNSBZAEA7yD5YRPvyeTincNmJwT4kcsOr8JuMB6E0aN4DiFnmDU-Vv0XcPFqhqhcPJxjYEuqRakQed3axI6NaAd61PIFsaqHRhHmiTkCo1QslZEAVlB7-es3RiiAfI77x"/>
+<div class="size-6 rounded-full border-2 border-white dark:border-[#1A2633] bg-gray-100 flex items-center justify-center text-[10px] font-bold">QS</div>
+</div>
+<span class="text-[10px] text-[#60758a] dark:text-gray-500">1d ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Detail View -->
+<div class="flex-1 flex flex-col bg-background-light dark:bg-background-dark overflow-hidden">
+<!-- Detail Header -->
+<div class="bg-white dark:bg-[#1A2633] border-b border-[#dbe0e6] dark:border-gray-700 p-4 shadow-sm z-10 flex justify-between items-center">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h2 class="text-lg font-bold dark:text-white">Ticket #8492</h2>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300">Escalated</span>
+</div>
+<p class="text-sm text-[#60758a] dark:text-gray-400">Screen Repair - Audio Failure Dispute</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right">
+<p class="text-xs text-[#60758a] dark:text-gray-400">Assigned Agent</p>
+<div class="flex items-center gap-2 justify-end">
+<span class="text-sm font-medium dark:text-white">Sarah Jenkins</span>
+<img alt="Agent" class="size-6 rounded-full" data-alt="Portrait of Sarah Jenkins" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU7lO1-vX4Lhxw16kT82yZpAk6HuRBEPSQ4T7_4z1PqqZTW7xVI9sZmVFGR4ifL9gvt72H4FIkZc5ZUbif_v7zbYozfZDq5QSvhJi3YgBX6HQulloWuh7TH5PU4Zs1liKJ6GXQLb3ASxz-8TMpHwBBskjvJtaL2avWtjxyFfH7DHytXPyuzpdwZwgDioXO0CxO9SJ7fv2317zFauLYBsvrlvxdFFpp7vPwYCbwoKug8dTmYLOXixi00PqCeXAwIIrDMAhBoq9RJvDq"/>
+</div>
+</div>
+<button class="text-[#60758a] hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Detail Content Grid -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Center: Chat & AI -->
+<div class="flex-1 flex flex-col overflow-y-auto p-6 gap-6 relative">
+<!-- AI Insight Panel -->
+<div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10 border border-blue-100 dark:border-blue-800/30 rounded-xl p-4 flex gap-4 shadow-sm">
+<div class="bg-white dark:bg-blue-900/50 p-2 rounded-lg h-fit shadow-sm text-primary">
+<span class="material-symbols-outlined" style="font-size: 24px;">smart_toy</span>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-[#111418] dark:text-white mb-1">AI Analysis &amp; Suggestion</h4>
+<p class="text-sm text-[#4e5d78] dark:text-gray-300 mb-3">User submitted photos indicate physical damage near the speaker grill, consistent with prying tools. Technician has a 98% success rate but this is the second complaint of this type this month.</p>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 bg-white dark:bg-gray-800 border border-blue-200 dark:border-blue-700 rounded-lg text-xs font-medium text-primary hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">Review Tech History</button>
+<button class="px-3 py-1.5 bg-white dark:bg-gray-800 border border-blue-200 dark:border-blue-700 rounded-lg text-xs font-medium text-primary hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">Suggest Partial Refund</button>
+</div>
+</div>
+</div>
+<!-- Timeline Divider -->
+<div class="flex items-center gap-4">
+<div class="h-px bg-[#dbe0e6] dark:bg-gray-700 flex-1"></div>
+<span class="text-xs font-medium text-[#60758a] dark:text-gray-500">Today, Oct 24</span>
+<div class="h-px bg-[#dbe0e6] dark:bg-gray-700 flex-1"></div>
+</div>
+<!-- Chat Bubbles -->
+<!-- User Message -->
+<div class="flex gap-4">
+<img alt="User" class="size-10 rounded-full object-cover shrink-0" data-alt="Portrait of John Doe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-JL7qn0yfKxxwAGXxNvtXTHV6IDJnCEYf3wBf7UZldBCBL8NKpKT5zhWx1bMkzy8zW7NC6CFLxbXqrARMiYLTHWb4D68gj3TuI4ZtGepbYchfP8wAlJx8gqbuBNsUAVk20IchnyHgIJna1_GSXL8Ls3rejdTIiG0cKij_BB286KXIsasiSQhWm_ZkbmdzYnqEQiHHfSa5jFv5Ji67hDOjZj17yF_Mw6ySXXT2tDy2fbD2fbrsfWYlnHas3b-6HI8r0tf1wliE3xj0"/>
+<div class="flex flex-col gap-1 max-w-[80%]">
+<div class="flex items-baseline gap-2">
+<span class="text-sm font-bold dark:text-white">John Doe</span>
+<span class="text-xs text-[#60758a] dark:text-gray-500">10:42 AM</span>
+</div>
+<div class="bg-white dark:bg-[#1A2633] p-3 rounded-2xl rounded-tl-none border border-[#dbe0e6] dark:border-gray-700 shadow-sm text-sm text-[#111418] dark:text-gray-200">
+<p class="mb-2">I just got my phone back an hour ago. The screen looks fine, but now I can't hear anything from the earpiece during calls. It was working perfectly before I dropped it off.</p>
+<div class="relative w-32 h-24 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600">
+<img alt="Damaged Phone Evidence" class="w-full h-full object-cover" data-alt="Close up of phone speaker grill" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCigMFPj75NzWWDnuqDyQmpf85cMbx76Dy4XGUZgL3gwT2p41uUX-81RJNxV90_N5nLR8siR3Vx3HQJVTP4u9C_SHjmGSD25qzY7dFFQlNAhbTMRYW47O_V1cmBGmMVaLeK0kqDNQWGVyTjDSr6wtZOBspIpJHIidL8JHoh_SvNlOrCPWFlL1TMsxD3myKI0imbt85DVI6jNpk8oIMHDNPuYgM6PY9omhmwhCnm3eDex2RitaNz2JHJua4FgREsxuqJ71R5b2wgZtlx"/>
+</div>
+</div>
+</div>
+</div>
+<!-- System Message -->
+<div class="flex justify-center my-2">
+<div class="bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full text-xs text-[#60758a] dark:text-gray-400 border border-gray-200 dark:border-gray-700 flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">info</span>
+                                Dispute opened by User
+                             </div>
+</div>
+<!-- Technician Message -->
+<div class="flex gap-4 flex-row-reverse">
+<div class="size-10 rounded-full bg-gray-200 flex items-center justify-center shrink-0 font-bold text-gray-600">IF</div>
+<div class="flex flex-col gap-1 max-w-[80%] items-end">
+<div class="flex items-baseline gap-2 flex-row-reverse">
+<span class="text-sm font-bold dark:text-white">iFixPro (Tech)</span>
+<span class="text-xs text-[#60758a] dark:text-gray-500">11:15 AM</span>
+</div>
+<div class="bg-[#f0f2f5] dark:bg-gray-800 p-3 rounded-2xl rounded-tr-none text-sm text-[#111418] dark:text-gray-200">
+<p>We tested all functions before handover and the checklist shows Audio PASS. The damage in the photo looks like impact damage, not from our tools. We are not liable for pre-existing board issues that manifest after opening the device.</p>
+</div>
+</div>
+</div>
+<!-- Agent Reply Box (Sticky Bottom of this section normally, but inline for now) -->
+<div class="mt-auto pt-4">
+<div class="bg-white dark:bg-[#1A2633] border border-[#dbe0e6] dark:border-gray-700 rounded-xl p-3 shadow-lg">
+<div class="flex gap-2 mb-2 overflow-x-auto">
+<button class="px-2 py-1 rounded-md bg-gray-50 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-100 whitespace-nowrap border border-gray-200 dark:border-gray-700">Request More Photos</button>
+<button class="px-2 py-1 rounded-md bg-gray-50 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-100 whitespace-nowrap border border-gray-200 dark:border-gray-700">Offer 15% Refund</button>
+<button class="px-2 py-1 rounded-md bg-gray-50 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-300 hover:bg-gray-100 whitespace-nowrap border border-gray-200 dark:border-gray-700">Deny Claim</button>
+</div>
+<textarea class="w-full bg-transparent border-none focus:ring-0 p-0 text-sm resize-none dark:text-white" placeholder="Type your reply to both parties..." rows="3"></textarea>
+<div class="flex justify-between items-center mt-2 border-t border-gray-100 dark:border-gray-700 pt-2">
+<div class="flex gap-2 text-gray-400">
+<button class="hover:text-primary"><span class="material-symbols-outlined" style="font-size: 20px;">attach_file</span></button>
+<button class="hover:text-primary"><span class="material-symbols-outlined" style="font-size: 20px;">image</span></button>
+</div>
+<button class="bg-primary hover:bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
+                                        Send Reply <span class="material-symbols-outlined" style="font-size: 16px;">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Context Sidebar -->
+<div class="w-80 bg-white dark:bg-[#1A2633] border-l border-[#dbe0e6] dark:border-gray-700 flex flex-col p-5 overflow-y-auto shrink-0">
+<!-- Repair Order Card -->
+<div class="mb-6">
+<h3 class="text-xs font-bold text-[#60758a] dark:text-gray-400 uppercase tracking-wider mb-3">Repair Context</h3>
+<div class="border border-[#dbe0e6] dark:border-gray-700 rounded-lg p-3">
+<div class="flex items-center gap-3 mb-3">
+<div class="bg-gray-100 dark:bg-gray-800 p-2 rounded-lg">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-400">smartphone</span>
+</div>
+<div>
+<p class="text-sm font-bold dark:text-white">iPhone 13 Pro</p>
+<p class="text-xs text-[#60758a] dark:text-gray-400">Screen Replacement (OLED)</p>
+</div>
+</div>
+<div class="flex justify-between text-xs mb-1">
+<span class="text-[#60758a] dark:text-gray-400">Order Total</span>
+<span class="font-medium dark:text-white">$289.00</span>
+</div>
+<div class="flex justify-between text-xs mb-1">
+<span class="text-[#60758a] dark:text-gray-400">Completed</span>
+<span class="font-medium dark:text-white">Oct 24, 9:30 AM</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-[#60758a] dark:text-gray-400">Warranty</span>
+<span class="font-medium text-green-600">Active (90 Days)</span>
+</div>
+</div>
+</div>
+<!-- Technician Stats -->
+<div class="mb-6">
+<h3 class="text-xs font-bold text-[#60758a] dark:text-gray-400 uppercase tracking-wider mb-3">Technician</h3>
+<div class="flex items-center gap-3 mb-2">
+<div class="size-8 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center font-bold text-xs">IF</div>
+<div>
+<p class="text-sm font-medium dark:text-white">iFixPro Downtown</p>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-400" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold dark:text-white">4.8</span>
+<span class="text-xs text-[#60758a] dark:text-gray-400">(124 Repairs)</span>
+</div>
+</div>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 mt-2">
+<div class="bg-green-500 h-1.5 rounded-full" style="width: 95%"></div>
+</div>
+<p class="text-[10px] text-[#60758a] dark:text-gray-400 mt-1 text-right">95% Dispute Resolution Rate</p>
+</div>
+<!-- Actions -->
+<div class="mt-auto">
+<h3 class="text-xs font-bold text-[#60758a] dark:text-gray-400 uppercase tracking-wider mb-3">Resolution Actions</h3>
+<div class="flex flex-col gap-2">
+<button class="w-full py-2 px-3 border border-[#dbe0e6] dark:border-gray-600 rounded-lg text-sm font-medium text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">currency_exchange</span>
+                                    Issue Refund
+                                 </button>
+<button class="w-full py-2 px-3 border border-[#dbe0e6] dark:border-gray-600 rounded-lg text-sm font-medium text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">lock_open</span>
+                                    Release Funds to Tech
+                                 </button>
+<button class="w-full py-2 px-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-transparent hover:border-red-200 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 18px;">gavel</span>
+                                    Ban User / Tech
+                                 </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
