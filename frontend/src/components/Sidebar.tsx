@@ -135,7 +135,7 @@ export default function Sidebar() {
         </div>
 
         <nav className="flex-1 overflow-y-auto px-4 py-2 space-y-1">
-          {navItems.map((item) => {
+          {navItems.map((item, i) => {
             const isActive = pathname === item.href;
             return (
               <motion.div
