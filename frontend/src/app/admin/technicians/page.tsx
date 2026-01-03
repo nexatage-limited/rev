@@ -25,11 +25,13 @@ export default function TechnicianManagement() {
   };
 
   const handleApprove = () => {
+    if (!selectedTech) return;
     alert(`${selectedTech.name} has been approved!`);
     setShowReviewModal(false);
   };
 
   const handleReject = () => {
+    if (!selectedTech) return;
     alert(`${selectedTech.name} has been rejected.`);
     setShowReviewModal(false);
   };
