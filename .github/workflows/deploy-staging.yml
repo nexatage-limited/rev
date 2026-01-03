@@ -10,32 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Get repo code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
-      # 3. OPTIONAL: verify vercel cli (debug step)
-      - name: Check Vercel CLI
-        run: npx vercel --version
-
-      # 4. Install frontend dependencies
       - name: Install frontend deps
         working-directory: frontend
         run: npm ci
 
-      # 5. Build frontend
       - name: Build frontend
         working-directory: frontend
         run: npm run build
 
-      # 6. Deploy to Vercel (staging / preview)
-      - name: Deploy frontend to Vercel
-        run: |
-          cd frontend
-          npx vercel --pre --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy to Vercel Preview
+        working-directory: frontend
+        run: npx vercel --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
