@@ -1,15 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+
+interface PendingReview {
+  id: number;
+  name: string;
+  type: string;
+  time: string;
+  match: number | null;
+  img: string;
+}
 
 export default function TechnicianManagement() {
   const [showReviewModal, setShowReviewModal] = useState(false);
-  const [selectedTech, setSelectedTech] = useState<any>(null);
+  const [selectedTech, setSelectedTech] = useState<PendingReview | null>(null);
   const [showAllPending, setShowAllPending] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
 
-  const handleReviewDocs = (tech: any) => {
+  const handleReviewDocs = (tech: PendingReview) => {
     setSelectedTech(tech);
     setShowReviewModal(true);
   };
@@ -158,9 +168,11 @@ export default function TechnicianManagement() {
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <img
+                    <Image
                       src={`https://picsum.photos/seed/${item.img}/40`}
-                      className="rounded-full size-10"
+                      width={40}
+                      height={40}
+                      className="rounded-full"
                       alt={item.name}
                     />
                     <div>
@@ -353,9 +365,11 @@ export default function TechnicianManagement() {
 
             <div className="p-6 space-y-6">
               <div className="flex items-center gap-4">
-                <img
+                <Image
                   src={`https://picsum.photos/seed/${selectedTech.img}/80`}
-                  className="rounded-full size-16"
+                  width={64}
+                  height={64}
+                  className="rounded-full"
                   alt={selectedTech.name}
                 />
                 <div>

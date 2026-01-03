@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 
 const MOCK_USERS = [
   {
@@ -149,10 +150,12 @@ export default function UserManagement() {
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
                           {user.img ? (
-                            <img
+                            <Image
                               src={user.img}
-                              className="size-10 rounded-full object-cover border border-slate-200"
-                              alt=""
+                              width={40}
+                              height={40}
+                              className="rounded-full object-cover border border-slate-200"
+                              alt={user.name}
                             />
                           ) : (
                             <div className="size-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xs">
@@ -239,7 +242,13 @@ export default function UserManagement() {
           <div className="px-6 relative flex-1 overflow-y-auto pb-6">
             <div className="absolute -top-10 left-6">
               <div className="size-20 rounded-full border-4 border-white shadow-md bg-slate-100 overflow-hidden">
-                <img src={`https://i.pravatar.cc/150?u=${selectedUser.id}`} className="w-full h-full object-cover" alt="" />
+                <Image 
+                  src={`https://i.pravatar.cc/150?u=${selectedUser.id}`} 
+                  width={80}
+                  height={80}
+                  className="w-full h-full object-cover" 
+                  alt={selectedUser.name} 
+                />
               </div>
             </div>
 
