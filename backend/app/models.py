@@ -43,6 +43,8 @@ class TechnicianProfileCreate(BaseModel):
     years_experience: int
     specialization: str
     service_radius_km: int = 10
+    location_lat: Optional[float] = None
+    location_long: Optional[float] = None
 
 class TechnicianProfileResponse(BaseModel):
     id: int
