@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const TICKETS = [
   {
@@ -41,7 +42,6 @@ const TICKETS = [
 export default function DisputeManagement() {
   const [activeTicket, setActiveTicket] = useState(TICKETS[0]);
   const [composerMode, setComposerMode] = useState<"reply" | "note">("reply");
-  const [showDetails, setShowDetails] = useState(false);
 
   return (
     <div className="flex h-full w-full overflow-hidden flex-col md:flex-row">
@@ -94,7 +94,7 @@ export default function DisputeManagement() {
               <h3 className="text-sm font-bold line-clamp-1">{ticket.title}</h3>
               <p className="text-xs text-slate-500 line-clamp-2 mt-1">{ticket.preview}</p>
               <div className="flex items-center gap-2 mt-3">
-                <img src={ticket.avatar} className="size-5 rounded-full" alt="" />
+                <Image src={ticket.avatar} width={20} height={20} className="size-5 rounded-full" alt="User avatar" />
                 <span className="text-[10px] text-slate-400 font-medium">
                   {ticket.user} • {ticket.time}
                 </span>
@@ -141,7 +141,7 @@ export default function DisputeManagement() {
           </div>
 
           <div className="flex gap-4 max-w-[80%]">
-            <img src={activeTicket.avatar} className="size-8 rounded-full shrink-0" alt="" />
+            <Image src={activeTicket.avatar} width={32} height={32} className="size-8 rounded-full shrink-0" alt="User avatar" />
             <div className="space-y-1">
               <p className="text-xs font-bold">
                 {activeTicket.user} <span className="font-medium text-slate-400 ml-2">10:45 AM</span>
@@ -254,7 +254,7 @@ export default function DisputeManagement() {
         <div className="p-5 border-b border-slate-50">
           <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Customer Details</h5>
           <div className="flex items-center gap-3 mb-4">
-            <img src={activeTicket.avatar} className="size-12 rounded-full ring-2 ring-slate-100" alt="" />
+            <Image src={activeTicket.avatar} width={48} height={48} className="size-12 rounded-full ring-2 ring-slate-100" alt="User avatar" />
             <div>
               <div className="flex items-center gap-1">
                 <span className="font-bold text-sm">{activeTicket.user}</span>
