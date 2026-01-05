@@ -1,7 +1,9 @@
+import { LoginData, RegisterData, AuthResponse } from '@/types';
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export const authService = {
-  async login(loginData: any) {
+  async login(loginData: LoginData): Promise<AuthResponse> {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
@@ -17,7 +19,7 @@ export const authService = {
     return response.json();
   },
 
-  async signup(userData: any) {
+  async signup(userData: RegisterData): Promise<AuthResponse> {
     const response = await fetch(`${API_BASE_URL}/auth/signup`, {
       method: 'POST',
       headers: {
@@ -33,7 +35,7 @@ export const authService = {
     return response.json();
   },
 
-  async register(userData: any) {
+  async register(userData: RegisterData): Promise<AuthResponse> {
     const response = await fetch(`${API_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
@@ -49,7 +51,7 @@ export const authService = {
     return response.json();
   },
 
-  async verifyOTP(email: string, otp: string) {
+  async verifyOTP(email: string, otp: string): Promise<AuthResponse> {
     const response = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
       method: 'POST',
       headers: {
