@@ -16,6 +16,26 @@ export interface User {
   rating?: number;
 }
 
+export interface LoginData {
+  email?: string;
+  phone?: string;
+  password: string;
+}
+
+export interface RegisterData {
+  email: string;
+  phone: string;
+  full_name: string;
+  password: string;
+  role: string;
+}
+
+export interface AuthResponse {
+  role: string;
+  token?: string;
+  user?: User;
+}
+
 export interface Technician {
   id: string;
   name: string;
