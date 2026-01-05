@@ -233,7 +233,7 @@ export default function LandingPage() {
                   Repairs you can trust, <br/>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">by people you can know.</span>
                 </h2>
-                <p className="text-xl text-gray-600 leading-relaxed">We don't send strangers to your door. We send verified professionals with proven skills, clean backgrounds, and stellar community reviews.</p>
+                <p className="text-xl text-gray-600 leading-relaxed">We don&apos;t send strangers to your door. We send verified professionals with proven skills, clean backgrounds, and stellar community reviews.</p>
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -420,7 +420,7 @@ export default function LandingPage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-12">
             <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-8 leading-tight">
-              Don't let a broken phone
+              Don&apos;t let a broken phone
               <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-600 to-accent">slow you down.</span>
             </h2>
