@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
@@ -269,9 +270,11 @@ export default function LandingPage() {
                 <div className="px-8 pb-8 relative">
                   <div className="flex justify-between items-end -mt-16 mb-6">
                     <div className="w-32 h-32 rounded-3xl border-4 border-white overflow-hidden shadow-xl">
-                      <img 
+                      <Image 
                         src="/sarah_jenkins.png" 
                         alt="Sarah Jenkins" 
+                        width={128}
+                        height={128}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -306,7 +309,7 @@ export default function LandingPage() {
                   
                   <div className="bg-gradient-to-r from-gray-50 to-blue-50 p-4 rounded-2xl border border-gray-100 mb-6">
                     <p className="text-gray-700 italic text-center leading-relaxed">
-                      "Sarah was incredible! Fixed my iPhone screen perfectly in just 20 minutes at my office. Super professional and friendly."
+                      &ldquo;Sarah was incredible! Fixed my iPhone screen perfectly in just 20 minutes at my office. Super professional and friendly.&rdquo;
                     </p>
                     <div className="flex justify-center mt-3">
                       <div className="flex items-center gap-1">
@@ -369,7 +372,7 @@ export default function LandingPage() {
                 </div>
                 
                 <blockquote className="text-gray-700 mb-8 leading-relaxed text-lg italic">
-                  "{review.comment}"
+                  &ldquo;{review.comment}&rdquo;
                 </blockquote>
                 
                 <div className="flex items-center gap-4">

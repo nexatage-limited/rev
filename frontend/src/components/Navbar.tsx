@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Navbar() {
   const router = useRouter();
@@ -16,8 +17,8 @@ export default function Navbar() {
             <h1 className="text-2xl font-black tracking-tight bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">Rev</h1>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <a className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200" href="#how-it-works">How it Works</a>
-            <a className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200" href="#technicians">Technicians</a>
+            <Link className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200" href="#how-it-works">How it Works</Link>
+            <Link className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200" href="#technicians">Technicians</Link>
             <button 
               onClick={() => router.push('/auth/signin')}
               className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200"

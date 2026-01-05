@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="bg-white text-gray-900 pt-20 pb-10 border-t border-gray-200">
@@ -19,9 +21,9 @@ export default function Footer() {
                 { icon: "instagram", href: "#" },
                 { icon: "linkedin", href: "#" }
               ].map((social, i) => (
-                <a key={i} className="w-10 h-10 bg-gray-100 hover:bg-primary rounded-xl flex items-center justify-center text-gray-600 hover:text-white transition-all duration-200 transform hover:-translate-y-1" href={social.href}>
+                <Link key={i} className="w-10 h-10 bg-gray-100 hover:bg-primary rounded-xl flex items-center justify-center text-gray-600 hover:text-white transition-all duration-200 transform hover:-translate-y-1" href={social.href}>
                   <span className="material-symbols-outlined text-[18px]">{social.icon}</span>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -31,7 +33,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {["About Us", "Careers", "Press Kit", "Contact"].map((item, i) => (
                 <li key={i}>
-                  <a className="text-gray-600 hover:text-primary transition-colors duration-200 font-medium" href="#">{item}</a>
+                  <Link className="text-gray-600 hover:text-primary transition-colors duration-200 font-medium" href="#">{item}</Link>
                 </li>
               ))}
             </ul>
@@ -42,7 +44,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {["Help Center", "Track Repair", "Warranty Info", "FAQ"].map((item, i) => (
                 <li key={i}>
-                  <a className="text-gray-600 hover:text-primary transition-colors duration-200 font-medium" href="#">{item}</a>
+                  <Link className="text-gray-600 hover:text-primary transition-colors duration-200 font-medium" href="#">{item}</Link>
                 </li>
               ))}
             </ul>
@@ -53,7 +55,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {["Privacy Policy", "Terms of Service", "Cookie Policy", "Refund Policy"].map((item, i) => (
                 <li key={i}>
-                  <a className="text-gray-600 hover:text-primary transition-colors duration-200 font-medium" href="#">{item}</a>
+                  <Link className="text-gray-600 hover:text-primary transition-colors duration-200 font-medium" href="#">{item}</Link>
                 </li>
               ))}
             </ul>
