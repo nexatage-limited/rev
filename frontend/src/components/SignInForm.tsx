@@ -169,7 +169,7 @@ export default function SignInForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-primary text-white rounded-lg font-bold hover:bg-primary/90 disabled:opacity-50"
+            className="w-full py-3 bg-[#FF6A00] text-white rounded-lg font-bold hover:bg-[#e65f00] disabled:opacity-50"
           >
             {loading ? 'Signing In...' : 'Sign In'}
           </button>
@@ -180,7 +180,7 @@ export default function SignInForm() {
             Don&apos;t have an account?{' '}
             <button
               onClick={() => router.push('/auth/signup')}
-              className="text-primary font-medium hover:underline"
+              className="text-[#FF6A00] font-medium hover:underline"
             >
               Sign Up
             </button>

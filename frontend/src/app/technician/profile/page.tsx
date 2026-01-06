@@ -157,7 +157,7 @@ export default function TechnicianProfile() {
                         </div>
                       </div>
                       <p className="text-gray-700 italic bg-gray-50 p-3 rounded-lg">
-                        "{review.comment}"
+                        &quot;{review.comment}&quot;
                       </p>
                     </div>
                   ))}

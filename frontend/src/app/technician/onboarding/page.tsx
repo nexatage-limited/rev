@@ -4,12 +4,6 @@ import { useState } from "react";
 
 export default function TechnicianOnboarding() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
-    personalInfo: {},
-    documents: {},
-    skills: {},
-    banking: {}
-  });
 
   const steps = [
     { id: 1, title: "Personal Information", icon: "person" },

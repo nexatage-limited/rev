@@ -5,7 +5,7 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
       <div className="hidden lg:flex w-1/2 bg-gray-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent to-orange-600 opacity-90"></div>
+        <div className="absolute inset-0 bg-cover bg-no-repeat bg-center opacity-90" style={{backgroundImage: "url('/phone-panel.png')"}}></div>
         <div className="relative z-10 flex flex-col justify-between p-12 w-full text-white">
           <div className="flex items-center gap-4">
             <span className="material-symbols-outlined text-3xl">build</span>

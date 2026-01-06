@@ -1,6 +1,8 @@
 "use client";
 
-import { TechnicianProfile, TechnicianProfileDetailsProps } from "@/types";
+import { TechnicianProfileDetailsProps } from "@/types";
+
+import Image from "next/image";
 
 export default function TechnicianProfileDetails({ 
   technician = {
@@ -52,7 +54,7 @@ export default function TechnicianProfileDetails({
         <div className="flex items-end justify-between -mt-16 mb-4">
           <div className="w-24 h-24 rounded-2xl border-4 border-white shadow-md bg-gray-300 overflow-hidden">
             {technician.avatar ? (
-              <img src={technician.avatar} alt={technician.name} className="w-full h-full object-cover" />
+              <Image src={technician.avatar} alt={technician.name} width={96} height={96} className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full bg-gray-400 flex items-center justify-center text-white font-bold text-2xl">
                 {technician.name.split(' ').map(n => n[0]).join('')}
