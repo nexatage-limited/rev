@@ -25,6 +25,17 @@ export interface DocumentResponse {
   uploaded_at: string;
 }
 
+export interface PendingTechnician {
+  id: number;
+  user_id: number;
+  business_name: string;
+  years_experience: number;
+  specialization: string;
+  verification_status: string;
+  is_verified: boolean;
+  created_at: string;
+}
+
 export interface TechnicianVerificationRequest {
   action: 'approve' | 'reject';
   notes?: string;
@@ -52,8 +63,8 @@ class TechnicianService {
   }
 
   // Admin endpoints
-  async getPendingTechnicians(skip = 0, limit = 100): Promise<any[]> {
-    return apiClient.get<any[]>(`/admin/technicians/pending?skip=${skip}&limit=${limit}`);
+  async getPendingTechnicians(skip = 0, limit = 100): Promise<PendingTechnician[]> {
+    return apiClient.get<PendingTechnician[]>(`/admin/technicians/pending?skip=${skip}&limit=${limit}`);
   }
 
   async verifyTechnician(technicianId: number, verificationData: TechnicianVerificationRequest): Promise<{ message: string }> {

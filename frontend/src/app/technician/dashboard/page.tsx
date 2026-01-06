@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function TechnicianDashboard() {
   const stats = [
     { label: "Acceptance Rate", value: "92%", trend: "+2%", icon: "trending_up" },
@@ -30,6 +32,14 @@ export default function TechnicianDashboard() {
     }
   ];
 
+  const navItems = [
+    { label: "Dashboard", href: "/technician/dashboard", icon: "dashboard" },
+    { label: "Jobs", href: "/technician/jobs", icon: "handyman" },
+    { label: "Profile", href: "/technician/profile", icon: "person" },
+    { label: "Documents", href: "/technician/documents", icon: "description" },
+    { label: "Banking", href: "/technician/banking", icon: "account_balance" }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b px-6 py-4">
@@ -41,6 +51,18 @@ export default function TechnicianDashboard() {
             <h1 className="text-xl font-bold">Rev Technician</h1>
           </div>
           <div className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50"
+                >
+                  <span className="material-symbols-outlined text-lg">{item.icon}</span>
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
             <div className="flex bg-gray-100 p-1 rounded-lg">
               <button className="px-3 py-1.5 bg-white rounded shadow-sm text-xs font-bold text-primary">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse inline-block mr-2"></span>

@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import { jobService, JobResponse } from "@/services/jobs";
 
 export default function JobStatusTracker() {
-  const [jobId, setJobId] = useState("REV-2045");
   const [job, setJob] = useState<JobResponse | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const jobId = "REV-2045";
 
   const jobSteps = [
     { id: 1, title: "Order Confirmed", status: "completed", time: "2:30 PM" },
