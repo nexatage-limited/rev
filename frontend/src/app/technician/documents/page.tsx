@@ -27,7 +27,7 @@ export default function DocumentsPage() {
     try {
       const docs = await technicianService.getMyDocuments();
       setDocuments(docs);
-    } catch (err) {
+    } catch {
       setError("Failed to load documents");
     } finally {
       setLoading(false);
@@ -60,7 +60,7 @@ export default function DocumentsPage() {
       setSelectedFile(null);
       setSelectedType("");
       await loadDocuments();
-    } catch (err) {
+    } catch {
       setError("Failed to upload document");
     } finally {
       setUploading(false);
