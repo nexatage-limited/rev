@@ -16,23 +16,11 @@ export const authService = {
       throw new Error('Login failed');
     }
     
-    return response.json();
-  },
-
-  async signup(userData: RegisterData): Promise<AuthResponse> {
-    const response = await fetch(`${API_BASE_URL}/auth/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-    
-    if (!response.ok) {
-      throw new Error('Sign up failed');
+    const data = await response.json();
+    if (data.access_token) {
+      localStorage.setItem('auth_token', data.access_token);
     }
-    
-    return response.json();
+    return data;
   },
 
   async register(userData: RegisterData): Promise<AuthResponse> {
@@ -65,5 +53,13 @@ export const authService = {
     }
     
     return response.json();
+  },
+
+  getToken(): string | null {
+    return localStorage.getItem('auth_token');
+  },
+
+  logout(): void {
+    localStorage.removeItem('auth_token');
   }
 };

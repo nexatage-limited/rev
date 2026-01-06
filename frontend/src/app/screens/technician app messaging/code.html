@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rev - Technician In-App Messaging</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f96b06",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#23170f",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d211a",
+                        "border-light": "#f5f2f0",
+                        "border-dark": "#3e2f26",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 20px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background-color: #4b5563;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#181411] dark:text-[#e8e6e3] font-display h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark px-6 py-3 shrink-0 z-20">
+<div class="flex items-center gap-4 text-[#181411] dark:text-white">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_543)">
+<path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M7.24189 26.4066C7.31369 26.4411 7.64204 26.5637 8.52504 26.3738C9.59462 26.1438 11.0343 25.5311 12.7183 24.4963C14.7583 23.2426 17.0256 21.4503 19.238 19.238C21.4503 17.0256 23.2426 14.7583 24.4963 12.7183C25.5311 11.0343 26.1438 9.59463 26.3738 8.52504C26.5637 7.64204 26.4411 7.31369 26.4066 7.24189C26.345 7.21246 26.143 7.14535 25.6664 7.1918C24.9745 7.25925 23.9954 7.5498 22.7699 8.14278C20.3369 9.32007 17.3369 11.4915 14.4142 14.4142C11.4915 17.3369 9.32007 20.3369 8.14278 22.7699C7.5498 23.9954 7.25925 24.9745 7.1918 25.6664C7.14534 26.143 7.21246 26.345 7.24189 26.4066ZM29.9001 10.7285C29.4519 12.0322 28.7617 13.4172 27.9042 14.8126C26.465 17.1544 24.4686 19.6641 22.0664 22.0664C19.6641 24.4686 17.1544 26.465 14.8126 27.9042C13.4172 28.7617 12.0322 29.4519 10.7285 29.9001L21.5754 40.747C21.6001 40.7606 21.8995 40.931 22.8729 40.7217C23.9424 40.4916 25.3821 39.879 27.0661 38.8441C29.1062 37.5904 31.3734 35.7982 33.5858 33.5858C35.7982 31.3734 37.5904 29.1062 38.8441 27.0661C39.879 25.3821 40.4916 23.9425 40.7216 22.8729C40.931 21.8995 40.7606 21.6001 40.747 21.5754L29.9001 10.7285ZM29.2403 4.41187L43.5881 18.7597C44.9757 20.1473 44.9743 22.1235 44.6322 23.7139C44.2714 25.3919 43.4158 27.2666 42.252 29.1604C40.8128 31.5022 38.8165 34.012 36.4142 36.4142C34.012 38.8165 31.5022 40.8128 29.1604 42.252C27.2666 43.4158 25.3919 44.2714 23.7139 44.6322C22.1235 44.9743 20.1473 44.9757 18.7597 43.5881L4.41187 29.2403C3.29027 28.1187 3.08209 26.5973 3.21067 25.2783C3.34099 23.9415 3.8369 22.4852 4.54214 21.0277C5.96129 18.0948 8.43335 14.7382 11.5858 11.5858C14.7382 8.43335 18.0948 5.9613 21.0277 4.54214C22.4852 3.8369 23.9415 3.34099 25.2783 3.21067C26.5973 3.08209 28.1187 3.29028 29.2403 4.41187Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clippath id="clip0_6_543"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-[#181411] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">Rev</h2>
+<div class="h-6 w-px bg-gray-300 dark:bg-gray-700 mx-2"></div>
+<span class="text-sm font-medium text-gray-500 dark:text-gray-400">Technician Portal</span>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<button class="relative flex items-center justify-center rounded-full size-10 hover:bg-gray-100 dark:hover:bg-surface-dark dark:text-gray-300 transition-colors">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-gray-200 dark:border-gray-700">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold leading-none text-[#181411] dark:text-white">Alex T.</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">Level 4 Technician</p>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-white dark:ring-gray-800 shadow-sm" data-alt="Technician profile portrait showing a smiling man" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDjvHv2S2KyB-qbYabnkcFuymZH2aIbriMBMeHjpF97a378rV9RdxUD3JuFCIDSnugf8YMm_mS_DotdaEZ0ZhtslqVFV2wTF461Jt-hqv2HlDJRm3L6w6Xx-hnkHRnCdyMdGZzZwVzq1o9L1XfqC_5j1_o2qOrwAN2mLVJeRVi3Ynofcnr1MkIORVH5b6btejnq17_Mkh5T_9swqHVHDD45bBLyv9PN94q07PEji3Zzvib7pw_472YicT0DVJMYRhg2FgxcDH7PvxVD");'></div>
+</div>
+</div>
+</header>
+<!-- Main Layout Container -->
+<div class="flex flex-1 overflow-hidden relative">
+<!-- Left Sidebar: Job & Conversation List -->
+<aside class="w-full md:w-[380px] flex flex-col border-r border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark z-10">
+<!-- Search & Filter -->
+<div class="p-4 border-b border-border-light dark:border-border-dark">
+<label class="flex flex-col w-full h-11">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full bg-[#f5f2f0] dark:bg-[#3e2f26] focus-within:ring-2 ring-primary/50 transition-all">
+<div class="text-[#8c725f] dark:text-gray-400 flex items-center justify-center pl-4 pr-2">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="flex w-full min-w-0 flex-1 bg-transparent border-none text-[#181411] dark:text-white placeholder:text-[#8c725f] dark:placeholder:text-gray-500 text-sm font-normal focus:ring-0 focus:outline-none h-full" placeholder="Search active jobs..." value=""/>
+</div>
+</label>
+<div class="flex gap-2 mt-3 overflow-x-auto no-scrollbar pb-1">
+<button class="px-3 py-1.5 rounded-full bg-[#181411] dark:bg-white text-white dark:text-[#181411] text-xs font-bold whitespace-nowrap">Active Jobs</button>
+<button class="px-3 py-1.5 rounded-full bg-transparent border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 text-xs font-medium whitespace-nowrap transition-colors">Pending</button>
+<button class="px-3 py-1.5 rounded-full bg-transparent border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 text-xs font-medium whitespace-nowrap transition-colors">Archived</button>
+</div>
+</div>
+<!-- Conversation List -->
+<div class="flex-1 overflow-y-auto">
+<!-- Active Item -->
+<div class="cursor-pointer bg-primary/10 dark:bg-primary/20 border-l-4 border-primary p-4 hover:bg-primary/5 dark:hover:bg-primary/25 transition-colors group">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12" data-alt="Portrait of Sarah Miller" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDUnX_Gpu8vECsra38EOC63NhZY60GKzKtWr4NuiF9FzXSmuULnVIIbXiwkHlbSna5HunPT3S9QBbVb8L6-3OxbqllpIka1-vWFnXOI87cN2Xkj7sw6N5-X3OKFjhYOn9w_sW10CpFxbCWa_7o1cK-Ui54znDf7BYzZEg4BgBGrM3RwVdKe5buDGxfejoUzQUEFiHnF3E3SpLvdZJRSEJatsVtrdIOLfdyH4XLpgZbU7xlsTL1w8jQQDU6G_1a80I-UN1KD4X6Xydfm");'></div>
+<span class="absolute bottom-0 right-0 size-3 bg-green-500 border-2 border-white dark:border-[#2d211a] rounded-full"></span>
+</div>
+<div>
+<h3 class="text-[#181411] dark:text-white text-sm font-bold">Sarah Miller</h3>
+<p class="text-primary text-xs font-medium">Order #8821 • Scheduled</p>
+</div>
+</div>
+<span class="text-xs font-medium text-primary">Now</span>
+</div>
+<div class="pl-[60px]">
+<p class="text-gray-900 dark:text-gray-200 text-sm font-medium line-clamp-1">I am currently en route and will be there...</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs mt-1">iPhone 12 Pro • Screen Repair</p>
+</div>
+</div>
+<!-- Inactive Item 1 -->
+<div class="cursor-pointer border-l-4 border-transparent p-4 hover:bg-gray-50 dark:hover:bg-[#362922] transition-colors border-b border-border-light dark:border-border-dark">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 grayscale opacity-80" data-alt="Portrait of David L" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAjQ3udD9oRiERoWHMB71E2rdjrRsB8DwV5dfuJi2HjHRbywh7w9eBnOBB8Toy3vCBoYrDbw_bzq83qPlr9FJUkbPA1QDWWwCaKMoAnx3u-neBpnGZxTJbj-TtefAXK_8Ks6Hu2HFinqGY12sTKVtYOS239nO1pGSmpTaSV98di_HlAg76ex-ap4VdiW8zXRpYdNtjc1yEJkHfX_P8eRWwVJbiF689LNoq48QaStBLIygjETVGnaO-pYV77_F0u8YIN8tcZjYREyKca");'></div>
+</div>
+<div>
+<h3 class="text-[#181411] dark:text-gray-200 text-sm font-bold">David L.</h3>
+<p class="text-gray-500 dark:text-gray-400 text-xs">Order #8819 • Completed</p>
+</div>
+</div>
+<span class="text-xs text-gray-400">Yesterday</span>
+</div>
+<div class="pl-[60px]">
+<p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-1">Thanks for the quick fix!</p>
+<p class="text-gray-400 dark:text-gray-500 text-xs mt-1">Samsung S21 • Battery Replacement</p>
+</div>
+</div>
+<!-- Inactive Item 2 (Unread) -->
+<div class="cursor-pointer border-l-4 border-transparent p-4 hover:bg-gray-50 dark:hover:bg-[#362922] transition-colors border-b border-border-light dark:border-border-dark bg-white dark:bg-surface-dark">
+<div class="flex justify-between items-start mb-1">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12" data-alt="Portrait of Mike R" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCfzVZOrYJM57xkgIKUuMQurIAcyNRJmzpKHQxZvmVWAj6ViOUDWH_RA3p3EZSFuIQRGivkm3ErhYbna6RMRyFjEIzfn1k7GWwu1Q7sKMWZvfWLoLpKYtLoDULbiYMWqKMbJ27-DaIK1lXBNjfVFFmLnRqdntvaxNMdaR04UAZ-0UVvlxWI8OVpAmXUABcyxS6sNqXpKzZMxgIrACq0Gvo2ocZQ3u5SULOTvwohZtbf5uVqoPq0tBJ37XiTEHlFThyiE7ernLaERGvW");'></div>
+<span class="absolute -top-1 -right-1 flex h-4 w-4">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-primary border-2 border-white dark:border-surface-dark"></span>
+</span>
+</div>
+<div>
+<h3 class="text-[#181411] dark:text-white text-sm font-bold">Mike R.</h3>
+<p class="text-gray-500 dark:text-gray-400 text-xs">Order #8825 • Diagnosing</p>
+</div>
+</div>
+<span class="text-xs text-primary font-bold">10m</span>
+</div>
+<div class="pl-[60px]">
+<p class="text-[#181411] dark:text-white text-sm font-bold line-clamp-1">When can you arrive?</p>
+<p class="text-gray-500 dark:text-gray-400 text-xs mt-1">Pixel 6 • Charging Port</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Content: Active Conversation -->
+<main class="flex-1 flex flex-col min-w-0 bg-background-light dark:bg-background-dark relative">
+<!-- Job Context Header -->
+<div class="bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark p-4 shadow-sm z-10">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<!-- User & Job Info -->
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-14 shadow-inner" data-alt="Portrait of Sarah Miller active chat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDgCWcR17ecJ5PygEbfgm1XTRaqit4vfepjlUcJBZ8NEUGPFGdU-iidAAtbPULxJ8nfIEuQSFdIQWtMCL1gacsmAIe78C8n3HNtS-sQTepDhT-s6vgPaPS3Due1lQEshrUNa41S7G06LnEnuJaT9coDRxBI2nfPxMIwvl_JcwBfz9TQy4bDx5yR3WiEdiAT3Ib0jpx0TPE9tZrX7jtJQJbw5GyVdcmAaEjnkiKynW3QKJ5smhdjnrWvYbjSm9FMd-qhgxHK_p2xqt_N");'></div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="text-[#181411] dark:text-white text-xl font-bold tracking-tight">Sarah Miller</h2>
+<span class="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-[10px] font-bold uppercase tracking-wider">Scheduled</span>
+</div>
+<div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mt-1">
+<span class="material-symbols-outlined text-[16px]">smartphone</span>
+<span>iPhone 12 Pro (Screen Repair)</span>
+<span class="mx-1">•</span>
+<span>Order #8821</span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 h-10 rounded-xl bg-[#f5f2f0] dark:bg-[#3e2f26] text-[#181411] dark:text-white text-sm font-bold hover:bg-gray-200 dark:hover:bg-[#4d3b30] transition-colors">
+<span class="material-symbols-outlined text-[20px]">call</span>
+<span class="hidden sm:inline">Call User</span>
+</button>
+<button class="flex items-center gap-2 px-4 h-10 rounded-xl bg-primary text-white text-sm font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20">
+<span class="material-symbols-outlined text-[20px]">edit_calendar</span>
+<span>Update Status</span>
+</button>
+</div>
+</div>
+<!-- Trust Badge -->
+<div class="mt-4 pt-3 border-t border-border-light dark:border-border-dark flex items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+<span>This conversation is monitored for quality and safety purposes.</span>
+</div>
+</div>
+<!-- Chat Stream -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6 flex flex-col bg-slate-50 dark:bg-[#1a120d]">
+<!-- Date Separator -->
+<div class="flex justify-center">
+<span class="px-3 py-1 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-xs font-medium">Today</span>
+</div>
+<!-- System Message -->
+<div class="flex justify-center w-full">
+<div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 text-blue-700 dark:text-blue-300 text-xs">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>Job confirmed for 2:00 PM. Location: 123 Maple St.</span>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-end gap-3 max-w-[80%]">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 shrink-0 mb-1" data-alt="Small user avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAZJHtYnmKI5k8NWP_WsOVLzi-9EZUnm4XOUoSXkl9PwIcC4YN4uidfs-BQ6fuaZN4T-UyYV0Vqv1vM5bF18pK9ajcxnmqWL37QULGrg7id-ocrRQuEPZtM23Pti-zX_QqFQ_NNpkEW4v_8TNify8aNJYqxDwQKuRvyGIiscS05VJVaoWYpUDKFayJFwEmkMyFXSZG7uuwlZpKlH16TQGPFHTD7vJClxx12BP2GQC6diNVsSoa_iKNIF0KuPPKkPsSDVwxa2HZmpvw2");'></div>
+<div class="flex flex-col gap-1">
+<div class="bg-white dark:bg-[#322823] text-[#181411] dark:text-gray-100 p-4 rounded-2xl rounded-bl-none shadow-sm border border-gray-100 dark:border-gray-800">
+<p class="text-sm leading-relaxed">Hi, quick question! Does the repair include a screen protector replacement? Mine is totally shattered too.</p>
+</div>
+<span class="text-[10px] text-gray-400 ml-1">1:45 PM</span>
+</div>
+</div>
+<!-- Tech Message -->
+<div class="flex items-end gap-3 max-w-[80%] self-end flex-row-reverse">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 shrink-0 mb-1" data-alt="Technician avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBYu5Og5nfOxKbhBGUskp0vFgQN7LMCaVH8uKOFZUU5gQR0EXkDsVfdkOLgfWLCehzlF9Jb2NIoIrZt64SKjlZI2_RTaN5Kn03vSgmqW8Yyqy-grHhI7EX0BAZLufPDTYyJyo8KI0Q4U7MhAGAmL7sz20m70sFQUQdRyU-Ha2wC2AgQKUxrW4fYmwU5leDe-f82PdG_HWpGpktplYFWWyFFBiZcC5am_ltCmA7WKv8a4wWtviAOZ7ttMckGxj8_Vkhf3XZZokzsxBFK");'></div>
+<div class="flex flex-col gap-1 items-end">
+<div class="bg-primary text-white p-4 rounded-2xl rounded-br-none shadow-md shadow-orange-500/10">
+<p class="text-sm leading-relaxed">Hello Sarah! Yes, absolutely. I have a complimentary tempered glass protector I'll install after the screen replacement.</p>
+</div>
+<span class="text-[10px] text-gray-400 mr-1">1:48 PM</span>
+</div>
+</div>
+<!-- User Message with Image -->
+<div class="flex items-end gap-3 max-w-[80%]">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 shrink-0 mb-1" data-alt="Small user avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDwEeZGlOqo2P2TcOow4Vaj0Ff_tYv_gu-TxnL1RtaTtOb2nS4rPxbaXLWR3NSdU_eisAcTRgQpK9loxBCEVYLqtfIXsg9xk3qZZqjrWxpoD9EPpQXFo-1AkG-NGJf1sT-qSBmJPQTqdswlPoSKJ1z0ta26ZX5eSyjlRav7CBM2mqvExkJpdvmR6uz7fX8VnzbUUaDQfIlWxTEiApyYvJMYjMYa7RdS-Ov04M6E1Yr2FzfGNHSRhL6OZMDs3iKkuLZcdvhrd3oA0a0k");'></div>
+<div class="flex flex-col gap-1">
+<div class="bg-white dark:bg-[#322823] text-[#181411] dark:text-gray-100 p-2 rounded-2xl rounded-bl-none shadow-sm border border-gray-100 dark:border-gray-800">
+<div class="rounded-xl overflow-hidden mb-2 relative group cursor-pointer">
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10"></div>
+<div class="w-48 h-32 bg-cover bg-center" data-alt="Photo of a cracked phone screen sent by user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAuO0unSJSdKBPiPDEGr21QdZ8M8TbIvG1O2MUz2AkII5AgMMz2lNHQ2Md961nYwDmIGQ0LPFQAk4Or_4LDbW-Ar8YxqW7wDbSSsLKqIZep2ewj-EDv0olvZZjRPt7yVw6zz10rf1d5bdSDndiJUrnzQzQX5BTB9UzCMU6mbCkXllJys9y9FWlKPzZOgRMaetr5MIe9dc4E61mxxVvKDCqUnmsHYwqUN-cNH26UMkKi8vD3CR-oGzpss0t5uTbwdnCHcEj9WoSKuhcC");'></div>
+</div>
+<p class="text-sm px-2 pb-1">Great! Here's the damage just so you know what to expect.</p>
+</div>
+<span class="text-[10px] text-gray-400 ml-1">1:50 PM</span>
+</div>
+</div>
+<!-- Tech Message (Latest) -->
+<div class="flex items-end gap-3 max-w-[80%] self-end flex-row-reverse">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 shrink-0 mb-1" data-alt="Technician avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC3zm6GFcbiPzQjQTPlJIqefHqvbPrKRzJz2eyJ1zUco4hAs2shIcMjTd6YgYMOYltyZjc7NuuhDutqBfyVjwwx_okiK_u_cAJ02HI_HWWCmvTom8GYxSlp4tM-Kn5hZeN4usJpcGOJLz57QCal-931Y90oCE3qiBMbg_42ijfEE5ytUQZG71nbAWKDgtlrV-KSV45oRXCCjO9ci9RmGB3e2HapJiEm9Tra1_xqRh2nzISNPu92vby0KX83kWzHRRJJlgKhs1q2NC_m");'></div>
+<div class="flex flex-col gap-1 items-end">
+<div class="bg-primary text-white p-4 rounded-2xl rounded-br-none shadow-md shadow-orange-500/10">
+<p class="text-sm leading-relaxed">Thanks for the photo. I am currently en route and will be there in about 10 minutes.</p>
+</div>
+<div class="flex items-center gap-1 mr-1">
+<span class="text-[10px] text-gray-400">1:55 PM</span>
+<span class="material-symbols-outlined text-[12px] text-primary">done_all</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark p-4">
+<!-- Quick Replies -->
+<div class="flex gap-2 mb-3 overflow-x-auto no-scrollbar">
+<button class="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-[#3e2f26] hover:bg-gray-200 dark:hover:bg-[#4d3b30] text-[#181411] dark:text-gray-300 text-xs font-bold whitespace-nowrap transition-colors">I've arrived</button>
+<button class="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-[#3e2f26] hover:bg-gray-200 dark:hover:bg-[#4d3b30] text-[#181411] dark:text-gray-300 text-xs font-bold whitespace-nowrap transition-colors">Running 5m late</button>
+<button class="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-[#3e2f26] hover:bg-gray-200 dark:hover:bg-[#4d3b30] text-[#181411] dark:text-gray-300 text-xs font-bold whitespace-nowrap transition-colors">Please call me</button>
+<button class="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-[#3e2f26] hover:bg-gray-200 dark:hover:bg-[#4d3b30] text-[#181411] dark:text-gray-300 text-xs font-bold whitespace-nowrap transition-colors">Can you provide access code?</button>
+</div>
+<!-- Input Field -->
+<div class="flex items-end gap-2">
+<button aria-label="Attach file" class="flex items-center justify-center shrink-0 size-11 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-[#3e2f26] transition-colors">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<div class="relative flex-1">
+<textarea class="w-full bg-[#f5f2f0] dark:bg-[#3e2f26] border-none rounded-2xl px-4 py-3 text-sm text-[#181411] dark:text-white placeholder:text-gray-500 focus:ring-2 focus:ring-primary/50 resize-none overflow-hidden min-h-[44px]" placeholder="Type a message..." rows="1"></textarea>
+<button class="absolute right-3 bottom-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+<span class="material-symbols-outlined text-[20px]">sentiment_satisfied</span>
+</button>
+</div>
+<button aria-label="Send message" class="flex items-center justify-center shrink-0 size-11 rounded-full bg-primary text-white hover:bg-orange-600 transition-colors shadow-md shadow-orange-500/20">
+<span class="material-symbols-outlined text-[20px] ml-0.5">send</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</body></html>
