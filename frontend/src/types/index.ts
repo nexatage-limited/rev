@@ -51,6 +51,26 @@ export interface Technician {
   img?: string;
 }
 
+export interface TechnicianProfile {
+  id: string;
+  name: string;
+  level: string;
+  rating: number;
+  totalJobs: number;
+  specialties: string[];
+  location: string;
+  responseTime: string;
+  completionRate: string;
+  joinDate: string;
+  avatar?: string;
+  bio?: string;
+  certifications?: string[];
+  availability: {
+    status: "available" | "busy" | "offline";
+    nextAvailable?: string;
+  };
+}
+
 export interface Rider {
   id: string;
   name: string;
@@ -83,6 +103,14 @@ export interface Ticket {
 }
 
 export interface Message {
+  id: string;
+  sender: "customer" | "technician" | "system";
+  content: string;
+  timestamp: string;
+  type?: "text" | "image" | "location";
+}
+
+export interface ChatMessage {
   type: "system" | "internal" | "user" | "admin";
   sender?: string;
   role?: string;
@@ -116,4 +144,44 @@ export interface Stat {
   isAccent?: boolean;
   isWarning?: boolean;
   alert?: boolean;
+}
+
+export interface BankAccount {
+  id: string;
+  bankName: string;
+  accountType: "checking" | "savings";
+  accountNumber: string;
+  routingNumber: string;
+  accountHolderName: string;
+  isPrimary: boolean;
+  status: "verified" | "pending" | "failed";
+  addedDate: string;
+}
+
+export interface Certification {
+  id: string;
+  name: string;
+  issuer: string;
+  issueDate: string;
+  expiryDate?: string;
+  status: "verified" | "pending" | "expired" | "rejected";
+  fileUrl?: string;
+}
+
+export interface TechnicianProfileDetailsProps {
+  technician?: TechnicianProfile;
+  onContact?: () => void;
+  onBook?: () => void;
+}
+
+export interface MessagingProps {
+  jobId?: string;
+  customerName?: string;
+  onClose?: () => void;
+}
+
+export interface CertificationUploadProps {
+  onUpload?: (files: FileList) => void;
+  onDelete?: (certId: string) => void;
+  existingCertifications?: Certification[];
 }
