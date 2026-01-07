@@ -4,13 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { technicianService, DocumentResponse } from "@/services/technician";
 
-const DOCUMENT_TYPES = [
-  { value: "id", label: "Government ID" },
-  { value: "license", label: "Business License" },
-  { value: "certification", label: "Technical Certification" },
-  { value: "insurance", label: "Insurance Certificate" }
-];
-
 export default function DocumentsPage() {
   const [documents, setDocuments] = useState<DocumentResponse[]>([]);
   const [uploading, setUploading] = useState(false);
