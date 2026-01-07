@@ -177,7 +177,7 @@ export default function SignUpForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-primary text-white rounded-lg font-bold hover:bg-primary/90 disabled:opacity-50"
+            className="w-full py-3 bg-[#FF6A00] text-white rounded-lg font-bold hover:bg-[#e65f00] disabled:opacity-50"
           >
             {loading ? 'Creating Account...' : 'Create Account'}
           </button>
@@ -188,7 +188,7 @@ export default function SignUpForm() {
             Already have an account?{' '}
             <button
               onClick={() => router.push('/auth/signin')}
-              className="text-primary font-medium hover:underline"
+              className="text-[#FF6A00] font-medium hover:underline"
             >
               Sign In
             </button>

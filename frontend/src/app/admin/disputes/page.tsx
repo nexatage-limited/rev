@@ -17,7 +17,7 @@ const TICKETS = [
   },
   {
     id: "REV-2941",
-    title: "Technician didn't show up",
+    title: "Technician didn&apos;t show up",
     preview: "I waited for 2 hours and nobody came. I want a refund immediately.",
     user: "Mike R.",
     time: "4h ago",
