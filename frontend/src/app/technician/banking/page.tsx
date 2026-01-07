@@ -64,7 +64,7 @@ export default function TechnicianBanking() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-l-green-500">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-600">Today's Earnings</span>
+                <span className="text-sm font-medium text-gray-600">Today&apos;s Earnings</span>
                 <span className="material-symbols-outlined text-green-500">trending_up</span>
               </div>
               <p className="text-3xl font-bold text-green-600">{earnings.today}</p>

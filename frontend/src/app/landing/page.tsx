@@ -137,7 +137,7 @@ export default function LandingPage() {
               { 
                 icon: "payments", 
                 title: "Transparent Pricing", 
-                desc: "Know exactly what you'll pay before you book. No hidden fees, no surprise charges, no last-minute upcharges. Just honest, fair rates.",
+                desc: "Know exactly what you&apos;ll pay before you book. No hidden fees, no surprise charges, no last-minute upcharges. Just honest, fair rates.",
                 color: "from-accent to-orange-600",
                 bgColor: "bg-orange-50"
               }
@@ -182,7 +182,7 @@ export default function LandingPage() {
                 { 
                   icon: "check", 
                   title: "Device Fixed", 
-                  desc: "Your expert repairs your device on-site with genuine parts. Payment is only released after you're completely satisfied with the work.",
+                  desc: "Your expert repairs your device on-site with genuine parts. Payment is only released after you&apos;re completely satisfied with the work.",
                   color: "from-accent to-orange-600"
                 }
               ].map((step, i) => (

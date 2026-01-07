@@ -16,14 +16,14 @@ export default function TechnicianMessaging({ jobId = "REV-2045", customerName =
     {
       id: "2", 
       sender: "customer",
-      content: "Hi! I'm at the office on the 3rd floor. Reception will let you up.",
+      content: "Hi! I&apos;m at the office on the 3rd floor. Reception will let you up.",
       timestamp: "2:32 PM",
       type: "text"
     },
     {
       id: "3",
       sender: "technician", 
-      content: "Perfect! I'm about 5 minutes away. I'll head up once I arrive.",
+      content: "Perfect! I&apos;m about 5 minutes away. I&apos;ll head up once I arrive.",
       timestamp: "2:33 PM",
       type: "text"
     },

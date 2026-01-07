@@ -90,7 +90,7 @@ export default function TechnicianOnboarding() {
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
                 <span className="material-symbols-outlined text-4xl text-gray-400 mb-2">upload</span>
                 <h3 className="font-medium mb-2">Government-issued ID</h3>
-                <p className="text-sm text-gray-500 mb-4">Driver's license, passport, or state ID</p>
+                <p className="text-sm text-gray-500 mb-4">Driver&apos;s license, passport, or state ID</p>
                 <button className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium">
                   Choose File
                 </button>
@@ -256,7 +256,7 @@ export default function TechnicianOnboarding() {
                 <span className="material-symbols-outlined text-yellow-600">schedule</span>
                 <div>
                   <h4 className="font-medium text-yellow-900 mb-1">Application Review</h4>
-                  <p className="text-sm text-yellow-800">Your application will be reviewed within 24-48 hours. You'll receive an email notification once approved.</p>
+                  <p className="text-sm text-yellow-800">Your application will be reviewed within 24-48 hours. You&apos;ll receive an email notification once approved.</p>
                 </div>
               </div>
             </div>
