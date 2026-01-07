@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Technician Job Management - Rev</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#FF6A00","primary-hover": "#e65f00","background-light": "#f5f7f8",
+              "background-dark": "#101922",
+              "text-main": "#000000",},
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>.scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e5e7eb] dark:border-b-[#2a3441] bg-white dark:bg-[#1A232E] px-4 py-3 md:px-10 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-text-main dark:text-white">
+<div class="size-8 text-primary">
+<svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-tight">Rev</h2>
+</div>
+<div class="hidden md:flex flex-1 items-center max-w-md ml-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#60758a] dark:text-[#9ca3af]">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-[#f0f2f5] dark:bg-[#2a3441] border-none rounded-xl text-sm focus:ring-2 focus:ring-primary dark:text-white placeholder:text-[#60758a]" placeholder="Search repairs, customers, or IMEI..." type="text"/>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 md:gap-8">
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#60758a] dark:text-[#9ca3af] hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold" href="#">Jobs</a>
+<a class="text-[#60758a] dark:text-[#9ca3af] hover:text-primary text-sm font-medium transition-colors" href="#">Inventory</a>
+<a class="text-[#60758a] dark:text-[#9ca3af] hover:text-primary text-sm font-medium transition-colors" href="#">Performance</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center size-10 rounded-full bg-[#f0f2f5] dark:bg-[#2a3441] text-text-main dark:text-white relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border border-white dark:border-[#1A232E]"></span>
+</button>
+<div class="size-10 bg-center bg-cover rounded-full border border-[#e5e7eb] dark:border-[#2a3441]" data-alt="Technician profile picture showing a smiling man" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDh6FYMj2G3axpPAxqsexEIFFStVq90zaCXw6S7_IewyEMljWyS4gA0EMs3oRmB4pCFWZ8gkpt2IhbnXuAxkOTvtdcS8fZSSR5BCRZLnDC_t9eCBLE8ZfwIbrPwo5Vi99sye7-K7W_FPXQtcW6vazBi9wTkbE4uHDBKygxuCWnmjeOyXnEAZ55BGKtwhRgbYawGvGbcXQdbR4BZH0E6eqj6v43nkbGnPJM14hRgQP1ME8tQ4qFF9Xl8lp9PPSDxq_ga8wXbw0CFX_26");'></div>
+</div>
+</div>
+</header>
+<main class="layout-container flex h-full grow flex-col px-4 md:px-10 lg:px-20 py-6 max-w-[1440px] mx-auto w-full">
+<div class="flex flex-wrap items-center gap-2 mb-6 text-sm">
+<a class="text-[#60758a] dark:text-[#9ca3af] font-medium hover:underline" href="#">Jobs</a>
+<span class="material-symbols-outlined text-[16px] text-[#60758a] dark:text-[#9ca3af]">chevron_right</span>
+<span class="text-text-main dark:text-white font-medium">Repair #89201</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 h-full">
+<div class="lg:col-span-8 flex flex-col gap-6">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-[#1A232E] p-6 rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2a3441]">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<h1 class="text-2xl md:text-3xl font-bold tracking-tight text-text-main dark:text-white">iPhone 13 Pro Max</h1>
+<span class="px-2.5 py-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-xs font-bold uppercase tracking-wider">High Priority</span>
+</div>
+<p class="text-[#60758a] dark:text-[#9ca3af] text-sm md:text-base">Job ID #89201 • Screen Replacement • Due Today, 4:00 PM</p>
+</div>
+<div class="flex gap-3 w-full md:w-auto">
+<button class="flex-1 md:flex-none h-10 px-4 rounded-lg bg-[#f0f2f5] dark:bg-[#2a3441] text-text-main dark:text-white font-medium text-sm hover:bg-[#e5e7eb] dark:hover:bg-[#374151] transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">print</span>
+                        Print Label
+                    </button>
+<div class="relative flex-1 md:flex-none group">
+<button class="w-full h-10 px-6 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary-hover transition-colors shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
+                            Update Status
+                            <span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1A232E] p-6 rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2a3441] overflow-x-auto">
+<div class="flex items-center justify-between min-w-[600px]">
+<div class="flex flex-col items-center gap-2 relative z-10 w-24">
+<div class="size-10 rounded-full bg-green-500 text-white flex items-center justify-center">
+<span class="material-symbols-outlined">check</span>
+</div>
+<span class="text-sm font-semibold text-green-600 dark:text-green-400">Intake</span>
+<span class="text-xs text-[#60758a] dark:text-[#9ca3af]">09:00 AM</span>
+</div>
+<div class="flex-1 h-1 bg-green-500 -mx-4 mb-6"></div>
+<div class="flex flex-col items-center gap-2 relative z-10 w-24">
+<div class="size-10 rounded-full bg-green-500 text-white flex items-center justify-center">
+<span class="material-symbols-outlined">check</span>
+</div>
+<span class="text-sm font-semibold text-green-600 dark:text-green-400">Diagnostic</span>
+<span class="text-xs text-[#60758a] dark:text-[#9ca3af]">09:45 AM</span>
+</div>
+<div class="flex-1 h-1 bg-primary -mx-4 mb-6"></div>
+<div class="flex flex-col items-center gap-2 relative z-10 w-24">
+<div class="size-10 rounded-full bg-primary text-white flex items-center justify-center shadow-[0_0_0_4px_rgba(255,106,0,0.2)]">
+<span class="material-symbols-outlined">build</span>
+</div>
+<span class="text-sm font-bold text-text-main dark:text-white">Repair</span>
+<span class="text-xs text-primary font-medium">In Progress</span>
+</div>
+<div class="flex-1 h-1 bg-[#e5e7eb] dark:bg-[#374151] -mx-4 mb-6"></div>
+<div class="flex flex-col items-center gap-2 relative z-10 w-24">
+<div class="size-10 rounded-full bg-[#f0f2f5] dark:bg-[#2a3441] text-[#9ca3af] flex items-center justify-center border-2 border-[#e5e7eb] dark:border-[#374151]">
+<span class="material-symbols-outlined">fact_check</span>
+</div>
+<span class="text-sm font-medium text-[#60758a] dark:text-[#9ca3af]">QA</span>
+</div>
+<div class="flex-1 h-1 bg-[#e5e7eb] dark:bg-[#374151] -mx-4 mb-6"></div>
+<div class="flex flex-col items-center gap-2 relative z-10 w-24">
+<div class="size-10 rounded-full bg-[#f0f2f5] dark:bg-[#2a3441] text-[#9ca3af] flex items-center justify-center border-2 border-[#e5e7eb] dark:border-[#374151]">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+<span class="text-sm font-medium text-[#60758a] dark:text-[#9ca3af]">Ready</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-white dark:bg-[#1A232E] p-6 rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2a3441] flex flex-col gap-6">
+<div class="flex items-start gap-4">
+<div class="size-24 bg-[#f0f2f5] dark:bg-[#2a3441] rounded-lg bg-center bg-contain bg-no-repeat flex-shrink-0 border border-[#e5e7eb] dark:border-[#374151]" data-alt="Image of iPhone 13 Pro Max silver back view" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBuRiPkNd24a0jtogTuQL2zg49YLIoWa8k-Qi0HsWoJUrT67UJ1L8swevzuMr2RlY3CaefE8DUKakhBpXJkkmFQsnZrkI2McIFQjsv-ZPpDmRcSH1kXw8ExI_tHwUo-8f5KD2OQsdqtHSg_xFeYyDItFKOMosOV_BHns5SflgZlOyVZcqtEkIbpI0_Z9hJxwRJPnXClvROFhq37YnJdBDQoTtQxr5iiXeMEH-q-nyXC10OMKUNiQTXSK2RHjdiZahCTqtmqniU5NMrC');"></div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-lg text-text-main dark:text-white">Device Details</h3>
+<p class="text-sm text-[#60758a] dark:text-[#9ca3af]">Model: <span class="text-text-main dark:text-white font-medium">iPhone 13 Pro Max</span></p>
+<p class="text-sm text-[#60758a] dark:text-[#9ca3af]">Color: <span class="text-text-main dark:text-white font-medium">Silver</span></p>
+<p class="text-sm text-[#60758a] dark:text-[#9ca3af]">Storage: <span class="text-text-main dark:text-white font-medium">256GB</span></p>
+</div>
+</div>
+<div class="bg-orange-50 dark:bg-orange-900/10 p-4 rounded-lg border border-orange-100 dark:border-orange-800/30">
+<div class="flex items-center gap-2 mb-2 text-primary">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+<span class="text-xs font-bold uppercase tracking-wide">Rev AI Summary</span>
+</div>
+<p class="text-sm text-text-main dark:text-white leading-relaxed">
+                            Customer reports shattered front glass after a 3ft drop. Touch responsiveness is intermittent on the lower right quadrant. FaceID sensor appears undamaged visually. Recommended replacement: OEM Grade OLED Assembly.
+                        </p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-xs text-[#60758a] dark:text-[#9ca3af] uppercase font-bold">IMEI</p>
+<p class="text-sm font-mono text-text-main dark:text-white mt-1">354892094821011</p>
+</div>
+<div>
+<p class="text-xs text-[#60758a] dark:text-[#9ca3af] uppercase font-bold">Warranty</p>
+<p class="text-sm text-green-600 dark:text-green-400 font-medium mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">verified_user</span> Active (Rev+)
+                            </p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<div class="bg-white dark:bg-[#1A232E] p-4 rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2a3441] grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#2a3441] transition-colors group">
+<div class="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<span class="text-xs font-medium text-center">Start Timer</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#2a3441] transition-colors group">
+<div class="size-10 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<span class="text-xs font-medium text-center">Parts</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#2a3441] transition-colors group">
+<div class="size-10 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">add_a_photo</span>
+</div>
+<span class="text-xs font-medium text-center">Photo Log</span>
+</button>
+</div>
+<div class="bg-white dark:bg-[#1A232E] flex-1 p-6 rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2a3441] flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-lg text-text-main dark:text-white">Pre-Repair Checklist</h3>
+<span class="text-xs font-medium text-[#60758a] dark:text-[#9ca3af]">2/5 Completed</span>
+</div>
+<div class="flex flex-col gap-3">
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#2a3441] cursor-pointer">
+<input checked="" class="rounded border-[#d1d5db] dark:border-[#4b5563] text-primary focus:ring-primary size-5" type="checkbox"/>
+<span class="text-sm text-text-main dark:text-white">Verify IMEI matches work order</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#2a3441] cursor-pointer">
+<input checked="" class="rounded border-[#d1d5db] dark:border-[#4b5563] text-primary focus:ring-primary size-5" type="checkbox"/>
+<span class="text-sm text-text-main dark:text-white">Test FaceID Functionality</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#2a3441] cursor-pointer">
+<input class="rounded border-[#d1d5db] dark:border-[#4b5563] text-primary focus:ring-primary size-5" type="checkbox"/>
+<span class="text-sm text-text-main dark:text-white">Check Camera Lenses for Dust</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#2a3441] cursor-pointer">
+<input class="rounded border-[#d1d5db] dark:border-[#4b5563] text-primary focus:ring-primary size-5" type="checkbox"/>
+<span class="text-sm text-text-main dark:text-white">Test Speaker &amp; Microphone</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-[#f0f2f5] dark:hover:bg-[#2a3441] cursor-pointer">
+<input class="rounded border-[#d1d5db] dark:border-[#4b5563] text-primary focus:ring-primary size-5" type="checkbox"/>
+<span class="text-sm text-text-main dark:text-white">Battery Health Check</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-transparent p-2">
+<button class="flex items-center gap-2 text-sm text-[#60758a] dark:text-[#9ca3af] hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                    View Full System Logs (12 entries)
+                </button>
+</div>
+</div>
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-white dark:bg-[#1A232E] rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2a3441] overflow-hidden">
+<div class="p-6 pb-4">
+<div class="flex items-start justify-between gap-4">
+<div class="flex gap-4">
+<div class="size-12 rounded-full bg-center bg-cover" data-alt="Customer portrait" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCG-DLrXxbZrfkqTf9ZroeGt9IW9maGLK6jc5wfWqyEzoFkL5S_Ml_adnV-oEEMyV6ZitRoe4BYEGrTOvEZMz4vxr7PeKd0nd2hcS2So4voN_pGwvYv4lOx9dX5kCa9N5s2-fFDs9EGJ-nOCvJK18UwMTnl-UAIqZbmAcfVYKa6f83llB19HPM-DwL96oKJKFUIaU1tU22ARWS46PtZyecGAnLDqyUVghKzfex21J5Zmx8uOkgF09TfKD8jDtGN_rfb4j3WbKAeNfy4');"></div>
+<div>
+<h3 class="font-bold text-text-main dark:text-white">Sarah Jenkins</h3>
+<div class="flex items-center gap-1 text-sm mt-1">
+<span class="material-symbols-outlined text-yellow-500 text-[16px] fill-current">star</span>
+<span class="font-medium">4.9</span>
+<span class="text-[#60758a] dark:text-[#9ca3af]">• 12 Repairs</span>
+</div>
+</div>
+</div>
+<button class="text-primary hover:bg-orange-50 dark:hover:bg-orange-900/20 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="px-2 py-1 rounded bg-[#f0f2f5] dark:bg-[#2a3441] text-[#60758a] dark:text-[#9ca3af] text-xs font-medium">Verified Customer</span>
+<span class="px-2 py-1 rounded bg-[#f0f2f5] dark:bg-[#2a3441] text-[#60758a] dark:text-[#9ca3af] text-xs font-medium">Premium Member</span>
+</div>
+</div>
+<div class="h-32 w-full bg-cover bg-center relative" data-alt="Map showing customer location in San Francisco" data-location="San Francisco" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDK4mczRATWm3HDALOQsHaBAocWWAnkNZ86h_-fRgYV9bmdEqCa3PWkZ8a27sIWRMvM7D0eSdmuzvh4jqtnxA_jxBt1XXrU5tmD5DrNXiyZGkkPlzZIAcgxuZgEUbHJh5vTFHZrBGq4zRbfu3hQOdx2oFjxKVq3RUCDA7H7qbfDx8ZNPGqlE0To4Fca7VPBH0JctvLwcl0ku1U7fa1e3Z16vQ0p9guzcp1omsKtpmeXnyG-IZjETuz3AB2m-YCO2qCIJJCZKSwaolQQ'); background-color: #e5e7eb;">
+<div class="absolute inset-0 bg-black/10"></div>
+<div class="absolute bottom-2 left-2 bg-white/90 dark:bg-black/80 px-2 py-1 rounded text-xs font-medium backdrop-blur-sm">
+<span class="material-symbols-outlined text-[12px] align-middle mr-1">location_on</span>
+                        ~2.4 miles away
+                    </div>
+</div>
+</div>
+<div class="bg-white dark:bg-[#1A232E] rounded-xl shadow-sm border border-[#e5e7eb] dark:border-[#2a3441] flex flex-col flex-1 min-h-[500px]">
+<div class="p-4 border-b border-[#e5e7eb] dark:border-[#2a3441] flex justify-between items-center">
+<h3 class="font-bold text-text-main dark:text-white">Messages</h3>
+<span class="size-2 bg-green-500 rounded-full animate-pulse"></span>
+</div>
+<div class="flex-1 p-4 flex flex-col gap-4 overflow-y-auto max-h-[500px]">
+<div class="flex justify-center">
+<span class="text-xs text-[#60758a] dark:text-[#9ca3af] bg-[#f0f2f5] dark:bg-[#2a3441] px-2 py-1 rounded-full">Today</span>
+</div>
+<div class="flex gap-3">
+<div class="size-8 rounded-full bg-center bg-cover flex-shrink-0" data-alt="Customer avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuArI-BDzQFzfifFf1WWwFghXD38F0N9I8ewl-kO01-l9hfI_s6wX0zJUhemgolnJNdjR3SPwpAPNhJfDuaaj2Qt47SFb3Fm_4WOpQ53b-WkkwkpjzbCdsVDJmRO57FSxhwAMGqvWo8IqvcB15D7rz1e6k34XIMGWCd4mjCBh_78FrxwoKDzVq3h-7V99UoNQ1N9Z8KxECxhEvHFNFC19kF6ktD5cdVmFII1hXuCIIcknzKRo2pjxj36tl79fQimsQBs0Kgpw-AGCcab');"></div>
+<div class="flex flex-col gap-1 max-w-[80%]">
+<div class="bg-[#f0f2f5] dark:bg-[#2a3441] p-3 rounded-2xl rounded-tl-none text-sm text-text-main dark:text-white">
+                                Hi, just dropped off the phone. I forgot to mention the volume button is a bit sticky too.
+                            </div>
+<span class="text-[10px] text-[#60758a] dark:text-[#9ca3af]">09:12 AM</span>
+</div>
+</div>
+<div class="flex gap-3 flex-row-reverse">
+<div class="size-8 rounded-full bg-center bg-cover flex-shrink-0" data-alt="Technician avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAhRV5QQGNaFTMaGefDQq6qybbbx9QO1-pUBg6nVttCGGP_TMSJmMpZfN8Mkubkji8lj2EbOp8VbdfAvhq9q_hP3ggikdnzVU4kWajj4ib3X8ONsGk7hIZTRgq6Mx_A6591SPsuyX_RuislzCdvwDq4KBIdON0MZYHvau1AS-lHkrPVT_w_qShQ2w2Uy6bIV0og6d1OPOaFhxKk4chHRht6XtqL81u_prNo6nNE9ifa28yjw9Utk4OBpqKHrcXThePsTdnvgD-YuRoG');"></div>
+<div class="flex flex-col gap-1 items-end max-w-[80%]">
+<div class="bg-primary p-3 rounded-2xl rounded-tr-none text-sm text-white">
+                                Thanks Sarah, I've noted that down. I'll clean the mechanism while I have it open.
+                            </div>
+<span class="text-[10px] text-[#60758a] dark:text-[#9ca3af]">09:15 AM</span>
+</div>
+</div>
+<div class="mx-auto w-full max-w-[90%]">
+<div class="bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg p-3 relative">
+<div class="absolute -top-2.5 left-3 bg-white dark:bg-[#1A232E] px-1.5 flex items-center gap-1 border border-gray-100 dark:border-gray-700 rounded-full">
+<span class="material-symbols-outlined text-[14px] text-gray-600 dark:text-gray-400">smart_toy</span>
+<span class="text-[10px] font-bold text-gray-600 dark:text-gray-400 uppercase">Suggestion</span>
+</div>
+<p class="text-xs text-text-main dark:text-white mt-1">
+                                Update customer on progress? <span class="italic text-[#60758a] dark:text-[#9ca3af]">"Just started the screen replacement. Everything looks good inside."</span>
+</p>
+<div class="flex gap-2 mt-2">
+<button class="flex-1 bg-white dark:bg-[#2a3441] hover:bg-gray-50 dark:hover:bg-gray-700 text-text-main dark:text-white text-xs font-medium py-1.5 px-3 rounded border border-gray-200 dark:border-gray-600 transition-colors">
+                                    Use Reply
+                                </button>
+<button class="bg-transparent text-[#60758a] dark:text-[#9ca3af] hover:text-text-main dark:hover:text-white p-1 rounded">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-[#e5e7eb] dark:border-[#2a3441] bg-[#f9fafb] dark:bg-[#111a22] rounded-b-xl">
+<div class="flex items-end gap-2">
+<div class="flex-1 bg-white dark:bg-[#2a3441] border border-[#e5e7eb] dark:border-[#374151] rounded-xl p-2 focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-all">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-sm resize-none scrollbar-hide text-text-main dark:text-white placeholder:text-[#60758a]" placeholder="Type a message..." rows="1"></textarea>
+<div class="flex justify-between items-center mt-2">
+<div class="flex gap-1">
+<button class="p-1 text-[#60758a] dark:text-[#9ca3af] hover:text-primary transition-colors rounded">
+<span class="material-symbols-outlined text-[20px]">image</span>
+</button>
+<button class="p-1 text-[#60758a] dark:text-[#9ca3af] hover:text-primary transition-colors rounded">
+<span class="material-symbols-outlined text-[20px]">attach_file</span>
+</button>
+</div>
+</div>
+</div>
+<button class="size-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-primary-hover transition-colors shadow-sm mb-0.5">
+<span class="material-symbols-outlined text-[20px] ml-0.5">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

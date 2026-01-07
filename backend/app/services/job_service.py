@@ -4,6 +4,7 @@ from fastapi import HTTPException, status
 from ..database import RepairJob, JobStatus, TechnicianProfile
 from ..models import JobCreate
 from .notifications import notification_manager
+from .matching_service import MatchingService
 
 class JobService:
     
@@ -22,10 +23,10 @@ class JobService:
         db.commit()
         db.refresh(new_job)
         
-        # Notify all verified technicians
-        available_techs = db.query(TechnicianProfile).filter(
-            TechnicianProfile.is_verified == True
-        ).all()
+        # Use matching service to find top 3 technicians
+        matched_techs = MatchingService.find_matches(
+            db, job_data.location_lat, job_data.location_long
+        )
         
         notification_payload = {
             "type": "NEW_JOB_OPPORTUNITY",
@@ -34,7 +35,7 @@ class JobService:
             "issue": new_job.issue_description
         }
         
-        for tech in available_techs:
+        for tech in matched_techs:
             await notification_manager.send_personal_message(
                 notification_payload, 
                 tech.user_id
