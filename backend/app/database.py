@@ -70,6 +70,8 @@ class TechnicianProfile(Base):
     is_verified = Column(Boolean, default=False)
     verification_status = Column(Enum(VerificationStatus), default=VerificationStatus.PENDING)
     verification_notes = Column(Text)
+    location_lat = Column(Float, nullable=True)
+    location_long = Column(Float, nullable=True)
     
     user = relationship("User")
 
