@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
@@ -269,14 +268,8 @@ export default function LandingPage() {
                 
                 <div className="px-8 pb-8 relative">
                   <div className="flex justify-between items-end -mt-16 mb-6">
-                    <div className="w-32 h-32 rounded-3xl border-4 border-white overflow-hidden shadow-xl">
-                      <Image 
-                        src="/sarah_jenkins.png" 
-                        alt="Sarah Jenkins" 
-                        width={128}
-                        height={128}
-                        className="w-full h-full object-cover"
-                      />
+                    <div className="w-32 h-32 rounded-3xl border-4 border-white overflow-hidden shadow-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                      <span className="text-white text-5xl font-black">SJ</span>
                     </div>
                     <div className="flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 text-green-700 px-4 py-2 rounded-full text-sm font-bold border border-green-200 shadow-sm">
                       <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
