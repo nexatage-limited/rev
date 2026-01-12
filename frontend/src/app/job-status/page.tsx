@@ -11,11 +11,26 @@ export default function JobStatusTracker() {
 
   const jobSteps = [
     { id: 1, title: "Order Confirmed", status: "completed", time: "2:30 PM" },
-    { id: 2, title: "Technician Assigned", status: "completed", time: "2:45 PM" },
-    { id: 3, title: "Diagnostic Complete", status: "completed", time: "3:15 PM" },
+    {
+      id: 2,
+      title: "T9echnician Assigned",
+      status: "completed",
+      time: "2:45 PM",
+    },
+    {
+      id: 3,
+      title: "Diagnostic Complete",
+      status: "completed",
+      time: "3:15 PM",
+    },
     { id: 4, title: "Repair in Progress", status: "active", time: "3:30 PM" },
     { id: 5, title: "Quality Check", status: "pending", time: "Est. 4:15 PM" },
-    { id: 6, title: "Ready for Pickup", status: "pending", time: "Est. 4:30 PM" }
+    {
+      id: 6,
+      title: "Ready for Pickup",
+      status: "pending",
+      time: "Est. 4:30 PM",
+    },
   ];
 
   useEffect(() => {
@@ -23,10 +38,12 @@ export default function JobStatusTracker() {
       if (jobId) {
         setLoading(true);
         try {
-          const jobData = await jobService.getJobById(parseInt(jobId.replace('REV-', '')));
+          const jobData = await jobService.getJobById(
+            parseInt(jobId.replace("REV-", ""))
+          );
           setJob(jobData);
         } catch (error) {
-          console.error('Error fetching job:', error);
+          console.error("Error fetching job:", error);
         } finally {
           setLoading(false);
         }
@@ -57,7 +74,9 @@ export default function JobStatusTracker() {
                   {job?.device_name || "iPhone 13 Pro"} - Screen Replacement
                 </h2>
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <span className="material-symbols-outlined text-lg">person</span>
+                  <span className="material-symbols-outlined text-lg">
+                    person
+                  </span>
                   <span>Technician: Sarah Jenkins</span>
                 </div>
               </div>
@@ -66,28 +85,43 @@ export default function JobStatusTracker() {
                 {jobSteps.map((step, index) => (
                   <div key={step.id} className="flex items-start gap-4">
                     <div className="flex flex-col items-center">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                        step.status === 'completed' ? 'bg-green-500 text-white' :
-                        step.status === 'active' ? 'bg-primary text-white animate-pulse' :
-                        'bg-gray-200 text-gray-400'
-                      }`}>
-                        {step.status === 'completed' ? (
-                          <span className="material-symbols-outlined text-sm">check</span>
+                      <div
+                        className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                          step.status === "completed"
+                            ? "bg-green-500 text-white"
+                            : step.status === "active"
+                            ? "bg-primary text-white animate-pulse"
+                            : "bg-gray-200 text-gray-400"
+                        }`}
+                      >
+                        {step.status === "completed" ? (
+                          <span className="material-symbols-outlined text-sm">
+                            check
+                          </span>
                         ) : (
                           <span className="text-sm font-bold">{step.id}</span>
                         )}
                       </div>
                       {index < jobSteps.length - 1 && (
-                        <div className={`w-0.5 h-8 mt-2 ${
-                          step.status === 'completed' ? 'bg-green-500' : 'bg-gray-200'
-                        }`} />
+                        <div
+                          className={`w-0.5 h-8 mt-2 ${
+                            step.status === "completed"
+                              ? "bg-green-500"
+                              : "bg-gray-200"
+                          }`}
+                        />
                       )}
                     </div>
                     <div className="flex-1 pb-8">
-                      <h3 className={`font-medium ${
-                        step.status === 'active' ? 'text-primary' : 
-                        step.status === 'completed' ? 'text-gray-900' : 'text-gray-500'
-                      }`}>
+                      <h3
+                        className={`font-medium ${
+                          step.status === "active"
+                            ? "text-primary"
+                            : step.status === "completed"
+                            ? "text-gray-900"
+                            : "text-gray-500"
+                        }`}
+                      >
                         {step.title}
                       </h3>
                       <p className="text-sm text-gray-500">{step.time}</p>
@@ -98,10 +132,16 @@ export default function JobStatusTracker() {
 
               <div className="mt-8 p-4 bg-blue-50 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="material-symbols-outlined text-primary">info</span>
-                  <span className="font-medium text-sm">Estimated Completion</span>
+                  <span className="material-symbols-outlined text-primary">
+                    info
+                  </span>
+                  <span className="font-medium text-sm">
+                    Estimated Completion
+                  </span>
                 </div>
-                <p className="text-sm text-gray-600">Your device will be ready in approximately 45 minutes.</p>
+                <p className="text-sm text-gray-600">
+                  Your device will be ready in approximately 45 minutes.
+                </p>
               </div>
 
               <button className="w-full mt-6 bg-primary text-white py-3 rounded-lg font-medium">
