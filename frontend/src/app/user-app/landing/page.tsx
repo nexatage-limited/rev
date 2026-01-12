@@ -11,7 +11,7 @@ export default function LandingPage() {
 
   const handleGetEstimate = () => {
     if (deviceModel.trim()) {
-      router.push(`/auth/signup?device=${encodeURIComponent(deviceModel)}`);
+      router.push(`/user-app/auth/signup?device=${encodeURIComponent(deviceModel)}`);
     }
   };
 
@@ -424,7 +424,7 @@ export default function LandingPage() {
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
             <button 
-              onClick={() => router.push('/auth/signup')}
+              onClick={() => router.push('/user-app/auth/signup')}
               className="group w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-accent to-orange-600 hover:from-accent/90 hover:to-orange-600/90 text-white font-bold rounded-2xl shadow-2xl text-lg transition-all duration-200 transform hover:-translate-y-1 hover:shadow-3xl"
             >
               <span className="flex items-center justify-center gap-3">
@@ -433,7 +433,7 @@ export default function LandingPage() {
               </span>
             </button>
             <button 
-              onClick={() => router.push('/auth/signup?role=technician')}
+              onClick={() => router.push('/user-app/auth/signup?role=technician')}
               className="group w-full sm:w-auto px-10 py-5 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded-2xl shadow-lg transition-all duration-200 transform hover:-translate-y-1"
             >
               <span className="flex items-center justify-center gap-3">
