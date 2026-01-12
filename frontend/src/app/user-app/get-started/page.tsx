@@ -13,7 +13,7 @@ export default function RoleSelection() {
           className="text-center mb-12"
         >
           <h1 className="text-4xl font-bold text-slate-900 mb-3">Welcome to Rev</h1>
-          <p className="text-slate-600 text-lg">Choose how you'd like to continue</p>
+          <p className="text-slate-600 text-lg">Choose how you&apos;d like to continue</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -69,7 +69,7 @@ export default function RoleSelection() {
                     engineering
                   </span>
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 mb-3">I'm a Technician</h2>
+                <h2 className="text-2xl font-bold text-slate-900 mb-3">I&apos;m a Technician</h2>
                 <p className="text-slate-600 mb-6">
                   Join our network of verified technicians. Grow your business with Rev.
                 </p>

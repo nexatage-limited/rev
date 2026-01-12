@@ -6,7 +6,7 @@ export default function TechnicianOnboarding() {
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold text-slate-900 mb-6">Complete Your Profile</h1>
         <div className="bg-white rounded-xl p-8 shadow-sm">
-          <p className="text-slate-600 mb-4">Welcome! Let's get you verified and ready to accept jobs.</p>
+          <p className="text-slate-600 mb-4">Welcome! Let&apos;s get you verified and ready to accept jobs.</p>
           <div className="space-y-4">
             <div className="p-4 bg-blue-50 rounded-lg">
               <h3 className="font-semibold text-slate-900">Step 1: Upload Documents</h3>
