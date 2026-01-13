@@ -14,8 +14,9 @@ on:
       - staging
 
 jobs:
-  frontend:
+  user-app:
     runs-on: ubuntu-latest
+    name: User App
 
     steps:
       - uses: actions/checkout@v4
@@ -25,22 +26,49 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: frontend/user-app/package-lock.json
 
       - name: Install dependencies
-        working-directory: frontend
+        working-directory: frontend/user-app
         run: npm ci
 
       - name: Lint
-        working-directory: frontend
+        working-directory: frontend/user-app
         run: npm run lint -- --max-warnings=10
 
       - name: Build
-        working-directory: frontend
+        working-directory: frontend/user-app
+        run: npm run build
+
+  admin-dashboard:
+    runs-on: ubuntu-latest
+    name: Admin Dashboard
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: frontend/admin-dashboard/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend/admin-dashboard
+        run: npm ci
+
+      - name: Lint
+        working-directory: frontend/admin-dashboard
+        run: npm run lint -- --max-warnings=10
+
+      - name: Build
+        working-directory: frontend/admin-dashboard
         run: npm run build
 
   backend:
     runs-on: ubuntu-latest
+    name: Backend API
 
     steps:
       - uses: actions/checkout@v4
