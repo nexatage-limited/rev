@@ -1,6 +1,10 @@
 # Vercel
 .vercel
 
+# Next.js
+.next/
+out/
+
 # Node
 node_modules/
 npm-debug.log*
