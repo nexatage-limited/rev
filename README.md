@@ -1,98 +1,68 @@
 # Rev - AI-Assisted Phone Repair Platform
 
-Rev is an AI-assisted, trust-first platform that connects users with vetted mobile phone repair technicians. The platform focuses on reliable matching, transparent pricing, and end-to-end tracking to reduce fraud and increase accountability in phone repairs.
-
-## 🎯 Vision
-
-To make phone repair safe, fast, transparent, and trustworthy.
-
-## 🚀 Tech Stack
-
-### Frontend
-
-- **Framework:** Next.js 14+ with App Router
-- **Styling:** TailwindCSS
-- **Language:** TypeScript
-- **PWA:** Progressive Web App enabled
-
-### Backend
-
-- **Framework:** NestJS (Node.js)
-- **Database:** PostgreSQL + Redis
-- **Real-time:** Firebase Realtime Database
-- **Payments:** Paystack (Nigeria) + Stripe (Global)
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 rev-dev/
-├── frontend/          # Next.js application
-├── backend/           # NestJS API server
-├── docs/              # Project documentation
-│   ├── PRD.md        # Product Requirements Document
-│   ├── ARCHITECTURE.md
-│   └── DESIGN_SYSTEM.md
-└── README.md
+├── frontend/
+│   ├── user-app/          # Customer & Technician App (Port 3000)
+│   └── admin-dashboard/   # Admin Dashboard (Port 3001)
+├── shared/                # Shared types and utilities
+└── backend/               # NestJS API (Port 3002)
 ```
 
-## 🛠️ Getting Started
+## Quick Start
 
-### Prerequisites
-
-- Node.js 18+ and npm
-- PostgreSQL 14+
-- Redis
-
-### Frontend Setup
+### Install Dependencies
 
 ```bash
-cd frontend
+# User App
+cd frontend/user-app
 npm install
+
+# Admin Dashboard
+cd frontend/admin-dashboard
+npm install
+```
+
+### Development
+
+```bash
+# Terminal 1 - User App
+cd frontend/user-app
 npm run dev
-```
 
-The frontend will be available at `http://localhost:3000`
+# Terminal 2 - Admin Dashboard
+cd frontend/admin-dashboard
+npm run dev
 
-### Backend Setup
-
-```bash
+# Terminal 3 - Backend
 cd backend
-npm install
 npm run start:dev
 ```
 
-The API will be available at `http://localhost:3001`
+### URLs
 
-## 📚 Documentation
+- User App: http://localhost:3000
+- Admin Dashboard: http://localhost:3001
+- Backend API: http://localhost:3002
 
-- [Product Requirements Document](./docs/PRD.md) - Complete product specifications
-- [Architecture Overview](./docs/ARCHITECTURE.md) - System design and tech stack
-- [Design System](./docs/DESIGN_SYSTEM.md) - UI/UX guidelines and components
+## Deployment
 
-## 🎨 Design Principles
+Each app deploys independently to Vercel:
 
-1. **Trust by Design** - Every element reinforces credibility and safety
-2. **Clarity** - Information is easy to scan and understand
-3. **Accessibility** - WCAG 2.1 AA compliance
-4. **Speed** - Fast interactions, minimal friction
+**User App:**
+- Root Directory: `frontend/user-app`
+- Build Command: `npm run build`
+- Output Directory: `.next`
 
-## 📊 Success Metrics
+**Admin Dashboard:**
+- Root Directory: `frontend/admin-dashboard`
+- Build Command: `npm run build`
+- Output Directory: `.next`
 
-- Time to submit repair request: ≤ 2 minutes
-- Technician acceptance rate: ≥ 65%
-- Average repair turnaround: ≤ 48 hours
-- Average customer rating: ≥ 4.3/5
-- Repeat user rate (3 months): ≥ 30%
+## Documentation
 
-## 🗓️ Development Timeline
-
-8-week engineering plan with parallel frontend and backend development:
-
-- **Week 1-2:** Setup, authentication, and onboarding
-- **Week 3-4:** Repair flow and matching engine
-- **Week 5-6:** Payments and admin dashboard
-- **Week 7-8:** Testing, hardening, and launch
-
-## 📄 License
-
-Confidential — Rev © 2025
+- [Product Requirements](./docs/PRD.md)
+- [Architecture](./docs/ARCHITECTURE.md)
+- [Design System](./docs/DESIGN_SYSTEM.md)

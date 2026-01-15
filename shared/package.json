@@ -1,0 +1,13 @@
+{
+  "name": "@rev/shared",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.ts",
+  "types": "index.ts",
+  "dependencies": {
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}
