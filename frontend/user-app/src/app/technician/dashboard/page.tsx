@@ -1,65 +1,43 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import TechnicianNav from "@/components/TechnicianNav";
 import { mockTechnicianStats, mockIncomingJobs } from "@/utils/mock-data";
 
 export default function TechnicianDashboard() {
+  const router = useRouter();
+  const [jobs, setJobs] = useState(mockIncomingJobs);
   const stats = mockTechnicianStats;
-  const incomingJobs = mockIncomingJobs;
 
-  const navItems = [
-    { label: "Dashboard", href: "/technician/dashboard", icon: "dashboard" },
-    { label: "Jobs", href: "/technician/jobs", icon: "handyman" },
-    { label: "Profile", href: "/technician/profile", icon: "person" },
-    { label: "Documents", href: "/technician/documents", icon: "description" },
-    { label: "Banking", href: "/technician/banking", icon: "account_balance" }
-  ];
+  const handleAccept = (index: number) => {
+    alert(`Job accepted! Redirecting to active jobs...`);
+    const updatedJobs = jobs.filter((_, i) => i !== index);
+    setJobs(updatedJobs);
+  };
+
+  const handleDecline = (index: number) => {
+    const updatedJobs = jobs.filter((_, i) => i !== index);
+    setJobs(updatedJobs);
+  };
+
+  const handleMessageClient = () => {
+    alert("Opening message interface...");
+  };
+
+  const handleMarkComplete = () => {
+    alert("Job marked as complete! Payment processed.");
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 text-primary">
-              <span className="material-symbols-outlined text-2xl">build</span>
-            </div>
-            <h1 className="text-xl font-bold">Rev Technician</h1>
-          </div>
-          <div className="flex items-center gap-4">
-            <nav className="hidden md:flex items-center gap-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary hover:bg-gray-50"
-                >
-                  <span className="material-symbols-outlined text-lg">{item.icon}</span>
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-            <div className="flex bg-gray-100 p-1 rounded-lg">
-              <button className="px-3 py-1.5 bg-white rounded shadow-sm text-xs font-bold text-primary">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse inline-block mr-2"></span>
-                Online
-              </button>
-              <button className="px-3 py-1.5 text-gray-500 text-xs font-bold">Offline</button>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="text-right">
-                <p className="text-sm font-bold">Alex M.</p>
-                <p className="text-xs text-gray-500">Lvl 3 Technician</p>
-              </div>
-              <div className="w-10 h-10 rounded-full bg-gray-300"></div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <TechnicianNav />
 
       <main className="p-6">
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">Good Morning, Alex</h2>
-          <p className="text-gray-600">You have 3 new requests pending and 2 active jobs.</p>
+          <p className="text-gray-600">You have {jobs.length} new requests pending and 2 active jobs.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
@@ -88,13 +66,13 @@ export default function TechnicianDashboard() {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold flex items-center gap-2">
                 Incoming
-                <span className="bg-primary text-white text-xs px-2 py-0.5 rounded-full">3</span>
+                <span className="bg-primary text-white text-xs px-2 py-0.5 rounded-full">{jobs.length}</span>
               </h3>
               <span className="text-xs text-gray-500 animate-pulse">Auto-refreshing...</span>
             </div>
             
             <div className="space-y-4">
-              {incomingJobs.map((job, i) => (
+              {jobs.map((job, i) => (
                 <div key={i} className={`bg-white rounded-xl border shadow-sm overflow-hidden ${i === 0 ? 'opacity-100' : 'opacity-90'}`}>
                   {i === 0 && <div className="h-1 bg-gradient-to-r from-orange-400 to-red-500 w-3/5 animate-pulse"></div>}
                   <div className="p-4">
@@ -123,10 +101,16 @@ export default function TechnicianDashboard() {
                       </div>
                     )}
                     <div className="grid grid-cols-2 gap-3">
-                      <button className="px-4 py-2 rounded-lg border border-gray-300 font-semibold text-sm">
+                      <button 
+                        onClick={() => handleDecline(i)}
+                        className="px-4 py-2 rounded-lg border border-gray-300 font-semibold text-sm hover:bg-gray-50"
+                      >
                         Decline
                       </button>
-                      <button className="px-4 py-2 rounded-lg bg-primary text-white font-semibold text-sm">
+                      <button 
+                        onClick={() => handleAccept(i)}
+                        className="px-4 py-2 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-primary/90"
+                      >
                         Accept Job
                       </button>
                     </div>
@@ -169,10 +153,16 @@ export default function TechnicianDashboard() {
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <button className="flex-1 py-2.5 rounded-lg border border-gray-300 font-medium text-sm">
+                  <button 
+                    onClick={handleMessageClient}
+                    className="flex-1 py-2.5 rounded-lg border border-gray-300 font-medium text-sm hover:bg-gray-50"
+                  >
                     Message Client
                   </button>
-                  <button className="flex-1 py-2.5 rounded-lg bg-primary text-white font-bold text-sm">
+                  <button 
+                    onClick={handleMarkComplete}
+                    className="flex-1 py-2.5 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90"
+                  >
                     Mark as Complete
                   </button>
                 </div>

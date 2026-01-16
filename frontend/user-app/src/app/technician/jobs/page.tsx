@@ -1,9 +1,30 @@
 "use client";
 
 import { useState } from "react";
+import TechnicianNav from "@/components/TechnicianNav";
 
 export default function TechnicianJobManagement() {
   const [activeTab, setActiveTab] = useState("active");
+
+  const handleMessageCustomer = (jobId: string) => {
+    alert(`Opening message interface for job ${jobId}...`);
+  };
+
+  const handleViewDetails = (jobId: string) => {
+    alert(`Viewing details for job ${jobId}...`);
+  };
+
+  const handleMarkComplete = (jobId: string) => {
+    alert(`Job ${jobId} marked as complete! Payment processed.`);
+  };
+
+  const handleViewReceipt = (jobId: string) => {
+    alert(`Opening receipt for job ${jobId}...`);
+  };
+
+  const handleViewFeedback = (jobId: string) => {
+    alert(`Viewing customer feedback for job ${jobId}...`);
+  };
 
   const activeJobs = [
     {
@@ -49,14 +70,7 @@ export default function TechnicianJobManagement() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b px-6 py-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Job Management</h1>
-          <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-600">Total Earnings Today: <span className="font-bold text-primary">₦320</span></span>
-          </div>
-        </div>
-      </header>
+      <TechnicianNav />
 
       <main className="p-6">
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -121,14 +135,23 @@ export default function TechnicianJobManagement() {
                     </div>
 
                     <div className="flex gap-3">
-                      <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50">
+                      <button 
+                        onClick={() => handleMessageCustomer(job.id)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50"
+                      >
                         Message Customer
                       </button>
-                      <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50">
+                      <button 
+                        onClick={() => handleViewDetails(job.id)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50"
+                      >
                         View Details
                       </button>
                       {job.status === "In Progress" && (
-                        <button className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90">
+                        <button 
+                          onClick={() => handleMarkComplete(job.id)}
+                          className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90"
+                        >
                           Mark Complete
                         </button>
                       )}
@@ -177,10 +200,16 @@ export default function TechnicianJobManagement() {
                     </div>
 
                     <div className="flex gap-3">
-                      <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50">
+                      <button 
+                        onClick={() => handleViewReceipt(job.id)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50"
+                      >
                         View Receipt
                       </button>
-                      <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50">
+                      <button 
+                        onClick={() => handleViewFeedback(job.id)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50"
+                      >
                         Customer Feedback
                       </button>
                     </div>

@@ -1,9 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import TechnicianNav from "@/components/TechnicianNav";
 
 export default function TechnicianBanking() {
   const [selectedPeriod, setSelectedPeriod] = useState("week");
+
+  const handleWithdraw = () => {
+    alert("Initiating withdrawal via Paystack... This will be integrated later.");
+  };
 
   const earnings = {
     today: "₦320",
@@ -49,18 +54,20 @@ export default function TechnicianBanking() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b px-6 py-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Banking & Earnings</h1>
-          <button className="bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2">
-            <span className="material-symbols-outlined">account_balance</span>
-            Withdraw Earnings
-          </button>
-        </div>
-      </header>
+      <TechnicianNav />
 
       <main className="p-6">
         <div className="max-w-6xl mx-auto space-y-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold">Banking & Earnings</h2>
+            <button 
+              onClick={handleWithdraw}
+              className="bg-primary text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-primary/90"
+            >
+              <span className="material-symbols-outlined">account_balance</span>
+              Withdraw Earnings
+            </button>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white p-6 rounded-xl shadow-sm border-l-4 border-l-green-500">
               <div className="flex items-center justify-between mb-2">
