@@ -131,7 +131,7 @@ function JobStatusContent() {
                     </div>
                     <div>
                       <p className="font-bold text-[#181410]">Insured Pickup in Progress</p>
-                      <p className="text-sm text-[#8d715e]">Your device is covered up to $1,000 during transport.</p>
+                      <p className="text-sm text-[#8d715e]">Your device is covered up to ₦1,000 during transport.</p>
                     </div>
                   </div>
                   <div className="w-full sm:w-auto">
@@ -218,7 +218,7 @@ function JobStatusContent() {
                 <div className="flex flex-col gap-1 md:col-span-2 pt-4 border-t border-[#e7dfda]">
                   <p className="text-[#8d715e] text-xs font-bold uppercase tracking-wide">Repair Quote</p>
                   <div className="flex items-center justify-between">
-                    <p className="text-[#181410] text-xl font-bold">$189.00 <span className="text-sm font-normal text-green-600 bg-green-100 px-2 py-0.5 rounded-full ml-2">Approved</span></p>
+                    <p className="text-[#181410] text-xl font-bold">₦189.00 <span className="text-sm font-normal text-green-600 bg-green-100 px-2 py-0.5 rounded-full ml-2">Approved</span></p>
                     <button className="text-[#8d715e] text-sm hover:text-[#ff6a00] transition-colors">Breakdown</button>
                   </div>
                 </div>

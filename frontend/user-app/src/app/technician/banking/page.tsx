@@ -6,10 +6,10 @@ export default function TechnicianBanking() {
   const [selectedPeriod, setSelectedPeriod] = useState("week");
 
   const earnings = {
-    today: "$320",
-    week: "$1,840", 
-    month: "$7,650",
-    total: "$24,890"
+    today: "₦320",
+    week: "₦1,840", 
+    month: "₦7,650",
+    total: "₦24,890"
   };
 
   const recentTransactions = [
@@ -17,7 +17,7 @@ export default function TechnicianBanking() {
       id: "TXN-001",
       type: "Job Payment",
       description: "iPhone 13 Screen Repair - Sarah J.",
-      amount: "+$85",
+      amount: "+₦85",
       date: "Today, 3:45 PM",
       status: "completed"
     },
@@ -25,7 +25,7 @@ export default function TechnicianBanking() {
       id: "TXN-002", 
       type: "Job Payment",
       description: "Samsung S21 Battery - Michael B.",
-      amount: "+$65",
+      amount: "+₦65",
       date: "Today, 1:20 PM", 
       status: "completed"
     },
@@ -33,7 +33,7 @@ export default function TechnicianBanking() {
       id: "TXN-003",
       type: "Weekly Payout",
       description: "Bank Transfer to ****1234",
-      amount: "-$1,520",
+      amount: "-₦1,520",
       date: "Yesterday, 9:00 AM",
       status: "processing"
     },
@@ -41,7 +41,7 @@ export default function TechnicianBanking() {
       id: "TXN-004",
       type: "Job Payment", 
       description: "iPad Air Charging Port - Elena L.",
-      amount: "+$75",
+      amount: "+₦75",
       date: "2 days ago",
       status: "completed"
     }
@@ -167,11 +167,11 @@ export default function TechnicianBanking() {
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Available Balance</span>
-                  <span className="font-bold text-green-600">$1,840</span>
+                  <span className="font-bold text-green-600">₦1,840</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Pending Payout</span>
-                  <span className="font-medium">$320</span>
+                  <span className="font-medium">₦320</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Next Payout</span>
