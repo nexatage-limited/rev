@@ -31,17 +31,7 @@ function LoginForm() {
     }
   }, [roleParam, signupParam])
 
-  const handleOAuthSignIn = async (provider: 'google' | 'apple') => {
-    try {
-      const callbackUrl = userType === 'technician' 
-        ? (isLogin ? '/technician/dashboard' : '/technician/onboarding')
-        : '/customer/dashboard'
-      
-      await signIn(provider, { callbackUrl })
-    } catch (error) {
-      console.error('OAuth error:', error)
-    }
-  }
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

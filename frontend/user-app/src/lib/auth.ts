@@ -18,17 +18,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
-      // You can add custom logic here to save user to your backend
       return true
     },
     async redirect({ url, baseUrl }) {
-      // Handle redirect after sign in
       if (url.startsWith("/")) return `${baseUrl}${url}`
       else if (new URL(url).origin === baseUrl) return url
       return baseUrl
     },
     async session({ session, token }) {
-      // Add custom fields to session
       if (token.sub) {
         session.user.id = token.sub
       }
