@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 export default function LandingPage() {
   const [deviceModel, setDeviceModel] = useState('')
@@ -111,7 +112,7 @@ export default function LandingPage() {
               <div className="absolute bottom-6 left-6 z-20 bg-white/95 backdrop-blur px-4 py-3 rounded-xl shadow-lg border border-gray-100 flex items-center gap-3 max-w-xs">
                 <div className="relative">
                   <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                    <img alt="Technician portrait" className="w-full h-full object-cover" src="/sarah_jenkins.png"/>
+                    <Image alt="Technician portrait" className="w-full h-full object-cover" src="/sarah_jenkins.png" width={40} height={40}/>
                   </div>
                   <div className="absolute -bottom-1 -right-1 bg-green-500 w-3 h-3 rounded-full border-2 border-white"></div>
                 </div>
@@ -246,7 +247,7 @@ export default function LandingPage() {
                 <div className="px-6 pb-6 relative">
                   <div className="flex justify-between items-end -mt-12 mb-4">
                     <div className="w-24 h-24 rounded-2xl border-4 border-white overflow-hidden shadow-md bg-white">
-                      <img alt="Sarah T." className="w-full h-full object-cover" src="/sarah_jenkins.png"/>
+                      <Image alt="Sarah T." className="w-full h-full object-cover" src="/sarah_jenkins.png" width={96} height={96}/>
                     </div>
                     <div className="flex items-center gap-1 bg-green-50 text-green-700 px-3 py-1 rounded-full text-xs font-bold border border-green-100">
                       <span className="w-2 h-2 rounded-full bg-green-500"></span>
