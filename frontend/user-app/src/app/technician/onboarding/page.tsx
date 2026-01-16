@@ -118,16 +118,14 @@ export default function TechnicianOnboarding() {
                     </button>
                   </div>
                 ) : (
-                  <label className="inline-block">
+                  <label className="inline-block bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium cursor-pointer hover:bg-primary/90">
                     <input 
                       type="file" 
                       accept="image/*,.pdf"
                       className="hidden"
                       onChange={(e) => e.target.files?.[0] && handleFileUpload('govId', e.target.files[0])}
                     />
-                    <span className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium cursor-pointer hover:bg-primary/90">
-                      Choose File
-                    </span>
+                    Choose File
                   </label>
                 )}
               </div>
@@ -148,16 +146,14 @@ export default function TechnicianOnboarding() {
                     </button>
                   </div>
                 ) : (
-                  <label className="inline-block">
+                  <label className="inline-block bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium cursor-pointer hover:bg-primary/90">
                     <input 
                       type="file" 
                       accept="image/*,.pdf"
                       className="hidden"
                       onChange={(e) => e.target.files?.[0] && handleFileUpload('proofOfAddress', e.target.files[0])}
                     />
-                    <span className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium cursor-pointer hover:bg-primary/90">
-                      Choose File
-                    </span>
+                    Choose File
                   </label>
                 )}
               </div>
@@ -178,16 +174,14 @@ export default function TechnicianOnboarding() {
                     </button>
                   </div>
                 ) : (
-                  <label className="inline-block">
+                  <label className="inline-block bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium cursor-pointer hover:bg-primary/90">
                     <input 
                       type="file" 
                       accept="image/*,.pdf"
                       className="hidden"
                       onChange={(e) => e.target.files?.[0] && handleFileUpload('backgroundCheck', e.target.files[0])}
                     />
-                    <span className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium cursor-pointer hover:bg-primary/90">
-                      Choose File
-                    </span>
+                    Choose File
                   </label>
                 )}
               </div>
