@@ -1,11 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 
-export default function LoginPage() {
+function LoginForm() {
+  const searchParams = useSearchParams()
+  const roleParam = searchParams.get('role')
+  
   const [isLogin, setIsLogin] = useState(true)
   const [userType, setUserType] = useState<'user' | 'technician'>('user')
   const [formData, setFormData] = useState({
@@ -16,6 +19,16 @@ export default function LoginPage() {
   })
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    if (roleParam === 'customer') {
+      setUserType('user')
+      setIsLogin(false)
+    } else if (roleParam === 'technician') {
+      setUserType('technician')
+      setIsLogin(false)
+    }
+  }, [roleParam])
 
   const handleOAuthSignIn = async (provider: 'google' | 'apple') => {
     try {
@@ -301,7 +314,7 @@ export default function LoginPage() {
             {isLogin && (
               <p className="text-sm text-gray-600">
                 Don&apos;t have an account?{' '}
-                <Link href="/signup" className="text-[#ff6a00] hover:underline font-medium">
+                <Link href="/auth/signup" className="text-[#ff6a00] hover:underline font-medium">
                   Sign up here
                 </Link>
               </p>
@@ -318,5 +331,17 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[#f8f7f5]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ff6a00]"></div>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   )
 }
