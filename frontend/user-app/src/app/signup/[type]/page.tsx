@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useParams } from 'next/navigation'
+import { signup } from '@/lib/auth'
 
 export default function SignupPage() {
   const [isLogin, setIsLogin] = useState(false)
@@ -22,17 +23,21 @@ export default function SignupPage() {
     setLoading(true)
     
     try {
-      // Mock authentication - replace with actual API
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      await signup({
+        email: formData.email,
+        password: formData.password,
+        name: formData.name,
+        confirmPassword: formData.confirmPassword,
+        userType: userType === 'technician' ? 'technician' : 'user'
+      })
       
-      // Redirect based on user type
       if (userType === 'technician') {
         router.push('/technician/dashboard')
       } else {
         router.push('/customer/dashboard')
       }
     } catch (error) {
-      console.error('Authentication error:', error)
+      alert(error instanceof Error ? error.message : 'Signup failed')
     } finally {
       setLoading(false)
     }

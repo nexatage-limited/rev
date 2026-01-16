@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { login, signup } from '@/lib/auth'
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true)
@@ -21,17 +22,29 @@ export default function LoginPage() {
     setLoading(true)
     
     try {
-      // Mock authentication - replace with actual API
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      if (isLogin) {
+        await login({
+          email: formData.email,
+          password: formData.password,
+          userType
+        })
+      } else {
+        await signup({
+          email: formData.email,
+          password: formData.password,
+          name: formData.name,
+          confirmPassword: formData.confirmPassword,
+          userType
+        })
+      }
       
-      // Redirect based on user type
       if (userType === 'technician') {
         router.push('/technician/dashboard')
       } else {
         router.push('/customer/dashboard')
       }
     } catch (error) {
-      console.error('Authentication error:', error)
+      alert(error instanceof Error ? error.message : 'Authentication failed')
     } finally {
       setLoading(false)
     }
