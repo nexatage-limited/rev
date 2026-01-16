@@ -3,16 +3,13 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { login, signup } from '@/lib/auth'
+import { login } from '@/lib/auth'
 
 export default function LoginPage() {
-  const [isLogin, setIsLogin] = useState(true)
   const [userType, setUserType] = useState<'user' | 'technician'>('user')
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    name: '',
-    confirmPassword: ''
+    password: ''
   })
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -22,21 +19,11 @@ export default function LoginPage() {
     setLoading(true)
     
     try {
-      if (isLogin) {
-        await login({
-          email: formData.email,
-          password: formData.password,
-          userType
-        })
-      } else {
-        await signup({
-          email: formData.email,
-          password: formData.password,
-          name: formData.name,
-          confirmPassword: formData.confirmPassword,
-          userType
-        })
-      }
+      await login({
+        email: formData.email,
+        password: formData.password,
+        userType
+      })
       
       if (userType === 'technician') {
         router.push('/technician/dashboard')
@@ -96,32 +83,18 @@ export default function LoginPage() {
 
         <div className="w-full max-w-sm lg:max-w-md">
           <div className="mb-10 text-center">
-            <h2 className="text-3xl font-black tracking-[-0.033em] text-[#181410] mb-2">{isLogin ? 'Welcome back' : 'Create your account'}</h2>
-            <p className="text-gray-500">{isLogin ? 'Repair, replace, and revive your devices.' : 'Join thousands of satisfied customers.'}</p>
+            <h2 className="text-3xl font-black tracking-[-0.033em] text-[#181410] mb-2">Welcome back</h2>
+            <p className="text-gray-500">Sign in to continue</p>
           </div>
 
           {/* Tabs */}
           <div className="flex border-b border-[#e7dfda] mb-8 w-full">
-            <button 
-              onClick={() => setIsLogin(true)}
-              className={`flex flex-1 flex-col items-center justify-center border-b-[3px] pb-3 cursor-pointer group ${
-                isLogin ? 'border-[#ff6a00]' : 'border-transparent hover:border-gray-300 transition-colors'
-              }`}
-            >
-              <p className={`text-sm font-bold leading-normal tracking-[0.015em] ${
-                isLogin ? 'text-[#181410]' : 'text-gray-400 group-hover:text-gray-600'
-              }`}>Log In</p>
+            <button className="flex flex-1 flex-col items-center justify-center border-b-[3px] border-[#ff6a00] pb-3 cursor-pointer group">
+              <p className="text-[#181410] text-sm font-bold leading-normal tracking-[0.015em]">Log In</p>
             </button>
-            <button 
-              onClick={() => setIsLogin(false)}
-              className={`flex flex-1 flex-col items-center justify-center border-b-[3px] pb-3 cursor-pointer group ${
-                !isLogin ? 'border-[#ff6a00]' : 'border-transparent hover:border-gray-300 transition-colors'
-              }`}
-            >
-              <p className={`text-sm font-bold leading-normal tracking-[0.015em] ${
-                !isLogin ? 'text-[#181410]' : 'text-gray-400 group-hover:text-gray-600'
-              }`}>Sign Up</p>
-            </button>
+            <Link href="/signup" className="flex flex-1 flex-col items-center justify-center border-b-[3px] border-transparent hover:border-gray-300 pb-3 cursor-pointer group transition-colors">
+              <p className="text-gray-400 text-sm font-bold leading-normal tracking-[0.015em] group-hover:text-gray-600">Sign Up</p>
+            </Link>
           </div>
 
           {/* User Type Selection */}
@@ -186,27 +159,8 @@ export default function LoginPage() {
 
           {/* Email / Phone Form */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            {!isLogin && (
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-[#181410]" htmlFor="name">Full Name</label>
-                <div className="relative">
-                  <input 
-                    className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
-                    id="name" 
-                    placeholder="Enter your full name" 
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    required={!isLogin}
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-                    <span className="material-symbols-outlined text-[20px]">person</span>
-                  </div>
-                </div>
-              </div>
-            )}
             <div className="space-y-1">
-              <label className="text-sm font-medium text-[#181410]" htmlFor="email">Email Address{isLogin ? ' or Phone Number' : ''}</label>
+              <label className="text-sm font-medium text-[#181410]" htmlFor="email">Email Address</label>
               <div className="relative">
                 <input 
                   className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
@@ -239,34 +193,13 @@ export default function LoginPage() {
                 </div>
               </div>
             </div>
-            {!isLogin && (
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-[#181410]" htmlFor="confirmPassword">Confirm Password</label>
-                <div className="relative">
-                  <input 
-                    className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
-                    id="confirmPassword" 
-                    placeholder="Confirm your password" 
-                    type="password"
-                    value={formData.confirmPassword}
-                    onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                    required={!isLogin}
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-                    <span className="material-symbols-outlined text-[20px]">lock</span>
-                  </div>
-                </div>
-              </div>
-            )}
-            {isLogin && (
-              <div className="flex items-center justify-between">
-                <label className="flex items-center">
-                  <input type="checkbox" className="rounded border-gray-300 text-[#ff6a00] focus:ring-[#ff6a00]" />
-                  <span className="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-                <a href="#" className="text-sm text-[#ff6a00] hover:underline">Forgot password?</a>
-              </div>
-            )}
+            <div className="flex items-center justify-between">
+              <label className="flex items-center">
+                <input type="checkbox" className="rounded border-gray-300 text-[#ff6a00] focus:ring-[#ff6a00]" />
+                <span className="ml-2 text-sm text-gray-600">Remember me</span>
+              </label>
+              <a href="#" className="text-sm text-[#ff6a00] hover:underline">Forgot password?</a>
+            </div>
             <button 
               className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-[#ff6a00] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 disabled:opacity-50 disabled:cursor-not-allowed" 
               type="submit"
@@ -275,10 +208,10 @@ export default function LoginPage() {
               {loading ? (
                 <div className="flex items-center gap-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  <span>{isLogin ? 'Signing in...' : 'Creating account...'}</span>
+                  <span>Signing in...</span>
                 </div>
               ) : (
-                <span className="truncate">{isLogin ? 'Sign In' : 'Create Account'}</span>
+                <span className="truncate">Sign In</span>
               )}
             </button>
           </form>
@@ -287,27 +220,17 @@ export default function LoginPage() {
           <div className="mt-8 text-center space-y-4">
             <div className="flex items-center justify-center gap-1.5 text-xs text-gray-500">
               <span className="material-symbols-outlined text-[14px]">lock</span>
-              <span>Secure, encrypted {isLogin ? 'login' : 'registration'}</span>
+              <span>Secure, encrypted login</span>
             </div>
             <p className="text-xs text-gray-400 max-w-xs mx-auto">
               By continuing, you agree to Rev&apos;s <a className="underline hover:text-[#ff6a00]" href="#">Terms of Service</a> and <a className="underline hover:text-[#ff6a00]" href="#">Privacy Policy</a>.
             </p>
-            {isLogin && (
-              <p className="text-sm text-gray-600">
-                Don&apos;t have an account?{' '}
-                <Link href="/signup" className="text-[#ff6a00] hover:underline font-medium">
-                  Sign up here
-                </Link>
-              </p>
-            )}
-            {!isLogin && (
-              <p className="text-sm text-gray-600">
-                Already have an account?{' '}
-                <button onClick={() => setIsLogin(true)} className="text-[#ff6a00] hover:underline font-medium">
-                  Sign in here
-                </button>
-              </p>
-            )}
+            <p className="text-sm text-gray-600">
+              Don&apos;t have an account?{' '}
+              <Link href="/signup" className="text-[#ff6a00] hover:underline font-medium">
+                Sign up here
+              </Link>
+            </p>
           </div>
         </div>
       </div>

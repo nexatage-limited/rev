@@ -10,7 +10,9 @@ export default function LandingPage() {
 
   const handleGetEstimate = () => {
     if (deviceModel.trim()) {
-      router.push(`/customer/request-repair?device=${encodeURIComponent(deviceModel)}`)
+      router.push(`/auth/signin?redirect=/customer/request-repair&device=${encodeURIComponent(deviceModel)}`)
+    } else {
+      router.push('/auth/signin?redirect=/customer/request-repair')
     }
   }
 
@@ -34,17 +36,25 @@ export default function LandingPage() {
             <div className="hidden md:flex items-center gap-8">
               <a className="text-sm font-medium text-[#181410]/80 hover:text-[#ff6a00] transition-colors" href="#">How it Works</a>
               <a className="text-sm font-medium text-[#181410]/80 hover:text-[#ff6a00] transition-colors" href="#">Technicians</a>
-              <a className="text-sm font-medium text-[#181410]/80 hover:text-[#ff6a00] transition-colors" href="/login">Log In</a>
               <button 
-                onClick={() => router.push('/signup')}
+                onClick={() => router.push('/auth/signin')}
+                className="text-sm font-medium text-[#181410]/80 hover:text-[#ff6a00] transition-colors"
+              >
+                Log In
+              </button>
+              <button 
+                onClick={() => router.push('/get-started')}
                 className="bg-[#ff6a00] hover:bg-[#ff6a00]/90 text-white text-sm font-bold py-2.5 px-5 rounded-lg transition-all shadow-md hover:shadow-lg"
               >
-                Signup
+                Get Started
               </button>
             </div>
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center">
-              <button className="text-[#181410]">
+              <button 
+                onClick={() => router.push('/get-started')}
+                className="text-[#181410]"
+              >
                 <span className="material-symbols-outlined">menu</span>
               </button>
             </div>
@@ -274,7 +284,7 @@ export default function LandingPage() {
                     &ldquo;Sarah was amazing! Fixed my iPhone screen in 20 minutes at my office. Super professional.&rdquo;
                   </p>
                   <button 
-                    onClick={() => router.push('/signup/user')}
+                    onClick={() => router.push('/auth/signin?redirect=/customer/matched-technician')}
                     className="w-full py-3 bg-[#181410] text-white font-bold rounded-xl hover:opacity-90 transition-opacity"
                   >
                     Book Sarah
@@ -297,13 +307,13 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button 
-              onClick={() => router.push('/signup/user')}
+              onClick={() => router.push('/auth/signup?role=customer')}
               className="w-full sm:w-auto px-8 py-4 bg-[#ff6a00] hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-200 transition-all hover:-translate-y-1 text-lg"
             >
               Book a Repair Now
             </button>
             <button 
-              onClick={() => router.push('/signup/technician')}
+              onClick={() => router.push('/auth/signup?role=technician')}
               className="w-full sm:w-auto px-8 py-4 bg-gray-100 hover:bg-gray-200 text-[#181410] font-bold rounded-xl transition-all"
             >
               Become a Technician

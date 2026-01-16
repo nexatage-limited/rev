@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function TechnicianOnboarding() {
   const [currentStep, setCurrentStep] = useState(1);
+  const router = useRouter();
 
   const steps = [
     { id: 1, title: "Personal Information", icon: "person" },
@@ -334,7 +336,10 @@ export default function TechnicianOnboarding() {
                   Next Step
                 </button>
               ) : (
-                <button className="px-6 py-2 bg-green-600 text-white rounded-lg font-medium">
+                <button 
+                  onClick={() => router.push('/technician/dashboard')}
+                  className="px-6 py-2 bg-green-600 text-white rounded-lg font-medium"
+                >
                   Submit Application
                 </button>
               )}
