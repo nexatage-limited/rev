@@ -8,8 +8,9 @@ import { signIn } from 'next-auth/react'
 function LoginForm() {
   const searchParams = useSearchParams()
   const roleParam = searchParams.get('role')
+  const signupParam = searchParams.get('signup')
   
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(signupParam !== 'true')
   const [userType, setUserType] = useState<'user' | 'technician'>('user')
   const [formData, setFormData] = useState({
     email: '',
@@ -23,12 +24,13 @@ function LoginForm() {
   useEffect(() => {
     if (roleParam === 'customer') {
       setUserType('user')
-      setIsLogin(false)
     } else if (roleParam === 'technician') {
       setUserType('technician')
+    }
+    if (signupParam === 'true') {
       setIsLogin(false)
     }
-  }, [roleParam])
+  }, [roleParam, signupParam])
 
   const handleOAuthSignIn = async (provider: 'google' | 'apple') => {
     try {
