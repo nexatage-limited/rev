@@ -1,8 +1,19 @@
 'use client'
 
+import { useEffect, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
-export default function SignupPage() {
+function SignupContent() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const role = searchParams.get('role')
+
+  useEffect(() => {
+    if (role) {
+      router.push(`/auth/signin?role=${role}`)
+    }
+  }, [role, router])
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full space-y-8">
@@ -27,7 +38,7 @@ export default function SignupPage() {
         </div>
 
         <div className="space-y-4">
-          <Link href="/signup/user" className="block">
+          <Link href="/auth/signup?role=customer" className="block">
             <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-[#ff6a00] hover:bg-white transition-all cursor-pointer group">
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0">
@@ -43,7 +54,7 @@ export default function SignupPage() {
             </div>
           </Link>
 
-          <Link href="/signup/technician" className="block">
+          <Link href="/auth/signup?role=technician" className="block">
             <div className="border-2 border-gray-200 rounded-lg p-6 hover:border-[#ff6a00] hover:bg-white transition-all cursor-pointer group">
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0">
@@ -63,12 +74,24 @@ export default function SignupPage() {
         <div className="text-center">
           <p className="text-sm text-gray-600">
             Already have an account?{' '}
-            <Link href="/login" className="font-medium text-[#ff6a00] hover:text-orange-600">
+            <Link href="/auth/signin" className="font-medium text-[#ff6a00] hover:text-orange-600">
               Sign in
             </Link>
           </p>
         </div>
       </div>
     </div>
+  )
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ff6a00]"></div>
+      </div>
+    }>
+      <SignupContent />
+    </Suspense>
   )
 }

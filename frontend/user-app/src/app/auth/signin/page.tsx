@@ -1,10 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
-export default function LoginPage() {
+function LoginForm() {
+  const searchParams = useSearchParams()
+  const roleParam = searchParams.get('role')
+  
   const [isLogin, setIsLogin] = useState(true)
   const [userType, setUserType] = useState<'user' | 'technician'>('user')
   const [formData, setFormData] = useState({
@@ -15,6 +19,26 @@ export default function LoginPage() {
   })
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    if (roleParam === 'customer') {
+      setUserType('user')
+      setIsLogin(false)
+    } else if (roleParam === 'technician') {
+      setUserType('technician')
+      setIsLogin(false)
+    }
+  }, [roleParam])
+
+  const handleOAuthSignIn = async (provider: 'google' | 'apple') => {
+    try {
+      await signIn(provider, {
+        callbackUrl: userType === 'technician' ? '/technician/dashboard' : '/customer/dashboard',
+      })
+    } catch (error) {
+      console.error('OAuth error:', error)
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -144,7 +168,11 @@ export default function LoginPage() {
 
           {/* Social Login */}
           <div className="flex flex-col gap-3 mb-6">
-            <button className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-white border border-[#e5e7eb] text-[#181410] hover:bg-gray-50 transition-colors gap-3 text-sm font-bold leading-normal tracking-[0.015em]">
+            <button 
+              onClick={() => handleOAuthSignIn('google')}
+              type="button"
+              className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-white border border-[#e5e7eb] text-[#181410] hover:bg-gray-50 transition-colors gap-3 text-sm font-bold leading-normal tracking-[0.015em]"
+            >
               <svg height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
                 <g transform="matrix(1, 0, 0, 1, 0, 0)">
                   <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
@@ -155,7 +183,11 @@ export default function LoginPage() {
               </svg>
               <span className="truncate">Continue with Google</span>
             </button>
-            <button className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-white border border-[#e5e7eb] text-[#181410] hover:bg-gray-50 transition-colors gap-3 text-sm font-bold leading-normal tracking-[0.015em]">
+            <button 
+              onClick={() => handleOAuthSignIn('apple')}
+              type="button"
+              className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-white border border-[#e5e7eb] text-[#181410] hover:bg-gray-50 transition-colors gap-3 text-sm font-bold leading-normal tracking-[0.015em]"
+            >
               <svg fill="currentColor" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-.98-.5-2.04-.5-3.02 0-1.22.58-2.12.29-3.08-.85-2.18-2.58-2.12-6.55.85-8.23 1.39-.77 2.75-.48 3.65.25.75.56 1.77.56 2.56 0 .98-.68 2.56-.91 4.14-.14 1.77.83 2.75 2.06 3.23 2.89-2.92 1.4-4.52 3.8-5.75 5.68zm-2.08-12.8c-.12 2.37-2.02 4.16-4.33 4.1-1.02-.02-2.1-.56-2.73-1.5-.75-1.12-.9-2.62.27-4.14 1.02-1.31 2.81-2.02 4.1-1.93.9.06 2.27.75 2.69 2.1l-.01 1.36z"></path>
               </svg>
@@ -282,7 +314,7 @@ export default function LoginPage() {
             {isLogin && (
               <p className="text-sm text-gray-600">
                 Don&apos;t have an account?{' '}
-                <Link href="/signup" className="text-[#ff6a00] hover:underline font-medium">
+                <Link href="/auth/signup" className="text-[#ff6a00] hover:underline font-medium">
                   Sign up here
                 </Link>
               </p>
@@ -299,5 +331,17 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-[#f8f7f5]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ff6a00]"></div>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   )
 }
