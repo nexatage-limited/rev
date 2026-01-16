@@ -25,14 +25,22 @@ export default function TechnicianOnboarding() {
   const [banks, setBanks] = useState<Bank[]>([]);
   const [selectedBank, setSelectedBank] = useState("");
   const [showBankDropdown, setShowBankDropdown] = useState(false);
+  const [bankSearch, setBankSearch] = useState("");
   const router = useRouter();
 
   useEffect(() => {
     fetch('https://supermx1.github.io/nigerian-banks-api/data.json')
       .then(res => res.json())
-      .then(data => setBanks(data))
+      .then(data => {
+        const sortedBanks = data.sort((a: Bank, b: Bank) => a.name.localeCompare(b.name));
+        setBanks(sortedBanks);
+      })
       .catch(err => console.error('Failed to load banks:', err));
   }, []);
+
+  const filteredBanks = banks.filter(bank => 
+    bank.name.toLowerCase().includes(bankSearch.toLowerCase())
+  );
 
   const handleFileUpload = (docType: 'govId' | 'proofOfAddress' | 'backgroundCheck', file: File) => {
     setUploadedDocs(prev => ({ ...prev, [docType]: file }));
@@ -289,34 +297,48 @@ export default function TechnicianOnboarding() {
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium mb-2">Bank Name *</label>
                 <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => setShowBankDropdown(!showBankDropdown)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 outline-none text-left flex items-center justify-between bg-white"
-                  >
-                    {selectedBank ? (
-                      <div className="flex items-center gap-2">
-                        <img src={banks.find(b => b.code === selectedBank)?.logo} alt="Bank logo" className="w-6 h-6 object-contain" />
-                        <span>{banks.find(b => b.code === selectedBank)?.name}</span>
-                      </div>
-                    ) : (
-                      <span className="text-gray-500">Select your bank</span>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={selectedBank ? banks.find(b => b.code === selectedBank)?.name || '' : bankSearch}
+                      onChange={(e) => {
+                        setBankSearch(e.target.value);
+                        setShowBankDropdown(true);
+                        if (selectedBank) setSelectedBank('');
+                      }}
+                      onFocus={() => setShowBankDropdown(true)}
+                      placeholder="Search for your bank"
+                      className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 outline-none"
+                    />
+                    {selectedBank && banks.find(b => b.code === selectedBank)?.logo && (
+                      <img 
+                        src={banks.find(b => b.code === selectedBank)?.logo} 
+                        alt="Bank logo" 
+                        className="absolute right-10 top-1/2 -translate-y-1/2 w-6 h-6 object-contain" 
+                      />
                     )}
-                    <span className="material-symbols-outlined text-gray-400">{showBankDropdown ? 'expand_less' : 'expand_more'}</span>
-                  </button>
-                  {showBankDropdown && (
+                    <button
+                      type="button"
+                      onClick={() => setShowBankDropdown(!showBankDropdown)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2"
+                    >
+                      <span className="material-symbols-outlined text-gray-400">{showBankDropdown ? 'expand_less' : 'expand_more'}</span>
+                    </button>
+                  </div>
+                  {showBankDropdown && filteredBanks.length > 0 && (
                     <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                      {banks.map((bank) => (
+                      {filteredBanks.map((bank) => (
                         <button
                           key={bank.code}
                           type="button"
                           onClick={() => {
                             setSelectedBank(bank.code);
+                            setBankSearch('');
                             setShowBankDropdown(false);
                           }}
                           className="w-full px-3 py-2 hover:bg-gray-50 flex items-center gap-2 text-left"
                         >
-                          <img src={bank.logo} alt={bank.name} className="w-6 h-6 object-contain" />
+                          <img src={bank.logo} alt={bank.name} className="w-6 h-6 object-contain" onError={(e) => e.currentTarget.style.display = 'none'} />
                           <span>{bank.name}</span>
                         </button>
                       ))}
