@@ -2,25 +2,8 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-
-interface JobStatus {
-  id: string
-  deviceName: string
-  issue: string
-  status: 'pending' | 'matched' | 'accepted' | 'in_progress' | 'completed'
-  technician?: {
-    name: string
-    rating: number
-    phone: string
-    estimatedArrival?: string
-  }
-  timeline: {
-    step: string
-    completed: boolean
-    timestamp?: string
-    current?: boolean
-  }[]
-}
+import { JobStatus } from '@/types'
+import { mockJobStatus } from '@/utils/mock-data'
 
 function JobStatusContent() {
   const router = useRouter()
@@ -33,24 +16,8 @@ function JobStatusContent() {
   useEffect(() => {
     // Mock job data - replace with actual API call
     const mockJob: JobStatus = {
-      id: jobId || '88392',
-      deviceName: 'iPhone 13 Pro (Graphite)',
-      issue: 'Cracked Screen Front Glass',
-      status: 'in_progress',
-      technician: {
-        name: 'Sarah Jenkins',
-        rating: 4.9,
-        phone: '+1234567890',
-        estimatedArrival: 'Today, 10:45 AM'
-      },
-      timeline: [
-        { step: 'Request Received', completed: true, timestamp: 'Oct 24, 9:00 AM' },
-        { step: 'Technician Assigned', completed: true, timestamp: 'Oct 24, 10:30 AM · Assigned to Sarah J.' },
-        { step: 'Delivery Rider Accepted', completed: true, timestamp: 'Oct 24, 10:35 AM · Rider: Michael B.' },
-        { step: 'On the way to pick up', completed: false, current: true, timestamp: 'Rider is approximately 5 minutes away.' },
-        { step: 'In Repair', completed: false, timestamp: 'Technician will begin repairs upon arrival.' },
-        { step: 'Ready for Delivery', completed: false, timestamp: 'Estimated delivery: Oct 26' }
-      ]
+      ...mockJobStatus,
+      id: jobId || mockJobStatus.id
     }
 
     setTimeout(() => {
