@@ -5,7 +5,20 @@ import { useRouter } from "next/navigation";
 
 export default function TechnicianOnboarding() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [uploadedDocs, setUploadedDocs] = useState<{
+    govId: File | null;
+    proofOfAddress: File | null;
+    backgroundCheck: File | null;
+  }>({
+    govId: null,
+    proofOfAddress: null,
+    backgroundCheck: null
+  });
   const router = useRouter();
+
+  const handleFileUpload = (docType: 'govId' | 'proofOfAddress' | 'backgroundCheck', file: File) => {
+    setUploadedDocs(prev => ({ ...prev, [docType]: file }));
+  };
 
   const steps = [
     { id: 1, title: "Personal Information", icon: "person" },
@@ -93,27 +106,90 @@ export default function TechnicianOnboarding() {
                 <span className="material-symbols-outlined text-4xl text-gray-400 mb-2">upload</span>
                 <h3 className="font-medium mb-2">Government-issued ID</h3>
                 <p className="text-sm text-gray-500 mb-4">Driver&apos;s license, passport, or state ID</p>
-                <button className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium">
-                  Choose File
-                </button>
+                {uploadedDocs.govId ? (
+                  <div className="flex items-center justify-center gap-2 text-green-600">
+                    <span className="material-symbols-outlined">check_circle</span>
+                    <span className="text-sm font-medium">{uploadedDocs.govId.name}</span>
+                    <button 
+                      onClick={() => setUploadedDocs(prev => ({ ...prev, govId: null }))}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <span className="material-symbols-outlined text-sm">close</span>
+                    </button>
+                  </div>
+                ) : (
+                  <label className="inline-block">
+                    <input 
+                      type="file" 
+                      accept="image/*,.pdf"
+                      className="hidden"
+                      onChange={(e) => e.target.files?.[0] && handleFileUpload('govId', e.target.files[0])}
+                    />
+                    <span className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium cursor-pointer hover:bg-primary/90">
+                      Choose File
+                    </span>
+                  </label>
+                )}
               </div>
 
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
                 <span className="material-symbols-outlined text-4xl text-gray-400 mb-2">upload</span>
                 <h3 className="font-medium mb-2">Proof of Address</h3>
                 <p className="text-sm text-gray-500 mb-4">Utility bill or bank statement (last 3 months)</p>
-                <button className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium">
-                  Choose File
-                </button>
+                {uploadedDocs.proofOfAddress ? (
+                  <div className="flex items-center justify-center gap-2 text-green-600">
+                    <span className="material-symbols-outlined">check_circle</span>
+                    <span className="text-sm font-medium">{uploadedDocs.proofOfAddress.name}</span>
+                    <button 
+                      onClick={() => setUploadedDocs(prev => ({ ...prev, proofOfAddress: null }))}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <span className="material-symbols-outlined text-sm">close</span>
+                    </button>
+                  </div>
+                ) : (
+                  <label className="inline-block">
+                    <input 
+                      type="file" 
+                      accept="image/*,.pdf"
+                      className="hidden"
+                      onChange={(e) => e.target.files?.[0] && handleFileUpload('proofOfAddress', e.target.files[0])}
+                    />
+                    <span className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium cursor-pointer hover:bg-primary/90">
+                      Choose File
+                    </span>
+                  </label>
+                )}
               </div>
 
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
                 <span className="material-symbols-outlined text-4xl text-gray-400 mb-2">upload</span>
                 <h3 className="font-medium mb-2">Background Check Authorization</h3>
                 <p className="text-sm text-gray-500 mb-4">Signed consent form for background verification</p>
-                <button className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium">
-                  Choose File
-                </button>
+                {uploadedDocs.backgroundCheck ? (
+                  <div className="flex items-center justify-center gap-2 text-green-600">
+                    <span className="material-symbols-outlined">check_circle</span>
+                    <span className="text-sm font-medium">{uploadedDocs.backgroundCheck.name}</span>
+                    <button 
+                      onClick={() => setUploadedDocs(prev => ({ ...prev, backgroundCheck: null }))}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <span className="material-symbols-outlined text-sm">close</span>
+                    </button>
+                  </div>
+                ) : (
+                  <label className="inline-block">
+                    <input 
+                      type="file" 
+                      accept="image/*,.pdf"
+                      className="hidden"
+                      onChange={(e) => e.target.files?.[0] && handleFileUpload('backgroundCheck', e.target.files[0])}
+                    />
+                    <span className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium cursor-pointer hover:bg-primary/90">
+                      Choose File
+                    </span>
+                  </label>
+                )}
               </div>
             </div>
           </div>
