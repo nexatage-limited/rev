@@ -31,9 +31,14 @@ export interface RegisterData {
 }
 
 export interface AuthResponse {
+  access_token?: string;
+  token_type?: string;
   role: string;
-  token?: string;
-  user?: User;
+  id?: number;
+  email?: string;
+  phone?: string;
+  full_name?: string;
+  is_verified?: boolean;
 }
 
 export interface Technician {

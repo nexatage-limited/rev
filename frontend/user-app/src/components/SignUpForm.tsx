@@ -22,8 +22,10 @@ export default function SignUpForm() {
   useEffect(() => {
     const role = searchParams.get('role');
     const device = searchParams.get('device');
+    const pathname = window.location.pathname;
     
-    if (role === 'technician') {
+    // Check if we're on a technician signup page
+    if (pathname.includes('/technician') || role === 'technician') {
       setFormData(prev => ({ ...prev, role: 'technician' }));
     }
     
@@ -33,27 +35,41 @@ export default function SignUpForm() {
   }, [searchParams]);
 
   const validateForm = () => {
+    // Clear any existing errors
+    setError("");
+    
+    // Check full name
+    if (!formData.full_name.trim()) {
+      setError("Full name is required");
+      return false;
+    }
+    
+    // Check email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setError("Please enter a valid email address");
       return false;
     }
 
+    // Check phone format (must start with +)
     if (!formData.phone.startsWith('+')) {
       setError("Phone number must start with + (international format)");
       return false;
     }
-
-    if (!formData.full_name.trim()) {
-      setError("Full name is required");
+    
+    // Check phone has enough digits
+    if (formData.phone.length < 10) {
+      setError("Phone number is too short");
       return false;
     }
 
+    // Check password length
     if (formData.password.length < 6) {
       setError("Password must be at least 6 characters");
       return false;
     }
 
+    // Check password confirmation
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
       return false;
@@ -64,28 +80,53 @@ export default function SignUpForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-
-    if (!validateForm()) return;
+    console.log('Form submitted with data:', formData);
+    
+    if (!validateForm()) {
+      console.log('Form validation failed');
+      return;
+    }
 
     setLoading(true);
     try {
-      await authService.register({
+      console.log('Calling auth service register...');
+      const response = await authService.register({
         email: formData.email,
         phone: formData.phone,
         full_name: formData.full_name,
         password: formData.password,
         role: formData.role
       });
+      
+      console.log('Registration successful:', response);
 
       if (formData.role === 'technician') {
         router.push('/technician/onboarding');
       } else {
-        router.push('/auth/signin?registered=true');
+        router.push('/dashboard');
       }
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : "Registration failed";
-      setError(errorMessage);
+      console.error('Registration failed:', err);
+      let errorMessage = "Registration failed";
+      
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (typeof err === 'string') {
+        errorMessage = err;
+      }
+      
+      // Handle specific backend validation errors
+      if (errorMessage.includes('email')) {
+        setError("Email address is already registered or invalid");
+      } else if (errorMessage.includes('phone')) {
+        setError("Phone number is already registered or invalid format");
+      } else if (errorMessage.includes('password')) {
+        setError("Password does not meet requirements");
+      } else if (errorMessage.includes('server') || errorMessage.includes('connect') || errorMessage.includes('Backend')) {
+        setError("⚠️ Backend server is not running. Please start the backend server first.");
+      } else {
+        setError(errorMessage);
+      }
     } finally {
       setLoading(false);
     }
@@ -187,7 +228,7 @@ export default function SignUpForm() {
           <p className="text-sm text-gray-600">
             Already have an account?{' '}
             <button
-              onClick={() => router.push('/auth/signin')}
+              onClick={() => router.push('/login')}
               className="text-[#FF6A00] font-medium hover:underline"
             >
               Sign In

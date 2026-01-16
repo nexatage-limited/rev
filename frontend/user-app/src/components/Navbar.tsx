@@ -20,16 +20,16 @@ export default function Navbar() {
             <Link className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200" href="#how-it-works">How it Works</Link>
             <Link className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200" href="#technicians">Technicians</Link>
             <button 
-              onClick={() => router.push('/auth/signin')}
+              onClick={() => router.push('/login')}
               className="text-sm font-semibold text-gray-600 hover:text-primary transition-colors duration-200"
             >
               Log In
             </button>
             <button 
-              onClick={() => router.push('/auth/signup')}
+              onClick={() => router.push('/signup')}
               className="bg-gradient-to-r from-accent to-orange-600 hover:from-accent/90 hover:to-orange-600/90 text-white text-sm font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
             >
-              Book a Repair
+              Sign Up
             </button>
           </div>
         </div>

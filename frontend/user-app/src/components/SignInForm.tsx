@@ -179,7 +179,7 @@ export default function SignInForm() {
           <p className="text-sm text-gray-600">
             Don&apos;t have an account?{' '}
             <button
-              onClick={() => router.push('/auth/signup')}
+              onClick={() => router.push('/signup')}
               className="text-[#FF6A00] font-medium hover:underline"
             >
               Sign Up
