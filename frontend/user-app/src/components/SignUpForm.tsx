@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { authService } from "@/services/auth";
+import { register } from "@/lib/auth";
+import { Input } from "@/components/ui/Input";
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -34,71 +35,20 @@ export default function SignUpForm() {
     }
   }, [searchParams]);
 
-  const validateForm = () => {
-    // Clear any existing errors
-    setError("");
-    
-    // Check full name
-    if (!formData.full_name.trim()) {
-      setError("Full name is required");
-      return false;
-    }
-    
-    // Check email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError("Please enter a valid email address");
-      return false;
-    }
-
-    // Check phone format (must start with +)
-    if (!formData.phone.startsWith('+')) {
-      setError("Phone number must start with + (international format)");
-      return false;
-    }
-    
-    // Check phone has enough digits
-    if (formData.phone.length < 10) {
-      setError("Phone number is too short");
-      return false;
-    }
-
-    // Check password length
-    if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters");
-      return false;
-    }
-
-    // Check password confirmation
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      return false;
-    }
-
-    return true;
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted with data:', formData);
-    
-    if (!validateForm()) {
-      console.log('Form validation failed');
-      return;
-    }
-
     setLoading(true);
+    setError("");
+    
     try {
-      console.log('Calling auth service register...');
-      const response = await authService.register({
+      await register({
         email: formData.email,
         phone: formData.phone,
         full_name: formData.full_name,
         password: formData.password,
+        confirmPassword: formData.confirmPassword,
         role: formData.role
       });
-      
-      console.log('Registration successful:', response);
 
       if (formData.role === 'technician') {
         router.push('/technician/onboarding');
@@ -106,26 +56,10 @@ export default function SignUpForm() {
         router.push('/dashboard');
       }
     } catch (err: unknown) {
-      console.error('Registration failed:', err);
-      let errorMessage = "Registration failed";
-      
       if (err instanceof Error) {
-        errorMessage = err.message;
-      } else if (typeof err === 'string') {
-        errorMessage = err;
-      }
-      
-      // Handle specific backend validation errors
-      if (errorMessage.includes('email')) {
-        setError("Email address is already registered or invalid");
-      } else if (errorMessage.includes('phone')) {
-        setError("Phone number is already registered or invalid format");
-      } else if (errorMessage.includes('password')) {
-        setError("Password does not meet requirements");
-      } else if (errorMessage.includes('server') || errorMessage.includes('connect') || errorMessage.includes('Backend')) {
-        setError("⚠️ Backend server is not running. Please start the backend server first.");
+        setError(err.message);
       } else {
-        setError(errorMessage);
+        setError('Registration failed');
       }
     } finally {
       setLoading(false);
@@ -154,66 +88,53 @@ export default function SignUpForm() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block text-sm font-medium mb-2">Full Name *</label>
-            <input
-              type="text"
-              required
-              value={formData.full_name}
-              onChange={(e) => setFormData({...formData, full_name: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 outline-none"
-              placeholder="Enter your full name"
-            />
-          </div>
+          <Input
+            label="Full Name *"
+            type="text"
+            required
+            value={formData.full_name}
+            onChange={(e) => setFormData({...formData, full_name: e.target.value})}
+            placeholder="Enter your full name"
+          />
+
+          <Input
+            label="Email Address *"
+            type="email"
+            required
+            value={formData.email}
+            onChange={(e) => setFormData({...formData, email: e.target.value})}
+            placeholder="name@example.com"
+          />
 
           <div>
-            <label className="block text-sm font-medium mb-2">Email Address *</label>
-            <input
-              type="email"
-              required
-              value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 outline-none"
-              placeholder="name@example.com"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium mb-2">Phone Number *</label>
-            <input
+            <Input
+              label="Phone Number *"
               type="tel"
               required
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 outline-none"
               placeholder="+1234567890"
             />
             <p className="text-xs text-gray-500 mt-1">Must include country code (e.g., +1 for US)</p>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-2">Password *</label>
-            <input
-              type="password"
-              required
-              value={formData.password}
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 outline-none"
-              placeholder="Minimum 6 characters"
-            />
-          </div>
+          <Input
+            label="Password *"
+            type="password"
+            required
+            value={formData.password}
+            onChange={(e) => setFormData({...formData, password: e.target.value})}
+            placeholder="Minimum 6 characters"
+          />
 
-          <div>
-            <label className="block text-sm font-medium mb-2">Confirm Password *</label>
-            <input
-              type="password"
-              required
-              value={formData.confirmPassword}
-              onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 outline-none"
-              placeholder="Confirm your password"
-            />
-          </div>
+          <Input
+            label="Confirm Password *"
+            type="password"
+            required
+            value={formData.confirmPassword}
+            onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+            placeholder="Confirm your password"
+          />
 
           <button
             type="submit"

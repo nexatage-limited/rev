@@ -3,7 +3,6 @@
 import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { signIn } from 'next-auth/react'
 
 function LoginForm() {
   const searchParams = useSearchParams()
@@ -32,24 +31,13 @@ function LoginForm() {
     }
   }, [roleParam, signupParam])
 
-  const handleOAuthSignIn = async (provider: 'google' | 'apple') => {
-    try {
-      const callbackUrl = userType === 'technician' 
-        ? (isLogin ? '/technician/dashboard' : '/technician/onboarding')
-        : '/customer/dashboard'
-      
-      await signIn(provider, { callbackUrl })
-    } catch (error) {
-      console.error('OAuth error:', error)
-    }
-  }
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     
     try {
-      // Mock authentication - replace with actual API
       await new Promise(resolve => setTimeout(resolve, 1500))
       
       // Redirect based on user type and login/signup
@@ -68,14 +56,12 @@ function LoginForm() {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-[#f8f7f5] font-display antialiased text-[#181410]">
-      {/* Left Side: Hero / Brand Imagery (Desktop Only) */}
       <div className="relative hidden lg:flex w-full lg:w-1/2 bg-[#23170f] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="h-full w-full bg-cover bg-center opacity-80 mix-blend-overlay" style={{backgroundImage: 'url("/phone-panel.png")'}}></div>
           <div className="absolute inset-0 bg-gradient-to-b from-[#23170f]/80 via-transparent to-[#23170f]/90"></div>
         </div>
         <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-          {/* Logo Large */}
           <div className="flex items-center gap-4 text-white">
             <div className="size-8">
               <svg className="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -97,9 +83,7 @@ function LoginForm() {
         </div>
       </div>
 
-      {/* Right Side: Authentication Form */}
       <div className="flex-1 flex flex-col justify-center items-center px-4 py-8 lg:px-20 relative bg-[#f8f7f5]">
-        {/* Mobile Logo */}
         <div className="absolute top-8 left-8 lg:hidden flex items-center gap-3 text-[#181410]">
           <div className="size-6">
             <svg className="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -116,7 +100,6 @@ function LoginForm() {
             <p className="text-gray-500">{isLogin ? 'Repair, replace, and revive your devices.' : 'Join thousands of satisfied customers.'}</p>
           </div>
 
-          {/* Tabs */}
           <div className="flex border-b border-[#e7dfda] mb-8 w-full">
             <button 
               onClick={() => setIsLogin(true)}
@@ -140,7 +123,6 @@ function LoginForm() {
             </button>
           </div>
 
-          {/* User Type Selection */}
           <div className="mb-6">
             <p className="text-sm font-medium text-[#181410] mb-3">I am a:</p>
             <div className="grid grid-cols-2 gap-3">
@@ -171,124 +153,57 @@ function LoginForm() {
             </div>
           </div>
 
-          {/* Social Login */}
-          <div className="flex flex-col gap-3 mb-6">
-            <button 
-              onClick={() => handleOAuthSignIn('google')}
-              type="button"
-              className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-white border border-[#e5e7eb] text-[#181410] hover:bg-gray-50 transition-colors gap-3 text-sm font-bold leading-normal tracking-[0.015em]"
-            >
-              <svg height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-                <g transform="matrix(1, 0, 0, 1, 0, 0)">
-                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
-                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
-                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
-                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
-                </g>
-              </svg>
-              <span className="truncate">Continue with Google</span>
-            </button>
-            <button 
-              onClick={() => handleOAuthSignIn('apple')}
-              type="button"
-              className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-white border border-[#e5e7eb] text-[#181410] hover:bg-gray-50 transition-colors gap-3 text-sm font-bold leading-normal tracking-[0.015em]"
-            >
-              <svg fill="currentColor" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-.98-.5-2.04-.5-3.02 0-1.22.58-2.12.29-3.08-.85-2.18-2.58-2.12-6.55.85-8.23 1.39-.77 2.75-.48 3.65.25.75.56 1.77.56 2.56 0 .98-.68 2.56-.91 4.14-.14 1.77.83 2.75 2.06 3.23 2.89-2.92 1.4-4.52 3.8-5.75 5.68zm-2.08-12.8c-.12 2.37-2.02 4.16-4.33 4.1-1.02-.02-2.1-.56-2.73-1.5-.75-1.12-.9-2.62.27-4.14 1.02-1.31 2.81-2.02 4.1-1.93.9.06 2.27.75 2.69 2.1l-.01 1.36z"></path>
-              </svg>
-              <span className="truncate">Continue with Apple</span>
-            </button>
-          </div>
-
-          {/* Divider */}
-          <div className="relative flex items-center justify-center mb-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-200"></div>
-            </div>
-            <div className="relative bg-[#f8f7f5] px-2 text-xs text-gray-500 uppercase tracking-wider">Or continue with</div>
-          </div>
-
-          {/* Email / Phone Form */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {!isLogin && (
               <div className="space-y-1">
                 <label className="text-sm font-medium text-[#181410]" htmlFor="name">Full Name</label>
-                <div className="relative">
-                  <input 
-                    className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
-                    id="name" 
-                    placeholder="Enter your full name" 
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    required={!isLogin}
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-                    <span className="material-symbols-outlined text-[20px]">person</span>
-                  </div>
-                </div>
+                <input 
+                  className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
+                  id="name" 
+                  placeholder="Enter your full name" 
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  required={!isLogin}
+                />
               </div>
             )}
             <div className="space-y-1">
-              <label className="text-sm font-medium text-[#181410]" htmlFor="email">Email Address{isLogin ? ' or Phone Number' : ''}</label>
-              <div className="relative">
-                <input 
-                  className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
-                  id="email" 
-                  placeholder="name@example.com" 
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  required
-                />
-                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-                  <span className="material-symbols-outlined text-[20px]">mail</span>
-                </div>
-              </div>
+              <label className="text-sm font-medium text-[#181410]" htmlFor="email">Email Address</label>
+              <input 
+                className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
+                id="email" 
+                placeholder="name@example.com" 
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                required
+              />
             </div>
             <div className="space-y-1">
               <label className="text-sm font-medium text-[#181410]" htmlFor="password">Password</label>
-              <div className="relative">
-                <input 
-                  className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
-                  id="password" 
-                  placeholder="Enter your password" 
-                  type="password"
-                  value={formData.password}
-                  onChange={(e) => setFormData({...formData, password: e.target.value})}
-                  required
-                />
-                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-                  <span className="material-symbols-outlined text-[20px]">lock</span>
-                </div>
-              </div>
+              <input 
+                className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
+                id="password" 
+                placeholder="Enter your password" 
+                type="password"
+                value={formData.password}
+                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                required
+              />
             </div>
             {!isLogin && (
               <div className="space-y-1">
                 <label className="text-sm font-medium text-[#181410]" htmlFor="confirmPassword">Confirm Password</label>
-                <div className="relative">
-                  <input 
-                    className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
-                    id="confirmPassword" 
-                    placeholder="Confirm your password" 
-                    type="password"
-                    value={formData.confirmPassword}
-                    onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                    required={!isLogin}
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-                    <span className="material-symbols-outlined text-[20px]">lock</span>
-                  </div>
-                </div>
-              </div>
-            )}
-            {isLogin && (
-              <div className="flex items-center justify-between">
-                <label className="flex items-center">
-                  <input type="checkbox" className="rounded border-gray-300 text-[#ff6a00] focus:ring-[#ff6a00]" />
-                  <span className="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-                <a href="#" className="text-sm text-[#ff6a00] hover:underline">Forgot password?</a>
+                <input 
+                  className="w-full rounded-xl border border-[#e6e6e6] bg-white px-4 py-3 text-sm text-[#181410] placeholder-gray-400 focus:border-[#ff6a00] focus:outline-none focus:ring-1 focus:ring-[#ff6a00]" 
+                  id="confirmPassword" 
+                  placeholder="Confirm your password" 
+                  type="password"
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                  required={!isLogin}
+                />
               </div>
             )}
             <button 
@@ -307,12 +222,7 @@ function LoginForm() {
             </button>
           </form>
 
-          {/* Footer / Trust */}
           <div className="mt-8 text-center space-y-4">
-            <div className="flex items-center justify-center gap-1.5 text-xs text-gray-500">
-              <span className="material-symbols-outlined text-[14px]">lock</span>
-              <span>Secure, encrypted {isLogin ? 'login' : 'registration'}</span>
-            </div>
             <p className="text-xs text-gray-400 max-w-xs mx-auto">
               By continuing, you agree to Rev&apos;s <a className="underline hover:text-[#ff6a00]" href="#">Terms of Service</a> and <a className="underline hover:text-[#ff6a00]" href="#">Privacy Policy</a>.
             </p>
