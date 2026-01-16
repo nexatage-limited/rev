@@ -34,9 +34,11 @@ function LoginForm() {
 
   const handleOAuthSignIn = async (provider: 'google' | 'apple') => {
     try {
-      await signIn(provider, {
-        callbackUrl: userType === 'technician' ? '/technician/dashboard' : '/customer/dashboard',
-      })
+      const callbackUrl = userType === 'technician' 
+        ? (isLogin ? '/technician/dashboard' : '/technician/onboarding')
+        : '/customer/dashboard'
+      
+      await signIn(provider, { callbackUrl })
     } catch (error) {
       console.error('OAuth error:', error)
     }
@@ -50,9 +52,10 @@ function LoginForm() {
       // Mock authentication - replace with actual API
       await new Promise(resolve => setTimeout(resolve, 1500))
       
-      // Redirect based on user type
+      // Redirect based on user type and login/signup
       if (userType === 'technician') {
-        router.push('/technician/dashboard')
+        // First-time technicians go to onboarding, returning users go to dashboard
+        router.push(isLogin ? '/technician/dashboard' : '/technician/onboarding')
       } else {
         router.push('/customer/dashboard')
       }
