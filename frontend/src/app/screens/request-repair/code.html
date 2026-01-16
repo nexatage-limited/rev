@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rev - Repair Request</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff6a00",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#23170f",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2c241b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#181410] dark:text-[#e8e6e3] antialiased selection:bg-primary/30 selection:text-primary">
+<div class="relative flex min-h-screen flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e5e7eb] dark:border-b-[#3e342f] bg-surface-light dark:bg-surface-dark px-6 py-4 lg:px-12">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary">
+<svg class="size-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_543)">
+<path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M7.24189 26.4066C7.31369 26.4411 7.64204 26.5637 8.52504 26.3738C9.59462 26.1438 11.0343 25.5311 12.7183 24.4963C14.7583 23.2426 17.0256 21.4503 19.238 19.238C21.4503 17.0256 23.2426 14.7583 24.4963 12.7183C25.5311 11.0343 26.1438 9.59463 26.3738 8.52504C26.5637 7.64204 26.4411 7.31369 26.4066 7.24189C26.345 7.21246 26.143 7.14535 25.6664 7.1918C24.9745 7.25925 23.9954 7.5498 22.7699 8.14278C20.3369 9.32007 17.3369 11.4915 14.4142 14.4142C11.4915 17.3369 9.32007 20.3369 8.14278 22.7699C7.5498 23.9954 7.25925 24.9745 7.1918 25.6664C7.14534 26.143 7.21246 26.345 7.24189 26.4066ZM29.9001 10.7285C29.4519 12.0322 28.7617 13.4172 27.9042 14.8126C26.465 17.1544 24.4686 19.6641 22.0664 22.0664C19.6641 24.4686 17.1544 26.465 14.8126 27.9042C13.4172 28.7617 12.0322 29.4519 10.7285 29.9001L21.5754 40.747C21.6001 40.7606 21.8995 40.931 22.8729 40.7217C23.9424 40.4916 25.3821 39.879 27.0661 38.8441C29.1062 37.5904 31.3734 35.7982 33.5858 33.5858C35.7982 31.3734 37.5904 29.1062 38.8441 27.0661C39.879 25.3821 40.4916 23.9425 40.7216 22.8729C40.931 21.8995 40.7606 21.6001 40.747 21.5754L29.9001 10.7285ZM29.2403 4.41187L43.5881 18.7597C44.9757 20.1473 44.9743 22.1235 44.6322 23.7139C44.2714 25.3919 43.4158 27.2666 42.252 29.1604C40.8128 31.5022 38.8165 34.012 36.4142 36.4142C34.012 38.8165 31.5022 40.8128 29.1604 42.252C27.2666 43.4158 25.3919 44.2714 23.7139 44.6322C22.1235 44.9743 20.1473 44.9757 18.7597 43.5881L4.41187 29.2403C3.29027 28.1187 3.08209 26.5973 3.21067 25.2783C3.34099 23.9415 3.8369 22.4852 4.54214 21.0277C5.96129 18.0948 8.43335 14.7382 11.5858 11.5858C14.7382 8.43335 18.0948 5.9613 21.0277 4.54214C22.4852 3.8369 23.9415 3.34099 25.2783 3.21067C26.5973 3.08209 28.1187 3.29028 29.2403 4.41187Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clippath id="clip0_6_543"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-[#181410] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">Rev</h2>
+</div>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-9">
+<a class="text-[#181410] dark:text-[#e8e6e3] text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-[#181410] dark:text-[#e8e6e3] text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary transition-colors" href="#">My Repairs</a>
+<a class="text-[#181410] dark:text-[#e8e6e3] text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-transparent hover:border-primary cursor-pointer transition-all" data-alt="User profile picture placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB4uwoC0HgePnj2fqdTgQpHrrNFhkI2VPlkWFWFah0PdBAzq7EJgj6aEebHOSfqD3psKxKfbUNiiZqd8AbT5eh74A63ZSfXy61KER4V1nV_Ho99M4deUpQitn4-Q3Vl5OyCmJ_7pGS5nLSFkbvkn4qmaSzL7qyX2GJowgM2z5JpFR5SFUxTD6a8QEtAd5MpAn-y2DvCdFlkB8WVukzB9u610J2cVNCff8thVlFsE5gwT5VrCkhx1JQeT0DGIhrrI-zIR0lD5E-fJ7s");'></div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-[1440px] mx-auto p-4 md:p-8 lg:p-12">
+<div class="flex flex-col lg:flex-row gap-8 xl:gap-16">
+<!-- Main Wizard Content -->
+<div class="flex-1 flex flex-col gap-8 max-w-[800px]">
+<!-- Progress Bar -->
+<div class="flex flex-col gap-3">
+<div class="flex gap-6 justify-between items-end">
+<p class="text-primary text-sm font-bold uppercase tracking-wide">Step 1 of 3</p>
+<span class="text-gray-500 dark:text-gray-400 text-sm">Device &amp; Issue</span>
+</div>
+<div class="relative w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-primary transition-all duration-500 ease-out" style="width: 35%;"></div>
+</div>
+</div>
+<!-- Page Heading -->
+<div class="flex flex-col gap-2">
+<h1 class="text-[#181410] dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Let's get your device fixed.</h1>
+<p class="text-gray-600 dark:text-gray-400 text-lg font-normal leading-normal">Tell us about your device and the issue you're facing to get an instant quote.</p>
+</div>
+<!-- Step 1: Device Selection -->
+<section class="flex flex-col gap-5 pt-4">
+<h2 class="flex items-center gap-2 text-[#181410] dark:text-white text-xl font-bold">
+<span class="bg-primary text-white size-7 rounded-full flex items-center justify-center text-sm">1</span>
+                            Which device needs repair?
+                        </h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Apple (Selected State) -->
+<div class="group relative flex flex-col gap-3 pb-3 rounded-xl border-2 border-primary bg-primary/5 dark:bg-primary/10 cursor-pointer overflow-hidden transition-all hover:shadow-lg">
+<div class="absolute top-3 right-3 text-primary">
+<span class="material-symbols-outlined filled">check_circle</span>
+</div>
+<div class="w-full aspect-square bg-white dark:bg-surface-dark flex items-center justify-center p-6">
+<!-- Placeholder for Apple Logo -->
+<span class="material-symbols-outlined text-6xl text-gray-800 dark:text-white">phone_iphone</span>
+</div>
+<p class="text-primary text-center text-base font-bold leading-normal">Apple</p>
+</div>
+<!-- Samsung -->
+<div class="group flex flex-col gap-3 pb-3 rounded-xl border-2 border-transparent bg-white dark:bg-surface-dark shadow-sm hover:border-primary/50 cursor-pointer transition-all hover:shadow-lg">
+<div class="w-full aspect-square bg-gray-50 dark:bg-[#362d26] rounded-t-xl flex items-center justify-center p-6">
+<span class="material-symbols-outlined text-6xl text-gray-400">smartphone</span>
+</div>
+<p class="text-[#181410] dark:text-[#e8e6e3] text-center text-base font-medium leading-normal group-hover:text-primary">Samsung</p>
+</div>
+<!-- Google -->
+<div class="group flex flex-col gap-3 pb-3 rounded-xl border-2 border-transparent bg-white dark:bg-surface-dark shadow-sm hover:border-primary/50 cursor-pointer transition-all hover:shadow-lg">
+<div class="w-full aspect-square bg-gray-50 dark:bg-[#362d26] rounded-t-xl flex items-center justify-center p-6">
+<span class="material-symbols-outlined text-6xl text-gray-400">android</span>
+</div>
+<p class="text-[#181410] dark:text-[#e8e6e3] text-center text-base font-medium leading-normal group-hover:text-primary">Google</p>
+</div>
+<!-- Other -->
+<div class="group flex flex-col gap-3 pb-3 rounded-xl border-2 border-transparent bg-white dark:bg-surface-dark shadow-sm hover:border-primary/50 cursor-pointer transition-all hover:shadow-lg">
+<div class="w-full aspect-square bg-gray-50 dark:bg-[#362d26] rounded-t-xl flex items-center justify-center p-6">
+<span class="material-symbols-outlined text-6xl text-gray-400">devices_other</span>
+</div>
+<p class="text-[#181410] dark:text-[#e8e6e3] text-center text-base font-medium leading-normal group-hover:text-primary">Other</p>
+</div>
+</div>
+<!-- Sub-selection: Model (Simulated appearing after brand selection) -->
+<div class="mt-2 p-4 bg-white dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-[#3e342f] shadow-sm animate-in fade-in slide-in-from-top-4 duration-500">
+<label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Select Model</label>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+<button class="px-4 py-3 rounded-lg border border-primary bg-primary/10 text-primary font-medium text-sm transition-colors">iPhone 14 Pro</button>
+<button class="px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium text-sm transition-colors">iPhone 14</button>
+<button class="px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium text-sm transition-colors">iPhone 13 Pro</button>
+<button class="px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary dark:text-gray-300 dark:hover:text-primary font-medium text-sm transition-colors">Show All</button>
+</div>
+</div>
+</section>
+<!-- Step 2: Issue Description -->
+<section class="flex flex-col gap-5 pt-4">
+<div class="flex items-center justify-between">
+<h2 class="flex items-center gap-2 text-[#181410] dark:text-white text-xl font-bold">
+<span class="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 size-7 rounded-full flex items-center justify-center text-sm">2</span>
+                                What seems to be the problem?
+                            </h2>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-sm">auto_awesome</span>
+<span class="text-xs font-semibold text-blue-600 dark:text-blue-400">Rev AI Active</span>
+</div>
+</div>
+<div class="bg-white dark:bg-surface-dark p-6 rounded-xl shadow-sm border border-gray-100 dark:border-[#3e342f]">
+<div class="mb-4">
+<textarea class="w-full min-h-[120px] p-4 rounded-lg bg-gray-50 dark:bg-[#23170f] border-0 ring-1 ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-primary text-base dark:text-white placeholder:text-gray-400 resize-none transition-shadow" placeholder="Describe your issue (e.g., 'My screen is cracked and the touch isn't working properly...')"></textarea>
+</div>
+<div class="flex flex-wrap gap-2">
+<p class="text-xs font-semibold text-gray-500 dark:text-gray-400 w-full mb-1">AI Suggestions:</p>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 dark:hover:text-primary transition-colors text-sm font-medium text-gray-600 dark:text-gray-300 border border-transparent hover:border-primary/30">
+<span class="material-symbols-outlined text-[18px]">broken_image</span> Cracked Screen
+                                </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 dark:hover:text-primary transition-colors text-sm font-medium text-gray-600 dark:text-gray-300 border border-transparent hover:border-primary/30">
+<span class="material-symbols-outlined text-[18px]">battery_alert</span> Battery Drain
+                                </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 dark:hover:text-primary transition-colors text-sm font-medium text-gray-600 dark:text-gray-300 border border-transparent hover:border-primary/30">
+<span class="material-symbols-outlined text-[18px]">water_drop</span> Water Damage
+                                </button>
+</div>
+</div>
+</section>
+<!-- Step 3: Service Type (Preview) -->
+<section class="flex flex-col gap-5 pt-4 opacity-60 hover:opacity-100 transition-opacity">
+<h2 class="flex items-center gap-2 text-[#181410] dark:text-white text-xl font-bold">
+<span class="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 size-7 rounded-full flex items-center justify-center text-sm">3</span>
+                            Select Service Method
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-4 rounded-xl border border-gray-200 dark:border-[#3e342f] bg-white dark:bg-surface-dark flex flex-col gap-3 hover:border-primary cursor-pointer transition-colors">
+<div class="size-10 rounded-full bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">person_pin_circle</span>
+</div>
+<div>
+<h3 class="font-bold text-[#181410] dark:text-white">We Come to You</h3>
+<p class="text-xs text-gray-500 mt-1">Technician arrives in ~2 hours</p>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-gray-200 dark:border-[#3e342f] bg-white dark:bg-surface-dark flex flex-col gap-3 hover:border-primary cursor-pointer transition-colors">
+<div class="size-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<h3 class="font-bold text-[#181410] dark:text-white">Mail-In Repair</h3>
+<p class="text-xs text-gray-500 mt-1">Free shipping both ways</p>
+</div>
+</div>
+<div class="p-4 rounded-xl border border-gray-200 dark:border-[#3e342f] bg-white dark:bg-surface-dark flex flex-col gap-3 hover:border-primary cursor-pointer transition-colors">
+<div class="size-10 rounded-full bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<div>
+<h3 class="font-bold text-[#181410] dark:text-white">Drop-Off</h3>
+<p class="text-xs text-gray-500 mt-1">Find a certified shop nearby</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Navigation Actions -->
+<div class="flex items-center justify-between pt-8 border-t border-gray-200 dark:border-[#3e342f] mt-4">
+<button class="px-6 py-3 rounded-lg text-[#181410] dark:text-white font-medium hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">Back</button>
+<button class="px-8 py-3 rounded-lg bg-primary text-white font-bold shadow-lg shadow-orange-500/30 hover:bg-orange-600 transition-all flex items-center gap-2">
+                            Next Step
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Right Sidebar: Summary -->
+<aside class="lg:w-[360px] flex-shrink-0">
+<div class="sticky top-24 flex flex-col gap-4">
+<div class="bg-white dark:bg-surface-dark rounded-xl shadow-lg border border-gray-100 dark:border-[#3e342f] overflow-hidden">
+<div class="p-5 border-b border-gray-100 dark:border-[#3e342f] bg-gray-50 dark:bg-[#23170f]/50">
+<h3 class="text-lg font-bold text-[#181410] dark:text-white">Repair Summary</h3>
+</div>
+<div class="p-5 flex flex-col gap-4">
+<!-- Device Item -->
+<div class="flex gap-4">
+<div class="size-12 rounded-lg bg-gray-100 dark:bg-[#362d26] flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-gray-500">phone_iphone</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-[#181410] dark:text-white">iPhone 14 Pro</p>
+<p class="text-xs text-gray-500 mt-0.5">Silver • 256GB</p>
+</div>
+<button class="text-xs font-semibold text-primary hover:underline">Edit</button>
+</div>
+<!-- Issue Item (Placeholder) -->
+<div class="flex gap-4 opacity-50">
+<div class="size-12 rounded-lg bg-gray-50 dark:bg-[#23170f] border border-dashed border-gray-300 dark:border-gray-700 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-gray-300">build</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-gray-400">Issue Description</p>
+<p class="text-xs text-gray-400 mt-0.5">Pending input...</p>
+</div>
+</div>
+<div class="h-px bg-gray-100 dark:bg-[#3e342f] my-1"></div>
+<!-- Price -->
+<div class="flex justify-between items-center">
+<p class="text-sm font-medium text-gray-500">Estimated Total</p>
+<p class="text-xl font-black text-[#181410] dark:text-white">--</p>
+</div>
+<div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg flex gap-3 items-start">
+<span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-lg mt-0.5">verified_user</span>
+<p class="text-xs text-blue-800 dark:text-blue-200 leading-relaxed">
+                                        Prices are final after diagnostic. Includes <strong>Lifetime Warranty</strong> on parts.
+                                    </p>
+</div>
+</div>
+<div class="p-4 bg-gray-50 dark:bg-[#23170f]/50 text-center border-t border-gray-100 dark:border-[#3e342f]">
+<p class="text-xs text-gray-400 flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-sm">lock</span>
+                                    Secure SSL Encrypted
+                                </p>
+</div>
+</div>
+<!-- Trust Badge -->
+<div class="bg-white dark:bg-surface-dark rounded-xl p-4 border border-gray-100 dark:border-[#3e342f] flex items-center gap-3 shadow-sm">
+<div class="size-10 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600 dark:text-green-400 shrink-0">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<div>
+<p class="text-sm font-bold text-[#181410] dark:text-white">Vetted Technicians</p>
+<p class="text-xs text-gray-500">All experts are background checked &amp; certified.</p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</body></html>
