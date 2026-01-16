@@ -33,7 +33,7 @@ export default function TechnicianJobManagement() {
       issue: "Battery Replacement",
       customer: "David K.",
       completedAt: "1 hour ago",
-      earnings: "$65",
+      earnings: "₦65",
       rating: 5
     },
     {
@@ -42,7 +42,7 @@ export default function TechnicianJobManagement() {
       issue: "Screen Repair", 
       customer: "Elena L.",
       completedAt: "3 hours ago",
-      earnings: "$85",
+      earnings: "₦85",
       rating: 5
     }
   ];
@@ -53,7 +53,7 @@ export default function TechnicianJobManagement() {
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">Job Management</h1>
           <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-600">Total Earnings Today: <span className="font-bold text-primary">$320</span></span>
+            <span className="text-sm text-gray-600">Total Earnings Today: <span className="font-bold text-primary">₦320</span></span>
           </div>
         </div>
       </header>

@@ -23,7 +23,7 @@ export default function RoleSelection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
           >
-            <Link href="/auth/signup?role=customer">
+            <Link href="/auth/signin?role=customer&signup=true">
               <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all cursor-pointer border-2 border-transparent hover:border-primary group">
                 <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
                   <span className="material-symbols-outlined text-4xl text-primary group-hover:text-white">
@@ -62,7 +62,7 @@ export default function RoleSelection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <Link href="/auth/signup?role=technician">
+            <Link href="/auth/signin?role=technician&signup=true">
               <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all cursor-pointer border-2 border-transparent hover:border-accent group">
                 <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 group-hover:bg-accent transition-colors">
                   <span className="material-symbols-outlined text-4xl text-accent group-hover:text-white">

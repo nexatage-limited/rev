@@ -204,7 +204,7 @@ export default function MatchedTechnicianPage() {
                   {/* Action Column */}
                   <div className="flex flex-col sm:items-end justify-between gap-4 border-t sm:border-t-0 sm:border-l border-[#e7dfda] pt-4 sm:pt-0 sm:pl-6 min-w-[180px]">
                     <div className="text-left sm:text-right">
-                      <span className="block text-3xl font-black text-[#181410] tracking-tight">${tech.price}</span>
+                      <span className="block text-3xl font-black text-[#181410] tracking-tight">₦{tech.price}</span>
                       <span className="text-sm font-medium text-[#8d715e]">Estimated total</span>
                     </div>
                     <button 
@@ -237,7 +237,7 @@ export default function MatchedTechnicianPage() {
                 {/* Simulated Pins */}
                 <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2">
                   <div className="flex flex-col items-center">
-                    <div className="bg-[#ff6a00] text-white text-[10px] font-bold px-1.5 rounded mb-1 shadow-sm">$120</div>
+                    <div className="bg-[#ff6a00] text-white text-[10px] font-bold px-1.5 rounded mb-1 shadow-sm">₦120</div>
                     <span className="material-symbols-outlined text-[#ff6a00] text-3xl drop-shadow-md">location_on</span>
                   </div>
                 </div>

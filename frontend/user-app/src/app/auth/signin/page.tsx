@@ -7,8 +7,9 @@ import { useRouter, useSearchParams } from 'next/navigation'
 function LoginForm() {
   const searchParams = useSearchParams()
   const roleParam = searchParams.get('role')
+  const signupParam = searchParams.get('signup')
   
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(signupParam !== 'true')
   const [userType, setUserType] = useState<'user' | 'technician'>('user')
   const [formData, setFormData] = useState({
     email: '',
@@ -22,12 +23,25 @@ function LoginForm() {
   useEffect(() => {
     if (roleParam === 'customer') {
       setUserType('user')
-      setIsLogin(false)
     } else if (roleParam === 'technician') {
       setUserType('technician')
+    }
+    if (signupParam === 'true') {
       setIsLogin(false)
     }
-  }, [roleParam])
+  }, [roleParam, signupParam])
+
+  const handleOAuthSignIn = async (provider: 'google' | 'apple') => {
+    try {
+      const callbackUrl = userType === 'technician' 
+        ? (isLogin ? '/technician/dashboard' : '/technician/onboarding')
+        : '/customer/dashboard'
+      
+      await signIn(provider, { callbackUrl })
+    } catch (error) {
+      console.error('OAuth error:', error)
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,8 +50,10 @@ function LoginForm() {
     try {
       await new Promise(resolve => setTimeout(resolve, 1500))
       
+      // Redirect based on user type and login/signup
       if (userType === 'technician') {
-        router.push('/technician/dashboard')
+        // First-time technicians go to onboarding, returning users go to dashboard
+        router.push(isLogin ? '/technician/dashboard' : '/technician/onboarding')
       } else {
         router.push('/customer/dashboard')
       }

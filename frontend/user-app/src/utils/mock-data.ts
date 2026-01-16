@@ -53,7 +53,7 @@ export const mockTechnicianStats: TechnicianDashboardStats[] = [
   { label: "Acceptance Rate", value: "92%", trend: "+2%", icon: "trending_up" },
   { label: "Jobs Completed Today", value: "4", icon: "handyman" },
   { label: "Avg Rating", value: "4.9", icon: "star" },
-  { label: "Est. Earnings Today", value: "$320", icon: "attach_money" }
+  { label: "Est. Earnings Today", value: "₦320", icon: "attach_money" }
 ];
 
 // Incoming Jobs Mock Data
@@ -106,7 +106,7 @@ export const mockCustomerDashboard: CustomerDashboardData = {
       technician: 'Sarah Jenkins',
       completedDate: '2024-01-15',
       rating: 5,
-      cost: '$89'
+      cost: '₦89'
     },
     {
       id: 'REV-2024-003',
@@ -115,7 +115,7 @@ export const mockCustomerDashboard: CustomerDashboardData = {
       technician: 'Mike Chen',
       completedDate: '2024-01-08',
       rating: 4,
-      cost: '$156'
+      cost: '₦156'
     }
   ],
   notifications: [

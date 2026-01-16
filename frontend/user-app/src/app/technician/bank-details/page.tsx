@@ -92,7 +92,7 @@ export default function TechnicianBankDetails() {
                 <span className="text-sm font-medium text-gray-600">Available Balance</span>
                 <span className="material-symbols-outlined text-green-500">account_balance_wallet</span>
               </div>
-              <p className="text-3xl font-bold text-green-600">$1,840</p>
+              <p className="text-3xl font-bold text-green-600">₦1,840</p>
               <p className="text-sm text-gray-500">Ready to withdraw</p>
             </div>
 
@@ -101,7 +101,7 @@ export default function TechnicianBankDetails() {
                 <span className="text-sm font-medium text-gray-600">Pending Earnings</span>
                 <span className="material-symbols-outlined text-yellow-500">schedule</span>
               </div>
-              <p className="text-3xl font-bold text-yellow-600">$320</p>
+              <p className="text-3xl font-bold text-yellow-600">₦320</p>
               <p className="text-sm text-gray-500">Processing</p>
             </div>
 

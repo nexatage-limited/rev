@@ -226,7 +226,7 @@ export default function UserDashboard() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">Money Saved</span>
-                  <span className="text-lg font-bold text-green-600">$245</span>
+                  <span className="text-lg font-bold text-green-600">₦245</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">Avg Rating Given</span>
