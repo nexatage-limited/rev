@@ -190,3 +190,72 @@ export interface CertificationUploadProps {
   onDelete?: (certId: string) => void;
   existingCertifications?: Certification[];
 }
+
+export interface JobStatus {
+  id: string;
+  deviceName: string;
+  issue: string;
+  status: 'pending' | 'matched' | 'accepted' | 'in_progress' | 'completed';
+  technician?: {
+    name: string;
+    rating: number;
+    phone: string;
+    estimatedArrival?: string;
+  };
+  timeline: {
+    step: string;
+    completed: boolean;
+    timestamp?: string;
+    current?: boolean;
+  }[];
+}
+
+export interface TechnicianDashboardStats {
+  label: string;
+  value: string;
+  trend?: string;
+  icon: string;
+}
+
+export interface IncomingJob {
+  device: string;
+  issue: string;
+  location: string;
+  priority: string | null;
+  aiInsight?: string;
+}
+
+export interface CustomerDashboardData {
+  user: {
+    name: string;
+    email: string;
+    phone: string;
+    memberSince: string;
+  };
+  ongoingRepairs: {
+    id: string;
+    device: string;
+    issue: string;
+    technician: string;
+    status: string;
+    estimatedCompletion: string;
+    progress: number;
+  }[];
+  recentRepairs: {
+    id: string;
+    device: string;
+    issue: string;
+    technician: string;
+    completedDate: string;
+    rating: number;
+    cost: string;
+  }[];
+  notifications: {
+    id: number;
+    type: string;
+    title: string;
+    message: string;
+    time: string;
+    unread: boolean;
+  }[];
+}

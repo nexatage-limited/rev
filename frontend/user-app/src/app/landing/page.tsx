@@ -10,7 +10,7 @@ export default function LandingPage() {
 
   const handleGetEstimate = () => {
     if (deviceModel.trim()) {
-      router.push(`/user/request-repair?device=${encodeURIComponent(deviceModel)}`)
+      router.push(`/customer/request-repair?device=${encodeURIComponent(deviceModel)}`)
     }
   }
 

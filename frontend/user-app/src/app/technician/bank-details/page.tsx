@@ -2,33 +2,11 @@
 
 import { useState } from "react";
 import { BankAccount } from "@/types";
+import { mockBankAccounts } from "@/utils/mock-data";
 
 export default function TechnicianBankDetails() {
   const [showAddForm, setShowAddForm] = useState(false);
-  const [accounts, setAccounts] = useState<BankAccount[]>([
-    {
-      id: "acc-1",
-      bankName: "Chase Bank",
-      accountType: "checking",
-      accountNumber: "****1234",
-      routingNumber: "021000021",
-      accountHolderName: "Alex Martinez",
-      isPrimary: true,
-      status: "verified",
-      addedDate: "2023-03-15"
-    },
-    {
-      id: "acc-2", 
-      bankName: "Bank of America",
-      accountType: "savings",
-      accountNumber: "****5678",
-      routingNumber: "026009593",
-      accountHolderName: "Alex Martinez",
-      isPrimary: false,
-      status: "pending",
-      addedDate: "2023-11-20"
-    }
-  ]);
+  const [accounts, setAccounts] = useState<BankAccount[]>(mockBankAccounts);
 
   const [formData, setFormData] = useState({
     bankName: "",
