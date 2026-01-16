@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 interface JobStatus {
@@ -22,7 +22,7 @@ interface JobStatus {
   }[]
 }
 
-export default function JobStatusPage() {
+function JobStatusContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const jobId = searchParams.get('id')
@@ -320,7 +320,7 @@ export default function JobStatusPage() {
                   <div className="w-6 h-6 rounded-full bg-cover bg-center shrink-0" style={{backgroundImage: 'url("/sarah_jenkins.png")'}}></div>
                   <div className="flex flex-col gap-1 max-w-[85%]">
                     <div className="bg-white border border-[#e7dfda] p-3 rounded-2xl rounded-bl-none shadow-sm">
-                      <p className="text-sm text-[#181410]">Hi! I've assigned a rider for pickup. They should be there shortly.</p>
+                      <p className="text-sm text-[#181410]">Hi! I&apos;ve assigned a rider for pickup. They should be there shortly.</p>
                     </div>
                   </div>
                 </div>
@@ -365,5 +365,20 @@ export default function JobStatusPage() {
         </div>
       </main>
     </div>
+  )
+}
+
+export default function JobStatusPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#f8f7f5] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ff6a00] mx-auto mb-4"></div>
+          <p className="text-[#181410]">Loading job status...</p>
+        </div>
+      </div>
+    }>
+      <JobStatusContent />
+    </Suspense>
   )
 }
