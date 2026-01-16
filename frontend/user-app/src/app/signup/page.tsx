@@ -22,7 +22,7 @@ export default function SignupPage() {
             Join Rev
           </h2>
           <p className="text-gray-600">
-            Choose how you'd like to get started
+            Choose how you&apos;d like to get started
           </p>
         </div>
 
@@ -52,7 +52,7 @@ export default function SignupPage() {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900">I'm a technician</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">I&apos;m a technician</h3>
                   <p className="text-gray-500 text-sm">Join our network of verified professionals and start earning with flexible scheduling</p>
                 </div>
               </div>

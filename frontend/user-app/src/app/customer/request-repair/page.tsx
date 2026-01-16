@@ -66,8 +66,8 @@ export default function RequestRepairPage() {
 
             {/* Page Heading */}
             <div className="flex flex-col gap-2">
-              <h1 className="text-[#181410] text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Let's get your device fixed.</h1>
-              <p className="text-gray-600 text-lg font-normal leading-normal">Tell us about your device and the issue you're facing to get an instant quote.</p>
+              <h1 className="text-[#181410] text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]">Let&apos;s get your device fixed.</h1>
+              <p className="text-gray-600 text-lg font-normal leading-normal">Tell us about your device and the issue you&apos;re facing to get an instant quote.</p>
             </div>
 
             {/* Step 1: Device Selection */}
@@ -138,7 +138,7 @@ export default function RequestRepairPage() {
                 <div className="mb-4">
                   <textarea 
                     className="w-full min-h-[120px] p-4 rounded-lg bg-gray-50 border-0 ring-1 ring-gray-200 focus:ring-2 focus:ring-[#ff6a00] text-base placeholder:text-gray-400 resize-none transition-shadow" 
-                    placeholder="Describe your issue (e.g., 'My screen is cracked and the touch isn't working properly...')"
+                    placeholder="Describe your issue (e.g., &apos;My screen is cracked and the touch isn&apos;t working properly...&apos;)"
                     value={formData.issue}
                     onChange={(e) => setFormData({...formData, issue: e.target.value})}
                   ></textarea>

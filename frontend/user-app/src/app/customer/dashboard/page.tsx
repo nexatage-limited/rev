@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { mockCustomerDashboard } from '@/utils/mock-data'
+import Image from 'next/image'
 
 export default function UserDashboard() {
   const router = useRouter()
@@ -38,7 +39,7 @@ export default function UserDashboard() {
                   <p className="text-xs text-gray-500">Member since {user.memberSince}</p>
                 </div>
                 <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
-                  <img alt="Profile" className="w-full h-full object-cover" src="/sarah_jenkins.png"/>
+                  <Image alt="Profile" className="w-full h-full object-cover" src="/sarah_jenkins.png" width={40} height={40}/>
                 </div>
               </div>
             </div>
@@ -113,7 +114,7 @@ export default function UserDashboard() {
                         <div className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
                             <div className="w-6 h-6 rounded-full bg-gray-200 overflow-hidden">
-                              <img alt="Technician" className="w-full h-full object-cover" src="/sarah_jenkins.png"/>
+                              <Image alt="Technician" className="w-full h-full object-cover" src="/sarah_jenkins.png" width={24} height={24}/>
                             </div>
                             <span className="text-sm text-gray-600">{repair.technician}</span>
                           </div>
@@ -154,7 +155,7 @@ export default function UserDashboard() {
                         <div className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
                             <div className="w-6 h-6 rounded-full bg-gray-200 overflow-hidden">
-                              <img alt="Technician" className="w-full h-full object-cover" src="/sarah_jenkins.png"/>
+                              <Image alt="Technician" className="w-full h-full object-cover" src="/sarah_jenkins.png" width={24} height={24}/>
                             </div>
                             <span className="text-sm text-gray-600">{repair.technician}</span>
                           </div>

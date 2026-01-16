@@ -239,11 +239,11 @@ export default function SignupPage() {
               <span>Secure, encrypted {isLogin ? 'login' : 'registration'}</span>
             </div>
             <p className="text-xs text-gray-400 max-w-xs mx-auto">
-              By continuing, you agree to Rev's <a className="underline hover:text-[#ff6a00]" href="#">Terms of Service</a> and <a className="underline hover:text-[#ff6a00]" href="#">Privacy Policy</a>.
+              By continuing, you agree to Rev&apos;s <a className="underline hover:text-[#ff6a00]" href="#">Terms of Service</a> and <a className="underline hover:text-[#ff6a00]" href="#">Privacy Policy</a>.
             </p>
             {isLogin && (
               <p className="text-sm text-gray-600">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <button onClick={() => setIsLogin(false)} className="text-[#ff6a00] hover:underline font-medium">
                   Sign up here
                 </button>
