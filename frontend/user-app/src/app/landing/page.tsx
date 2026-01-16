@@ -160,7 +160,7 @@ export default function LandingPage() {
               </div>
               <h3 className="text-xl font-bold text-[#181410] mb-3">Transparent Pricing</h3>
               <p className="text-sm text-[#6b7280] leading-relaxed">
-                Know exactly what you'll pay before you book. No hidden fees, no last-minute upcharges. Just fair rates.
+                Know exactly what you&apos;ll pay before you book. No hidden fees, no last-minute upcharges. Just fair rates.
               </p>
             </div>
           </div>
@@ -200,7 +200,7 @@ export default function LandingPage() {
             <div className="relative flex flex-col md:flex-row items-center justify-between group">
               <div className="md:w-[45%] mb-4 md:mb-0 md:text-right pr-0 md:pr-12 order-2 md:order-1 pl-16 md:pl-0 text-left w-full">
                 <h3 className="text-xl font-bold text-[#181410] mb-2">Device Fixed</h3>
-                <p className="text-[#6b7280] text-sm">Your tech repairs your device on the spot. Payment is released only after you're satisfied.</p>
+                <p className="text-[#6b7280] text-sm">Your tech repairs your device on the spot. Payment is released only after you&apos;re satisfied.</p>
               </div>
               <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[#ff6a00] flex items-center justify-center z-10 shadow-lg shadow-orange-200 order-1 md:order-2">
                 <span className="material-symbols-outlined text-white text-[20px]">check</span>
@@ -217,7 +217,7 @@ export default function LandingPage() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 space-y-6">
               <h2 className="text-3xl font-bold text-[#181410]">Repairs you can trust, <br/>by people you can know.</h2>
-              <p className="text-[#6b7280] text-lg">We don't send strangers. We send vetted professionals with verified skills and community reviews.</p>
+              <p className="text-[#6b7280] text-lg">We don&apos;t send strangers. We send vetted professionals with verified skills and community reviews.</p>
               <ul className="space-y-4 pt-4">
                 <li className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-[#ff6a00]">check_circle</span>
@@ -255,7 +255,7 @@ export default function LandingPage() {
                   </div>
                   <div className="mb-4">
                     <h3 className="text-xl font-bold text-[#181410]">Sarah Jenkins</h3>
-                    <p className="text-sm text-[#6b7280]">Master Technician • 4 years exp.</p>
+                    <p className="text-sm text-[#6b7280]">Master Technician &bull; 4 years exp.</p>
                   </div>
                   <div className="flex items-center gap-4 mb-6">
                     <div className="flex items-center gap-1">
@@ -270,7 +270,7 @@ export default function LandingPage() {
                     </div>
                   </div>
                   <p className="text-sm text-[#6b7280] italic bg-gray-50 p-3 rounded-lg border border-gray-100 mb-6">
-                    "Sarah was amazing! Fixed my iPhone screen in 20 minutes at my office. Super professional."
+                    &ldquo;Sarah was amazing! Fixed my iPhone screen in 20 minutes at my office. Super professional.&rdquo;
                   </p>
                   <button 
                     onClick={() => router.push('/signup/user')}
@@ -289,7 +289,7 @@ export default function LandingPage() {
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <h2 className="text-4xl md:text-5xl font-black text-[#181410] mb-6 tracking-tight">
-            Don't let a broken phone <br/> slow you down.
+            Don&apos;t let a broken phone <br/> slow you down.
           </h2>
           <p className="text-lg text-[#6b7280] mb-10 max-w-2xl mx-auto">
             Join thousands of happy customers who got their devices fixed quickly, safely, and affordably with Rev.
