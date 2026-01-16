@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import TechnicianNav from "@/components/TechnicianNav";
 import { mockTechnicianStats, mockIncomingJobs } from "@/utils/mock-data";
@@ -12,7 +11,6 @@ export default function TechnicianDashboard() {
   const stats = mockTechnicianStats;
 
   const handleAccept = (index: number) => {
-    alert(`Job accepted! Redirecting to active jobs...`);
     const updatedJobs = jobs.filter((_, i) => i !== index);
     setJobs(updatedJobs);
   };
@@ -23,11 +21,11 @@ export default function TechnicianDashboard() {
   };
 
   const handleMessageClient = () => {
-    alert("Opening message interface...");
+    router.push('/technician/messages');
   };
 
   const handleMarkComplete = () => {
-    alert("Job marked as complete! Payment processed.");
+    router.push('/technician/jobs');
   };
 
   return (

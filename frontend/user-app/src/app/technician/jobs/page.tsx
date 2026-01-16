@@ -1,29 +1,31 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import TechnicianNav from "@/components/TechnicianNav";
 
 export default function TechnicianJobManagement() {
   const [activeTab, setActiveTab] = useState("active");
+  const router = useRouter();
 
-  const handleMessageCustomer = (jobId: string) => {
-    alert(`Opening message interface for job ${jobId}...`);
+  const handleMessageCustomer = () => {
+    router.push('/technician/messages');
   };
 
-  const handleViewDetails = (jobId: string) => {
-    alert(`Viewing details for job ${jobId}...`);
+  const handleViewDetails = () => {
+    router.push('/technician/job-details');
   };
 
-  const handleMarkComplete = (jobId: string) => {
-    alert(`Job ${jobId} marked as complete! Payment processed.`);
+  const handleMarkComplete = () => {
+    router.push('/technician/jobs');
   };
 
-  const handleViewReceipt = (jobId: string) => {
-    alert(`Opening receipt for job ${jobId}...`);
+  const handleViewReceipt = () => {
+    router.push('/technician/receipt');
   };
 
-  const handleViewFeedback = (jobId: string) => {
-    alert(`Viewing customer feedback for job ${jobId}...`);
+  const handleViewFeedback = () => {
+    router.push('/technician/feedback');
   };
 
   const activeJobs = [
@@ -136,20 +138,20 @@ export default function TechnicianJobManagement() {
 
                     <div className="flex gap-3">
                       <button 
-                        onClick={() => handleMessageCustomer(job.id)}
+                        onClick={handleMessageCustomer}
                         className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50"
                       >
                         Message Customer
                       </button>
                       <button 
-                        onClick={() => handleViewDetails(job.id)}
+                        onClick={handleViewDetails}
                         className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50"
                       >
                         View Details
                       </button>
                       {job.status === "In Progress" && (
                         <button 
-                          onClick={() => handleMarkComplete(job.id)}
+                          onClick={handleMarkComplete}
                           className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90"
                         >
                           Mark Complete
@@ -201,13 +203,13 @@ export default function TechnicianJobManagement() {
 
                     <div className="flex gap-3">
                       <button 
-                        onClick={() => handleViewReceipt(job.id)}
+                        onClick={handleViewReceipt}
                         className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50"
                       >
                         View Receipt
                       </button>
                       <button 
-                        onClick={() => handleViewFeedback(job.id)}
+                        onClick={handleViewFeedback}
                         className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50"
                       >
                         Customer Feedback

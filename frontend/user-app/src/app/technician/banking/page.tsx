@@ -5,9 +5,10 @@ import TechnicianNav from "@/components/TechnicianNav";
 
 export default function TechnicianBanking() {
   const [selectedPeriod, setSelectedPeriod] = useState("week");
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
 
   const handleWithdraw = () => {
-    alert("Initiating withdrawal via Paystack... This will be integrated later.");
+    setShowWithdrawModal(true);
   };
 
   const earnings = {
