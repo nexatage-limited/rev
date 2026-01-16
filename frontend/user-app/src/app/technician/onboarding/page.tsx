@@ -296,7 +296,7 @@ export default function TechnicianOnboarding() {
                   >
                     {selectedBank ? (
                       <div className="flex items-center gap-2">
-                        <img src={banks.find(b => b.code === selectedBank)?.logo} alt="" className="w-6 h-6 object-contain" />
+                        <img src={banks.find(b => b.code === selectedBank)?.logo} alt="Bank logo" className="w-6 h-6 object-contain" />
                         <span>{banks.find(b => b.code === selectedBank)?.name}</span>
                       </div>
                     ) : (
@@ -316,7 +316,7 @@ export default function TechnicianOnboarding() {
                           }}
                           className="w-full px-3 py-2 hover:bg-gray-50 flex items-center gap-2 text-left"
                         >
-                          <img src={bank.logo} alt="" className="w-6 h-6 object-contain" />
+                          <img src={bank.logo} alt={bank.name} className="w-6 h-6 object-contain" />
                           <span>{bank.name}</span>
                         </button>
                       ))}
