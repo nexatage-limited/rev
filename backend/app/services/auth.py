@@ -6,8 +6,9 @@ from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 import random
 import string
+import uuid # For generating UUIDs for refresh tokens
 
-from ..database import User, TechnicianProfile, OTP
+from ..database import User, TechnicianProfile, OTP, RefreshToken
 from ..models import UserCreate, LoginRequest, Token
 from ..settings import settings
 
@@ -33,6 +34,21 @@ class AuthService:
         to_encode.update({"exp": expire})
         encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
         return encoded_jwt
+
+    @staticmethod
+    def _create_refresh_token(db: Session, user_id: int) -> str:
+        refresh_token_string = str(uuid.uuid4())
+        expires_at = datetime.utcnow() + timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES)
+        
+        refresh_token_db = RefreshToken(
+            user_id=user_id,
+            token=refresh_token_string,
+            expires_at=expires_at
+        )
+        db.add(refresh_token_db)
+        db.commit()
+        db.refresh(refresh_token_db)
+        return refresh_token_string
     
     @staticmethod
     def register_user(db: Session, user_data: UserCreate):
@@ -94,12 +110,59 @@ class AuthService:
                 detail="Account is disabled"
             )
         
-        # Generate token
+        # Generate access token
         access_token = AuthService.create_access_token(
             data={"sub": str(user.id), "role": user.role}
         )
+
+        # Generate refresh token
+        refresh_token = AuthService._create_refresh_token(db, user.id)
         
-        return Token(access_token=access_token, role=user.role)
+        return Token(access_token=access_token, token_type="bearer", role=user.role, refresh_token=refresh_token)
+    
+    @staticmethod
+    def refresh_access_token(db: Session, refresh_token_string: str) -> Token:
+        refresh_token_db = db.query(RefreshToken).filter(
+            RefreshToken.token == refresh_token_string,
+            RefreshToken.is_revoked == False,
+            RefreshToken.expires_at > datetime.utcnow()
+        ).first()
+
+        if not refresh_token_db:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired refresh token")
+
+        # Invalidate the used refresh token (for one-time use / rotation)
+        refresh_token_db.is_revoked = True
+        db.add(refresh_token_db)
+        db.commit()
+
+        user = db.query(User).filter(User.id == refresh_token_db.user_id).first()
+        if not user:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found for refresh token")
+
+        # Generate new access token
+        new_access_token = AuthService.create_access_token(
+            data={"sub": str(user.id), "role": user.role}
+        )
+        # Generate new refresh token
+        new_refresh_token = AuthService._create_refresh_token(db, user.id)
+
+        return Token(access_token=new_access_token, token_type="bearer", role=user.role, refresh_token=new_refresh_token)
+
+    @staticmethod
+    def revoke_refresh_token(db: Session, refresh_token_string: str, user_id: int):
+        refresh_token_db = db.query(RefreshToken).filter(
+            RefreshToken.token == refresh_token_string,
+            RefreshToken.user_id == user_id,
+            RefreshToken.is_revoked == False
+        ).first()
+
+        if not refresh_token_db:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
+        
+        refresh_token_db.is_revoked = True
+        db.add(refresh_token_db)
+        db.commit()
     
     @staticmethod
     def generate_otp(db: Session, phone: str) -> str:

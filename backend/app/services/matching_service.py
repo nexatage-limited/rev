@@ -25,13 +25,14 @@ class MatchingService:
         return R * c
     
     @staticmethod
-    def find_matches(db: Session, job_lat: float, job_lon: float) -> List[TechnicianProfile]:
+    def find_matches(db: Session, job_lat: float, job_lon: float, service_type_name: str) -> List[TechnicianProfile]:
         """Find top 3 technicians using weighted scoring"""
-        # Get all verified technicians with location data
+        # Get all verified technicians with location data and matching specialization
         technicians = db.query(TechnicianProfile).filter(
             TechnicianProfile.is_verified == True,
             TechnicianProfile.location_lat.isnot(None),
-            TechnicianProfile.location_long.isnot(None)
+            TechnicianProfile.location_long.isnot(None),
+            TechnicianProfile.specialization == service_type_name  # Filter by specialization
         ).all()
         
         scored_techs = []
@@ -48,9 +49,18 @@ class MatchingService:
             # Calculate scores
             rating_score = tech.rating / 5.0 if tech.rating > 0 else 0.0
             proximity_score = 1 - (distance / 10)
+
+            # Response time score
+            MAX_RESPONSE_TIME = 60 # minutes
+            response_time_score = 0.0
+            if tech.response_time_minutes is not None:
+                # Lower response time is better, so 1 - (actual/max)
+                response_time_score = 1 - (min(tech.response_time_minutes, MAX_RESPONSE_TIME) / MAX_RESPONSE_TIME)
+                # Ensure score is not negative
+                response_time_score = max(0.0, response_time_score)
             
-            # Weighted formula (excluding response time until implemented)
-            total_score = (0.625 * rating_score) + (0.375 * proximity_score)
+            # Weighted formula: score = 0.5 * rating + 0.3 * proximity_score + 0.2 * response_time_score
+            total_score = (0.5 * rating_score) + (0.3 * proximity_score) + (0.2 * response_time_score)
             
             scored_techs.append((tech, total_score))
         

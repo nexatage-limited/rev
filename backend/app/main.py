@@ -1,22 +1,31 @@
 # main.py
-from fastapi import FastAPI, Depends, HTTPException, status, Form, UploadFile, File, Header, WebSocket, WebSocketDisconnect, Query
+from fastapi import FastAPI, Depends, HTTPException, status, Form, UploadFile, File, Header, WebSocket, WebSocketDisconnect, Query, Request
 from fastapi.responses import FileResponse
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 import os
+from typing import Union
 
 from .database import get_db, create_tables, User, TechnicianProfile
 from .models import (
     UserCreate, UserResponse, Token, LoginRequest,
     TechnicianProfileCreate, TechnicianProfileResponse,
     DocumentResponse, TechnicianVerificationRequest,
-    JobCreate, JobResponse
+    JobCreate, JobResponse, JobStatusUpdate, MessageCreate, MessageResponse,
+    PaymentCreate, PaymentResponse, PaymentStatusUpdate,
+    RatingCreate, RatingResponse,
+    DisputeCreate, DisputeResponse, DisputeUpdate,
+    PaymentInitializationResponse # Imported PaymentInitializationResponse
 )
 from .services.auth import AuthService, get_current_user, get_current_admin_user, get_user_from_token_ws
 from .services.document_upload import DocumentService
 from .services.notifications import notification_manager
 from .services.job_service import JobService
+from .services.message_service import MessageService
+from .services.payment_service import PaymentService
+from .services.rating_service import RatingService
+from .services.dispute_service import DisputeService
 
 # Create tables
 create_tables()
@@ -77,6 +86,25 @@ async def verify_otp(
         )
     
     return {"message": "OTP verified successfully"}
+
+@app.post("/auth/refresh", response_model=Token)
+async def refresh_token(
+    refresh_request: TokenRefreshRequest,
+    db: Session = Depends(get_db)
+):
+    """Refresh access token using refresh token"""
+    new_tokens = AuthService.refresh_access_token(db, refresh_request.refresh_token)
+    return new_tokens
+
+@app.post("/auth/logout")
+async def logout(
+    refresh_request: TokenRefreshRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Revoke refresh token on logout"""
+    AuthService.revoke_refresh_token(db, refresh_request.refresh_token, current_user.id)
+    return {"message": "Successfully logged out"}
 
 # User Endpoints
 @app.get("/users/me", response_model=UserResponse)
@@ -324,6 +352,266 @@ async def accept_repair_job(
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     
     return await JobService.accept_job(db, job_id, user.id)
+
+@app.patch("/jobs/{job_id}/status", response_model=JobResponse)
+async def update_job_status(
+    job_id: int,
+    status_update: JobStatusUpdate,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Update a job's status (Technician or Admin only)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    current_user = get_current_user(token, db)
+    if not current_user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    updated_job = await JobService.update_job_status(
+        db, job_id, status_update.status, status_update.notes, current_user
+    )
+    return updated_job
+
+@app.post("/jobs/{job_id}/messages", response_model=MessageResponse, status_code=status.HTTP_201_CREATED)
+async def send_message(
+    job_id: int,
+    message_data: MessageCreate,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Send a message for a specific job (Customer or Technician)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    current_user = get_current_user(token, db)
+    if not current_user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    new_message = await MessageService.create_message(
+        db, job_id, current_user.id, message_data
+    )
+    return new_message
+
+@app.get("/jobs/{job_id}/messages", response_model=List[MessageResponse])
+async def get_messages(
+    job_id: int,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Get messages for a specific job (Customer, Technician, or Admin)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    current_user = get_current_user(token, db)
+    if not current_user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    messages = MessageService.get_messages_for_job(db, job_id, current_user.id)
+    # To include sender details in the response, we need to manually map or eager load
+    # For now, let's keep it simple and ensure the service returns Message objects
+    # and Pydantic's from_attributes=True will handle the basic conversion.
+    # If full sender details (name, email) are needed,
+    # the get_messages_for_job service method or the endpoint itself
+    # would need to fetch sender User objects and construct the MessageResponse.
+    return messages
+
+@app.post("/jobs/{job_id}/payments", response_model=Union[PaymentResponse, PaymentInitializationResponse], status_code=status.HTTP_201_CREATED)
+async def initiate_payment(
+    job_id: int,
+    payment_data: PaymentCreate,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Initiate a payment for a specific job (Customer only)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    current_user = get_current_user(token, db)
+    if not current_user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    result = await PaymentService.initiate_payment(db, job_id, current_user.id, payment_data)
+    
+    if "authorization_url" in result:
+        return PaymentInitializationResponse(**result)
+    else:
+        # If it's pay on delivery, PaymentService.initiate_payment returns a dict
+        # with "message", "payment_id", "status". We need to fetch the actual Payment object
+        # to convert it to PaymentResponse.
+        payment_id = result.get("payment_id")
+        if payment_id:
+            payment_obj = db.query(Payment).filter(Payment.id == payment_id).first()
+            if payment_obj:
+                return PaymentResponse.model_validate(payment_obj)
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to initiate payment")
+
+@app.get("/jobs/{job_id}/payments", response_model=List[PaymentResponse])
+async def get_job_payments(
+    job_id: int,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Get payments for a specific job (Customer, Technician, or Admin)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    current_user = get_current_user(token, db)
+    if not current_user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    payments = PaymentService.get_job_payments(db, job_id, current_user)
+    return payments
+
+@app.patch("/payments/{payment_id}/status", response_model=PaymentResponse)
+async def update_payment_status(
+    payment_id: int,
+    status_update: PaymentStatusUpdate,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Update a payment's status (Admin or Webhook)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    admin_user = get_current_admin_user(token, db) # Only admin can call this directly
+    if not admin_user:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
+    
+    payment = await PaymentService.update_payment_status(db, payment_id, status_update)
+    return payment
+
+@app.post("/jobs/{job_id}/ratings", response_model=RatingResponse, status_code=status.HTTP_201_CREATED)
+async def create_rating_for_job(
+    job_id: int,
+    rating_data: RatingCreate,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Leave a rating for a completed job (Customer only)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    current_user = get_current_user(token, db)
+    if not current_user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    # Ensure the job_id in path matches the job_id in the payload
+    if job_id != rating_data.job_id:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Job ID mismatch")
+
+    new_rating = await RatingService.create_rating(db, job_id, current_user.id, rating_data)
+    return new_rating
+
+@app.get("/technicians/{technician_id}/ratings", response_model=List[RatingResponse])
+async def get_technician_ratings(
+    technician_id: int,
+    db: Session = Depends(get_db)
+):
+    """Get all ratings for a specific technician"""
+    ratings = RatingService.get_ratings_for_technician(db, technician_id)
+    return ratings
+
+@app.post("/jobs/{job_id}/disputes", response_model=DisputeResponse, status_code=status.HTTP_201_CREATED)
+async def create_dispute_for_job(
+    job_id: int,
+    dispute_data: DisputeCreate,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Create a dispute for a specific job (Customer or Technician)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    current_user = get_current_user(token, db)
+    if not current_user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    # Ensure the job_id in path matches the job_id in the payload
+    if job_id != dispute_data.job_id:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Job ID mismatch")
+    
+    new_dispute = await DisputeService.create_dispute(db, job_id, current_user.id, dispute_data)
+    return new_dispute
+
+@app.get("/jobs/{job_id}/dispute", response_model=DisputeResponse)
+async def get_dispute_details_by_job(
+    job_id: int,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Get dispute details for a specific job (Job participants or Admin)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    current_user = get_current_user(token, db)
+    if not current_user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    dispute = DisputeService.get_dispute_by_job(db, job_id, current_user.id)
+    if not dispute:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dispute not found for this job")
+    return dispute
+
+@app.get("/admin/disputes", response_model=List[DisputeResponse])
+async def get_all_disputes(
+    authorization: str = Header(None),
+    db: Session = Depends(get_db),
+    skip: int = 0,
+    limit: int = 100
+):
+    """Get all disputes (Admin only)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    admin_user = get_current_admin_user(token, db)
+    if not admin_user:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
+    
+    disputes = DisputeService.get_all_disputes(db, skip, limit)
+    return disputes
+
+@app.patch("/admin/disputes/{dispute_id}", response_model=DisputeResponse)
+async def update_dispute_status_admin(
+    dispute_id: int,
+    dispute_update: DisputeUpdate,
+    authorization: str = Header(None),
+    db: Session = Depends(get_db)
+):
+    """Update dispute status and resolution notes (Admin only)"""
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+    
+    token = authorization.split(" ")[1]
+    admin_user = get_current_admin_user(token, db)
+    if not admin_user:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
+    
+    updated_dispute = await DisputeService.update_dispute(db, dispute_id, dispute_update, admin_user.id)
+    return updated_dispute
+
+@app.post("/payments/webhook")
+async def paystack_webhook(
+    request: Request,
+    paystack_signature: str = Header(..., alias="x-paystack-signature"),
+    db: Session = Depends(get_db)
+):
+    """Handles incoming Paystack webhook events for transaction verification."""
+    request_body = await request.body() # Get raw request body
+    
+    await PaymentService.verify_and_process_webhook(db, request_body, paystack_signature)
+    
+    return {"status": "success"} # Paystack expects a 200 OK response
 
 # Health Check
 @app.get("/health")
